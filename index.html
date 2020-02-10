@@ -38,6 +38,7 @@
 
 <script type="text/javascript" charset="utf-8" src="main.js"></script>
 <script type="text/javascript" charset="utf-8" src="gps.js"></script>
+<script type="text/javascript" charset="utf-8" src="login.js"></script>
 
 	<div id='loading_screen' style='width:100%; height:100%; position:absolute; left:0px; top:0px;'>
 		<center>
@@ -245,7 +246,7 @@ function onSuccess(position)
 	//						'Accuracy: '          + MyAcc            + '<br />';
 
 	console.log("background mode: "+cordova.plugins.backgroundMode.isActive());
-	StartWebView();
+	//StartWebView();
     }
 
 function onError(error)
