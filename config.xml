@@ -7,7 +7,7 @@
         version   = "0.0.1"
 		package="com.designge.letsmove2"
 		xmlns:android="http://schemas.android.com/apk/res/android">
-    <name>Lets Move</name>
+    <name>Lets Move 2</name>
 
 	
 	<icon src="icon_1024.png" />
