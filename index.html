@@ -105,6 +105,23 @@
 
   <div id='nogps' style='color:white; font-weight:bold; position:fixed; top:5px; width:100%; text-align:center;'><?echo "$mstr[no_gps]";?></div>
 
+
+  <div id='acc' style='display:none; height:30px; color:black; width:50px; background-color:white; position:fixed; bottom:10px; left:10px; z-index:11000;'></div>
+  <div id='acc_data' style='display:none; height:110px;  color:black;width:200px; background-color:white; position:fixed; bottom:10px; left:10px;  z-index:11000;' onclick="hide_data();">
+  
+	  <div style='position:absolute; left:50%;top:0px; height:30px; width:50px; background-color:red' id='xdiv'></div>
+	  <div style='position:absolute; left:50%;top:30px; height:30px; width:60px; background-color:blue' id='ydiv'></div>
+	  <div style='position:absolute; left:50%;top:60px; height:30px;width:70px; background-color:green' id='zdiv'></div>
+  
+  
+	  <div style='position:absolute; left: 0px;top:0px; height:90px;  color:black;' id='txtdata'></div>
+	  <div style='position:absolute; left: 0px;bottom:0px;   color:black;' id='gpsdata'></div>
+	  <div style='position:absolute; right:0px;bottom:0px;  color:black;' id='time_data'></div>
+  
+	  <div style='position:absolute; left:50%;top:60px; height:30px;width:70px; background-color:green' id='speeddiv'></div>
+  
+  </div>
+
 </body>
 
 
