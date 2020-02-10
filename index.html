@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>LetsMove2</title>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+  </head>
+  <style>
+	
+	a {text-decoration:none; color:white;}
+	body { background-color:#242834; padding:0; border:0; margin:0;}
+  </style>
+  <body >
+  <center>
+  <Br><br><br><Br><br><br>
+  <img src='icon_1024.png' style='width:90%;'>
+  
+  <div id='infodiv2' style='color:red; '></div>
+  <div id='infodiv' style='color:red; display:none;'></div>
+
+
+</body>
+
+
+
+<script>
+var MyLat=0 ;
+var MyLong=0 ;
+var MyAlt=0 ;
+var MyHead=0;
+var MySpeed=0;
+var MyAcc=0;
+var myid="";
+
+
+function unid_success(uuid)
+	{
+	myid=uuid;
+    console.log(uuid);
+	};
+
+
+function unid_fail(uuid)
+	{
+    console.log("fail: "+uuid);
+	};
+
+//if (myid==0 || myid=="")
+//	{
+//	myid=parseInt(Math.random()*10000000000)
+//	setCookie("myid",myid, 365);
+//	}
+
+//document.getElementById("infodiv2").innerHTML=myid;
+function onDeviceReady() 
+	{
+	console.log("initiated");
+
+cordova.plugins.backgroundMode.enable();
+cordova.plugins.backgroundMode.setEnabled(true);
+
+
+//cordova.plugins.backgroundMode.setDefaults({
+ //   title: "Letsmove2",
+  //  text: "is running",
+   // icon: 'icon', // this will look for icon.png in platforms/android/res/drawable|mipmap
+    //color: "FFFFFF", // hex format like 'F14F4D'
+  //  resume: true,
+  //  hidden: false,
+  //  bigText: false
+//});
+
+
+
+cordova.plugins.backgroundMode.on('activate', function() {
+	console.log("background mode optimizations disable");
+   cordova.plugins.backgroundMode.disableWebViewOptimizations(); 
+});
+
+	req_loc_acc();
+	req_loc_auth();
+	
+	StatusBar.backgroundColorByHexString('#205690');
+    document.removeEventListener('deviceready', onDeviceReady, false);
+	
+	//cordova.plugins.uniqueDeviceID.get(unid_success, unid_fail);
+
+	myid=device.uuid;
+	console.log("device ready, getting position");
+var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0};
+	navigator.geolocation.getCurrentPosition(onSuccess, onError, opts);
+	
+	watchID = navigator.geolocation.watchPosition(onSuccess, onError, opts);
+
+	window.plugins.PushbotsPlugin.initialize("5dddf9233dcb8d26092358a5", {"android":{"sender_id":"754771780635"}});
+
+	
+	var token;
+	var user_id;
+	
+	if (localStorage.getItem("pnotif_id") === null) 
+		{
+		window.plugins.PushbotsPlugin.on("registered", function(token){
+		console.log("Registration Id:" + token);
+		window.localStorage.setItem("pnotif_id", token);
+		});
+		console.log("first lounch");
+		}
+	else
+		{
+		token = window.localStorage.getItem("pnotif_id");
+		console.log("mytoken: "+token);
+		
+		}
+
+	window.plugins.PushbotsPlugin.on("user:ids", function(data){
+		console.log("user:ids" + JSON.stringify(data));
+		token=data["token"];
+		window.localStorage.setItem("pnotif_id", token);
+		user_id=data["userId"];
+		window.localStorage.setItem("pnotifuser_id", token);
+
+
+		});	
+
+	
+	setTimeout("StartWebView();",3000); 
+//	setTimeout("StartWebView();",3000); 
+    }
+
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+
+function StartWebView()
+	{
+	var url='https://smartgps.ge/letsmove/?myid='+myid+'&lat='+MyLat+'&lng='+MyLong+"&ragacid="+Math.random()*10000000;
+	console.log(url);
+	//ref = cordova.InAppBrowser.open(url, '_system', 'location=no, clearcache=yes');
+	window.location=url;
+	}
+
+
+function onSuccess(position) 
+	{
+	console.log("on GPS success");
+	MyLat=position.coords.latitude ;
+	MyLong=position.coords.longitude ;
+	MyAlt=position.coords.altitude ;
+	MyHead=position.coords.heading ;
+	MySpeed=position.coords.speed ;
+	MyAcc=position.coords.accuracy;
+	console.log(MyLat+ " - "+MyLong);
+//document.getElementById('geopos').innerHTML = 'Latitude: '           + MyLat             + '<br />' +
+  //                          'Longitude: '          + MyLong            + '<br />'+
+	//						'Accuracy: '          + MyAcc            + '<br />';
+
+console.log("background mode: "+cordova.plugins.backgroundMode.isActive());
+	StartWebView();
+    }
+
+function onError(error)
+	{
+	var error_str="ვერ ხერხდება ლოკაციის მიღება";
+	
+	 switch(error.code) {
+        case error.PERMISSION_DENIED:
+            error_str+="<BR>გთხოვთ დაუშვათ ლოკაცია";
+            break;
+        case error.POSITION_UNAVAILABLE:
+            error_str+= "<BR>ლოკაცია მიუწვდომელია";
+            break;
+        case error.TIMEOUT:
+            error_str+= "<BR>ლოკაციის მოთხოვნას ვადა გაუვიდა";
+			navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: 10000, enableHighAccuracy: true,  maximumAge:0});
+            break;
+        case error.UNKNOWN_ERROR:
+            error_str+="<BR>უცნობი ლოკაციის მოთხოვნის პრობლემა";
+            break;
+			}
+	document.getElementById("infodiv").innerHTML=error_str;
+	console.log("ლოკაციის ერორი: "+error_str);
+//	alert("error");
+	}
+
+
+
+function onRequestSuccess(success)
+	{
+    console.log("Successfully requested accuracy "+success.message);
+	var k=success.message;
+	var b=k.split("agreed");
+	if (b.length>1)
+		{
+		// aplikaciis restarti tu motxovna gaxda sachiro da userma ok utxra
+		location.reload();
+		}
+	
+    }
+
+function onRequestFailure(error)
+	{
+    console.log("Accuracy request failed: error code="+error.code+"; error message="+error.message);
+	}
+
+function req_loc_acc()
+	{
+	var accuracy = 3;
+	var accuracyName  = "High Accuracy";
+	console.log("requesting acc");
+	cordova.plugins.locationAccuracy.request(onRequestSuccess, onRequestFailure, cordova.plugins.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY);
+	}
+
+function req_loc_auth()
+	{
+	console.log("requesting auth");
+	cordova.plugins.diagnostic.isLocationAuthorized(function (authorized) {
+		if(!authorized)
+			{
+
+			cordova.plugins.diagnostic.requestLocationAuthorization(function (status) {
+				console.log("Requested location authorization: authorization was " + status);
+				}, errorFunction, cordova.plugins.diagnostic.locationAuthorizationMode.ALWAYS);
+			}
+		else
+			{
+			errorFunction(1);
+			}
+		}, errorFunction);
+	}
+
+
+function open_loc_settings()
+	{
+	cordova.plugins.diagnostic.switchToLocationSettings();
+	}
+
+function successFunction()
+	{	
+    console.info("immersive worked!");
+	}
+
+function errorFunction(error)
+	{
+	console.log(error);
+	if (error!=1)
+		{
+		req_loc_acc();
+		req_loc_auth();
+		}
+	}
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+function eraseCookie(name) {   
+    document.cookie = name+'=; Max-Age=-99999999;';  
+}
+
+
+
+setTimeout("StartWebView();",4000); 
+
+</script>
+
+</html>
