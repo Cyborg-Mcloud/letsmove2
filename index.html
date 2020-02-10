@@ -1,43 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+
+
+	<meta http-equiv=“Pragma” content=”no-cache”>
+	<meta http-equiv=“Expires” content=”-1″>
+	<meta http-equiv=“CACHE-CONTROL” content=”NO-CACHE”>
+	<meta name="viewport" content="width=365, initial-scale=1">
+	<meta charset="UTF-8">
+	
+		 
     <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>LetsMove2</title>
-<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
   </head>
-  <style>
+
+  <link rel="stylesheet" href="styles.css">
+		
+	<style>
+
+
+	*{
+		-webkit-transition-property: none!important;
+		transition-property: none!important;
+		/* These doesn't affect anything, but, just in case. */
+		-webkit-animation: none!important;
+		animation: none!important;
+	}
+
 	
 	a {text-decoration:none; color:white;}
 	body { background-color:#242834; padding:0; border:0; margin:0;}
   </style>
   <body >
-  <center>
-  <Br><br><br><Br><br><br>
-  <img src='icon_1024.png' style='width:90%;'>
-  
-  <div id='infodiv2' style='color:red; '></div>
-  <div id='infodiv' style='color:red; display:none;'></div>
 
+
+<script type="text/javascript" charset="utf-8" src="main.js"></script>
+<script type="text/javascript" charset="utf-8" src="gps.js"></script>
+
+	<div id='loading_screen' style='width:100%; height:100%; position:absolute; left:0px; top:0px;'>
+		<center>
+		<Br><br><br><Br><br><br>
+		<img src='icon_1024.png' style='width:90%;'>
+		
+		<div id='infodiv2' style='color:red; '></div>
+		<div id='infodiv' style='color:red; display:none;'></div>
+	</div>
+
+	<div id='login_screen' style='width:100%; height:100%; position:absolute; left:0px; top:0px;'>
+		<div id="fb-root"></div>
+
+		<div style='background: rgb(30,32,43); background: linear-gradient(0deg, rgba(30,32,43,1) 0%, rgba(37,41,53,1) 100%);overflow:auto;'>
+			<center>
+			<div id="login_logo" class="login_logo"style=""><a><img src='images/letsmove_2.png'></a></div>
+			<div id='logindiv'>
+
+				<form id="loginForm" method=POST  style="margin-bottom:0px;"action='?logme=1'>
+					<input style="background-color:#d2d4d9 !important;"class="log_inp" type="email" placeholder="Email" name='email' id='email'>
+					<input class="log_inp"type="password" placeholder="Password" name='pass' id='pass'>
+					<a href='Javascript: forgotten();' style='color: #ebebeb;'><?echo "$mstr[pass_forg]";?></a>
+					<br>
+					<a href='Javascript: signin();'class="log_faceb"><!--<img src='sign_in.png' width=250px>--> SIGN IN</a>
+				</form>
+				<a href='Javascript: mylogin();'class="log_faceb" style="color: #ebebeb;">or sign in with <br><span>FACEBOOK</span></a>
+				
+
+			<br><br>
+
+
+				<a style="color: #ebebeb;"><?echo "$mstr[dont_acc]";?></a><Br>
+				<a href='Javascript: show_reg();' class="log_faceb"><!--<img src='sign_up.png' width=250px>-->SIGN UP</a>
+				<Br><Br>
+				<br>
+			</div>
+
+			<div id='regdiv' class="regdiv">
+				<form id="registerForm" method=POST action='?reg=1' style="margin-bottom:0">
+				<input type="hidden" id="fbid" name="fbid"  >
+				<input class="log_inp" type="telephone"  size='20' id="reg_tel" name="reg_tel"  placeholder="<?echo "$mstr[tel_ex]";?>">
+				<input class="log_inp" type="text"   id="reg_uname" name="reg_uname" placeholder="<?echo "$mstr[nick]";?>">
+				<input class="log_inp" type="email"  id="reg_email" name="reg_email" aria-describedby="emailHelp" placeholder="<?echo "$mstr[mail]";?>">
+				<input class="log_inp" type="password" id="reg_pass1" name="reg_pass1" placeholder="<?echo "$mstr[pass]";?>">
+				<input class="log_inp" type="password"id="reg_pass2" name ="reg_pass2"placeholder="<?echo "$mstr[rep_pass]";?>">
+				<input class="log_inp" type="text" id="referal" name ="referal" placeholder="<?echo "$mstr[referal]";?>">
+				<Br>
+				<p>By clicking Sign up you agree to the following <br><a href="#">Terms and Conditions</a></p>
+				<a href='Javascript: checkregform();'class="log_up">SIGN UP</a>
+				</form>
+				<a href='Javascript: myreg();' id='fbregbut'class="log_up"style="color: #ebebeb;">or sign in with <br><span>FACEBOOK</span></a>
+				<Br><Br>
+				<b><?echo "$mstr[have_acc]";?></b><Br>
+				<a href='Javascript: show_login();'class="log_up">SIGN IN</a>
+			<br><br><br>
+			</div>
+
+		</div>
+
+	</div>
+
+  <div id='nogps' style='color:white; font-weight:bold; position:fixed; top:5px; width:100%; text-align:center;'><?echo "$mstr[no_gps]";?></div>
 
 </body>
 
 
 
 <script>
-var MyLat=0 ;
-var MyLong=0 ;
-var MyAlt=0 ;
-var MyHead=0;
-var MySpeed=0;
-var MyAcc=0;
-var myid="";
+
+var brainhttp;
+var b_recv;
+if (window.XMLHttpRequest) {brainhttp=new XMLHttpRequest();}
+else if (window.ActiveXObject) {brainhttp=new ActiveXObject('Microsoft.XMLHTTP');}
+else {alert('Your browser does not support XMLHTTP!');}
 
 
 function unid_success(uuid)
 	{
 	myid=uuid;
-    console.log(uuid);
+    console.log("unique id: "+uuid);
 	};
 
 
@@ -46,19 +126,27 @@ function unid_fail(uuid)
     console.log("fail: "+uuid);
 	};
 
-//if (myid==0 || myid=="")
-//	{
-//	myid=parseInt(Math.random()*10000000000)
-//	setCookie("myid",myid, 365);
-//	}
-
-//document.getElementById("infodiv2").innerHTML=myid;
 function onDeviceReady() 
 	{
-	console.log("initiated");
+	console.log("init start");
+	unid=getCookie("unid");
+	if (unid==0 || unid=="")
+		{
+		unid=parseInt(Math.random()*10000000000)
+		setCookie("unid",unid, 365);
+		console.log("new unid: "+unid);
+		}
+	else
+		{
+		console.log("my unid: "+unid);
+		}
+	
+	server_id=getCookie("server_id");
 
-cordova.plugins.backgroundMode.enable();
-cordova.plugins.backgroundMode.setEnabled(true);
+
+	console.log("backgroundmode enable");
+	cordova.plugins.backgroundMode.enable();
+	cordova.plugins.backgroundMode.setEnabled(true);
 
 
 //cordova.plugins.backgroundMode.setDefaults({
@@ -73,10 +161,10 @@ cordova.plugins.backgroundMode.setEnabled(true);
 
 
 
-cordova.plugins.backgroundMode.on('activate', function() {
-	console.log("background mode optimizations disable");
-   cordova.plugins.backgroundMode.disableWebViewOptimizations(); 
-});
+	cordova.plugins.backgroundMode.on('activate', function() {
+		console.log("background mode optimizations disable");
+	cordova.plugins.backgroundMode.disableWebViewOptimizations(); 
+	});
 
 	req_loc_acc();
 	req_loc_auth();
@@ -84,15 +172,17 @@ cordova.plugins.backgroundMode.on('activate', function() {
 	StatusBar.backgroundColorByHexString('#205690');
     document.removeEventListener('deviceready', onDeviceReady, false);
 	
-	//cordova.plugins.uniqueDeviceID.get(unid_success, unid_fail);
+	console.log("get unieque device id");
+//	cordova.plugins.uniqueDeviceID.get(unid_success, unid_fail);
 
 	myid=device.uuid;
 	console.log("device ready, getting position");
-var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0};
+	var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0};
 	navigator.geolocation.getCurrentPosition(onSuccess, onError, opts);
 	
 	watchID = navigator.geolocation.watchPosition(onSuccess, onError, opts);
 
+	console.log("pushbots init");
 	window.plugins.PushbotsPlugin.initialize("5dddf9233dcb8d26092358a5", {"android":{"sender_id":"754771780635"}});
 
 	
@@ -125,12 +215,10 @@ var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0};
 		});	
 
 	
-	setTimeout("StartWebView();",3000); 
-//	setTimeout("StartWebView();",3000); 
+	setTimeout("req_players();",1000);	
+	
     }
 
-
-document.addEventListener("deviceready", onDeviceReady, false);
 
 
 function StartWebView()
@@ -156,7 +244,7 @@ function onSuccess(position)
   //                          'Longitude: '          + MyLong            + '<br />'+
 	//						'Accuracy: '          + MyAcc            + '<br />';
 
-console.log("background mode: "+cordova.plugins.backgroundMode.isActive());
+	console.log("background mode: "+cordova.plugins.backgroundMode.isActive());
 	StartWebView();
     }
 
@@ -277,8 +365,9 @@ function eraseCookie(name) {
 }
 
 
+document.addEventListener("deviceready", onDeviceReady, false);
 
-setTimeout("StartWebView();",4000); 
+
 
 </script>
 
