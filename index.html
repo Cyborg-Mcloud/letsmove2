@@ -10,7 +10,7 @@
 	<meta charset="UTF-8">
 	
 		 
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://connect.facebook.net 'unsafe-inline' 'unsafe-eval'; default-src *; style-src 'self' 'unsafe-inline'; ">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://connect.facebook.net https://developers.facebook.com 'unsafe-inline' 'unsafe-eval'; default-src *; style-src 'self' 'unsafe-inline'; ">
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>LetsMove2</title>
 	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
@@ -114,6 +114,7 @@ if (window.XMLHttpRequest) {brainhttp=new XMLHttpRequest();}
 else if (window.ActiveXObject) {brainhttp=new ActiveXObject('Microsoft.XMLHTTP');}
 else {alert('Your browser does not support XMLHTTP!');}
 
+brainhttp.onreadystatechange=brain_recv;
 
 function unid_success(uuid)
 	{
@@ -127,6 +128,8 @@ function unid_fail(uuid)
     console.log("fail: "+uuid);
 	};
 
+
+	var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0};
 function onDeviceReady() 
 	{
 	console.log("init start");
@@ -178,7 +181,7 @@ function onDeviceReady()
 
 	myid=device.uuid;
 	console.log("device ready, getting position");
-	var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0};
+
 	navigator.geolocation.getCurrentPosition(onSuccess, onError, opts);
 	
 	watchID = navigator.geolocation.watchPosition(onSuccess, onError, opts);
@@ -228,49 +231,6 @@ function StartWebView()
 	console.log(url);
 	//ref = cordova.InAppBrowser.open(url, '_system', 'location=no, clearcache=yes');
 	window.location=url;
-	}
-
-
-function onSuccess(position) 
-	{
-	console.log("on GPS success");
-	MyLat=position.coords.latitude ;
-	MyLong=position.coords.longitude ;
-	MyAlt=position.coords.altitude ;
-	MyHead=position.coords.heading ;
-	MySpeed=position.coords.speed ;
-	MyAcc=position.coords.accuracy;
-	console.log(MyLat+ " - "+MyLong);
-//document.getElementById('geopos').innerHTML = 'Latitude: '           + MyLat             + '<br />' +
-  //                          'Longitude: '          + MyLong            + '<br />'+
-	//						'Accuracy: '          + MyAcc            + '<br />';
-
-	console.log("background mode: "+cordova.plugins.backgroundMode.isActive());
-	//StartWebView();
-    }
-
-function onError(error)
-	{
-	var error_str="ვერ ხერხდება ლოკაციის მიღება";
-	
-	 switch(error.code) {
-        case error.PERMISSION_DENIED:
-            error_str+="<BR>გთხოვთ დაუშვათ ლოკაცია";
-            break;
-        case error.POSITION_UNAVAILABLE:
-            error_str+= "<BR>ლოკაცია მიუწვდომელია";
-            break;
-        case error.TIMEOUT:
-            error_str+= "<BR>ლოკაციის მოთხოვნას ვადა გაუვიდა";
-			navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: 10000, enableHighAccuracy: true,  maximumAge:0});
-            break;
-        case error.UNKNOWN_ERROR:
-            error_str+="<BR>უცნობი ლოკაციის მოთხოვნის პრობლემა";
-            break;
-			}
-	document.getElementById("infodiv").innerHTML=error_str;
-	console.log("ლოკაციის ერორი: "+error_str);
-//	alert("error");
 	}
 
 
