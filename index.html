@@ -31,7 +31,7 @@
 
 	
 	a {text-decoration:none; color:white;}
-	body { background-color:#242834; padding:0; border:0; margin:0;}
+	body { background-color:#242834; padding:0; border:0; margin:0; color:#ebebeb;}
   </style>
   <body >
 
@@ -89,10 +89,10 @@
 				<p>By clicking Sign up you agree to the following <br><a href="#">Terms and Conditions</a></p>
 				<a href='Javascript: checkregform();'class="log_up">SIGN UP</a>
 				
-				<a href='Javascript: myreg();' id='fbregbut'class="log_up"style="color: #ebebeb;">or sign in with <br><span>FACEBOOK</span></a>
+				<a href='Javascript: myreg();' id='fbregbut'class="log_up"style="color: #ebebeb; line-height:2.5; background: rgb(59,52,126); background: linear-gradient(8deg, rgba(59,52,126,1) 0%, rgba(82,103,180,1) 86%);">or sign in with <br><span>FACEBOOK</span></a>
 				<Br><Br>
 				<b>უკვე დარეგისტრირებული ხართ?</b><Br>
-				<a href='Javascript: show_login();'class="log_up">SIGN IN</a>
+				<a href='Javascript: show_login();'class="log_up" style='background: rgb(97,42,56);	background: linear-gradient(8deg, rgba(97,42,56,1) 0%, rgba(209,44,91,1) 86%);'>SIGN IN</a>
 			<br><br><br>
 			</div>
 
@@ -108,13 +108,6 @@
 
 <script>
 
-var brainhttp;
-var b_recv;
-if (window.XMLHttpRequest) {brainhttp=new XMLHttpRequest();}
-else if (window.ActiveXObject) {brainhttp=new ActiveXObject('Microsoft.XMLHTTP');}
-else {alert('Your browser does not support XMLHTTP!');}
-
-brainhttp.onreadystatechange=brain_recv;
 
 function unid_success(uuid)
 	{
