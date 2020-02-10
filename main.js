@@ -120,11 +120,14 @@ function draw_targets()
 
 	}
 
+var curstate="none";
+
 function req_players()
 	{
 
 	if (server_id==0)
 		{
+		show_screen("login");
 
 			
 		}
@@ -132,30 +135,34 @@ function req_players()
 		{
 		url='https://www.smartgps.ge/letsmove/?update_lat=1';
 		console.log("req players: "+url);
-
-		}
+		brainhttp.open('GET',url,true);
+		brainhttp.send(null);
+		
 	
-	brainhttp.open('GET',url,true);
-	brainhttp.send(null);
+	//console.log("background mode: "+cordova.plugins.backgroundMode.isActive());
+	
+		setTimeout("req_players();",1000);
+		}
 	document.getElementById("time_data").innerHTML=Date.now()-last_gps_time;
 
-//console.log("background mode: "+cordova.plugins.backgroundMode.isActive());
-
-	setTimeout("req_players();",1000);
 	}
+var cur_screen="";
 
 function show_screen(scrname)
 	{
-	document.getElementById("login").style.display="none";
-	document.getElementById("loading_screen").style.display="none";
-	if (scrname=="login")
+	if (scrname!=cur_screen)
 		{
-		document.getElementById("login").style.display="block";
+		document.getElementById("login_screen").style.display="none";
+		document.getElementById("loading_screen").style.display="none";
+		if (scrname=="login")
+			{
+			document.getElementById("login_screen").style.display="block";
 
 
 
+			}
+		cur_screen=scrname;
 		}
-
 
 
 

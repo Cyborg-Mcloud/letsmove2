@@ -35,7 +35,7 @@
   
 function myreg()
 	{
-	console.log("aq var2");
+	console.log("fb reg: aq var2");
 
 	FB.login(function(response) 
 		{
@@ -65,7 +65,7 @@ function myreg()
 
 function mylogin()
 	{
-	console.log("aq var");
+	console.log("fb login, aq var");
 	FB.login(function(response) 
 		{
 		console.log(response);
@@ -82,9 +82,6 @@ function mylogin()
 		}, {scope: 'public_profile,email'});
 		  	
 	}
-
-
-
 
 function mylogout()
 	{
@@ -149,7 +146,8 @@ var inputs = document.querySelectorAll('input');  for(var i=0; i < inputs.length
 
 function signin()
 	{
-	document.getElementById("loginForm").submit();
+    //document.getElementById("loginForm").submit();
+    send_login_info();
 	}
 
 function checkregform()
@@ -163,7 +161,9 @@ function checkregform()
 		}
 	else
 		{
-		document.getElementById("registerForm").submit();
+        //document.getElementById("registerForm").submit();
+        send_reg_info();
+
 		return true;
 
 		}

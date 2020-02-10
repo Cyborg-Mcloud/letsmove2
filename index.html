@@ -10,7 +10,7 @@
 	<meta charset="UTF-8">
 	
 		 
-    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://connect.facebook.net 'unsafe-inline' 'unsafe-eval'; default-src *; style-src 'self' 'unsafe-inline'; ">
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>LetsMove2</title>
 	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
@@ -57,41 +57,41 @@
 			<div id="login_logo" class="login_logo"style=""><a><img src='images/letsmove_2.png'></a></div>
 			<div id='logindiv'>
 
-				<form id="loginForm" method=POST  style="margin-bottom:0px;"action='?logme=1'>
-					<input style="background-color:#d2d4d9 !important;"class="log_inp" type="email" placeholder="Email" name='email' id='email'>
-					<input class="log_inp"type="password" placeholder="Password" name='pass' id='pass'>
-					<a href='Javascript: forgotten();' style='color: #ebebeb;'><?echo "$mstr[pass_forg]";?></a>
-					<br>
-					<a href='Javascript: signin();'class="log_faceb"><!--<img src='sign_in.png' width=250px>--> SIGN IN</a>
-				</form>
+				
+				<input style="background-color:#d2d4d9 !important;"class="log_inp" type="email" placeholder="Email" name='email' id='email'>
+				<input class="log_inp"type="password" placeholder="Password" name='pass' id='pass'>
+				<a href='Javascript: forgotten();' style='color: #ebebeb;'>პაროლი</a>
+				<br>
+				<a href='Javascript: signin();'class="log_faceb"><!--<img src='sign_in.png' width=250px>--> SIGN IN</a>
+			
 				<a href='Javascript: mylogin();'class="log_faceb" style="color: #ebebeb;">or sign in with <br><span>FACEBOOK</span></a>
 				
 
 			<br><br>
 
 
-				<a style="color: #ebebeb;"><?echo "$mstr[dont_acc]";?></a><Br>
+				<a style="color: #ebebeb;">არ ხართ რეგისტრირებული?</a><Br>
 				<a href='Javascript: show_reg();' class="log_faceb"><!--<img src='sign_up.png' width=250px>-->SIGN UP</a>
 				<Br><Br>
 				<br>
 			</div>
 
 			<div id='regdiv' class="regdiv">
-				<form id="registerForm" method=POST action='?reg=1' style="margin-bottom:0">
+				
 				<input type="hidden" id="fbid" name="fbid"  >
-				<input class="log_inp" type="telephone"  size='20' id="reg_tel" name="reg_tel"  placeholder="<?echo "$mstr[tel_ex]";?>">
-				<input class="log_inp" type="text"   id="reg_uname" name="reg_uname" placeholder="<?echo "$mstr[nick]";?>">
-				<input class="log_inp" type="email"  id="reg_email" name="reg_email" aria-describedby="emailHelp" placeholder="<?echo "$mstr[mail]";?>">
-				<input class="log_inp" type="password" id="reg_pass1" name="reg_pass1" placeholder="<?echo "$mstr[pass]";?>">
-				<input class="log_inp" type="password"id="reg_pass2" name ="reg_pass2"placeholder="<?echo "$mstr[rep_pass]";?>">
-				<input class="log_inp" type="text" id="referal" name ="referal" placeholder="<?echo "$mstr[referal]";?>">
+				<input class="log_inp" type="telephone"  size='20' id="reg_tel" name="reg_tel"  placeholder="ტელეფონი">
+				<input class="log_inp" type="text"   id="reg_uname" name="reg_uname" placeholder="username">
+				<input class="log_inp" type="email"  id="reg_email" name="reg_email" aria-describedby="emailHelp" placeholder="ელ.ფოსტა">
+				<input class="log_inp" type="password" id="reg_pass1" name="reg_pass1" placeholder="პაროლი">
+				<input class="log_inp" type="password"id="reg_pass2" name ="reg_pass2"placeholder="გაიმ.პაროლი">
+				<input class="log_inp" type="text" id="referal" name ="referal" placeholder="რეფერალი">
 				<Br>
 				<p>By clicking Sign up you agree to the following <br><a href="#">Terms and Conditions</a></p>
 				<a href='Javascript: checkregform();'class="log_up">SIGN UP</a>
-				</form>
+				
 				<a href='Javascript: myreg();' id='fbregbut'class="log_up"style="color: #ebebeb;">or sign in with <br><span>FACEBOOK</span></a>
 				<Br><Br>
-				<b><?echo "$mstr[have_acc]";?></b><Br>
+				<b>უკვე დარეგისტრირებული ხართ?</b><Br>
 				<a href='Javascript: show_login();'class="log_up">SIGN IN</a>
 			<br><br><br>
 			</div>
