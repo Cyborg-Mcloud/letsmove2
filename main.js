@@ -1,4 +1,6 @@
-
+var send_data=new Array();
+var send_url=new Array();
+var send_answ=new Array();
 var curstate="none";
 
 var cur_screen="";
@@ -31,7 +33,7 @@ var server_id=0;
 
 
 function draw_players()
-	{
+{
 	if (players.length>max_players)
 		{
 		// new player came
@@ -66,12 +68,15 @@ function draw_players()
 		{
 		show_leaders();
 		}
-	
-	}
+
+}
+
+
+
 
 
 function show_leaders()
-	{
+{
 
 	var takers=targets[0]["takers"];
 
@@ -83,11 +88,11 @@ function show_leaders()
 		{
 		document.getElementById("leaderboard_txt").innerHTML+=(i+1)+": "+a[i]+"<BR>";
 		}
-	}
+}
 
 function draw_targets()
-	{
-		console.log("drawing targets");
+{
+	console.log("drawing targets");
 	var  bounds;
 	var myLatLng = {lat:  MyLat, lng: MyLong};
 	bounds = new google.maps.LatLngBounds();
@@ -122,10 +127,11 @@ function draw_targets()
 	//	logo_marker.setPosition(myLatLng);
 		Target_marker.setPosition(myLatLng);
 		}
-//	MyMap2.fitBounds(bounds);
-	
+	//	MyMap2.fitBounds(bounds);
 
-	}
+
+}
+
 var sync_url="";
 var sync_data="";
 var sync_answ=0;
@@ -139,13 +145,13 @@ else {alert('Your browser does not support XMLHTTP!');}
 brainhttp.onreadystatechange=brain_recv;
 
 function brain_recv()
-	{
+{
 
 	if (brainhttp.readyState==4 && brainhttp.status==200)
-		{
+	{
 		b_recv=brainhttp.responseText;
 		if (b_recv!="")
-			{
+		{
 		
 			obj=JSON.parse(b_recv);
 			if (obj["checksum"]==sync_answ)
@@ -200,6 +206,7 @@ function brain_recv()
 					targets.length=0;
 					tartgets=[];
 					}
+
 				targets=obj["targets"];
 				if (targets[0]["taken"]==1 && lbut_vis==0)
 					{
@@ -240,13 +247,13 @@ function brain_recv()
 
 			draw_players();
 			draw_targets();
-			}
 		}
 	}
+}
 
 
 function req_players()
-	{
+{
 
 	if (server_id==0)
 		{
@@ -259,18 +266,14 @@ function req_players()
 		data_send('https://www.smartgps.ge/letsmove', "update_lat=1");
 		console.log("req players");
 
-		
-	
 	//console.log("background mode: "+cordova.plugins.backgroundMode.isActive());
-	
+
 		setTimeout("req_players();",1000);
 		}
 	document.getElementById("time_data").innerHTML=Date.now()-last_gps_time;
 
-	}
-var send_data=new Array();
-var send_url=new Array();
-var send_answ=new Array();
+}
+
 
 function data_send(url, data, async=true)
 	{
@@ -280,7 +283,8 @@ function data_send(url, data, async=true)
 			{
 			sync_answ=Math.floor(Math.random() * 10000000) + 1;
 			}
-		else {sync_answ=0;}
+		else 
+			{sync_answ=0;}
 		brainhttp.open('GET',url+"?"+data+"&checksum="+sync_answ,true);
 		brainhttp.send(null);
 		console.log("data send: "+url+ "?" +data+"&checksum="+sync_answ+ " / "+async);
@@ -335,10 +339,8 @@ function show_screen(scrname)
 		else if (scrname=="home")
 			{
 			document.getElementById("home_screen").style.display="block";
+			}
 		cur_screen=scrname;
 		}
-
-
-
 
 	}
