@@ -146,7 +146,7 @@ var inputs = document.querySelectorAll('input');  for(var i=0; i < inputs.length
 
 function send_login_info()
     {
-	var mdata="?login=1&logme=1&email="+document.getElementById("email").value + "&pass="+ document.getElementById("pass").value;
+	var mdata="login=1&logme=1&email="+document.getElementById("email").value + "&pass="+ document.getElementById("pass").value;
 	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, false);
 		
 
