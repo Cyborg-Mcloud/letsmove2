@@ -1,6 +1,8 @@
 
 var curstate="none";
 
+var cur_screen="";
+
 var lboard_vis=0;
 
 var players=new Array();
@@ -21,7 +23,7 @@ var Mouse_Lng=44.7491408;
 
 var selobj=0;
 
-
+var uid=0;
 var myid="";
 var speed_limit=70;
 var unid="";
@@ -40,7 +42,7 @@ function draw_players()
 				map: MyMap,
 				icon: micon,
 				label: {text: "gamarjoba", color: "white"},
-				animation: google.maps.Animation.DROP,
+				animation: google.maps.Animation.DROP
 				});
 			}
 		max_players=players.length;
@@ -110,7 +112,7 @@ function draw_targets()
 				}
 			else
 				{
-					t_circle[i].setOptions({strokeColor: '#FF0000'});
+				t_circle[i].setOptions({strokeColor: '#FF0000'});
 				}
 			
 			}
@@ -124,7 +126,9 @@ function draw_targets()
 	
 
 	}
-
+var sync_url="";
+var sync_data="";
+var sync_answ=0;
 	
 var brainhttp;
 var b_recv;
@@ -144,16 +148,41 @@ function brain_recv()
 			{
 		
 			obj=JSON.parse(b_recv);
-		//	console.log(obj);
-			players=obj["users"];
-			var new_tars=new Array();
-			if (curmenu==1)
+			if (obj["checksum"]==sync_answ)
 				{
-				document.getElementById("qulebi").innerHTML=obj["data"]["mpoints"];
-				document.getElementById("rating").innerHTML=obj["data"]["rating"];
+				sync_data="";sync_url="";sync_answ=0;
 				}
-			document.getElementById("timer").innerHTML=obj["data"]["timer"];
-			document.getElementById("timer2").innerHTML=obj["data"]["timer"];
+			console.log(obj);
+			if (typeof obj["login_data"] !== 'undefined')
+				{
+				if (typeof obj["error"] !== 'undefined')
+					{
+					alert(obj["error"]);
+					}
+				else
+					{
+					show_screen("home");
+					}
+				}
+
+		//	console.log(obj);
+			if (typeof obj["user_data"] !== 'undefined')
+				{
+				players=obj["users"];
+				var new_tars=new Array();
+				if (curmenu==1)
+					{
+					document.getElementById("qulebi").innerHTML=obj["data"]["mpoints"];
+					document.getElementById("rating").innerHTML=obj["data"]["rating"];
+					}
+				}
+
+			if (typeof obj["timer_data"] !== 'undefined')
+				{
+				document.getElementById("timer").innerHTML=obj["data"]["timer"];
+				document.getElementById("timer2").innerHTML=obj["data"]["timer"];
+				}
+				
 			if (typeof obj["targets"] !== 'undefined')
 				{
 				new_tars=obj["targets"];
@@ -208,6 +237,7 @@ function brain_recv()
 					document.getElementById("small_grats_div").style.display='block';
 					}
 				}
+
 			draw_players();
 			draw_targets();
 			}
@@ -226,10 +256,9 @@ function req_players()
 		}
 	else
 		{
-		url='https://www.smartgps.ge/letsmove/?update_lat=1';
-		console.log("req players: "+url);
-		brainhttp.open('GET',url,true);
-		brainhttp.send(null);
+		data_send('https://www.smartgps.ge/letsmove', "update_lat=1");
+		console.log("req players");
+
 		
 	
 	//console.log("background mode: "+cordova.plugins.backgroundMode.isActive());
@@ -239,7 +268,59 @@ function req_players()
 	document.getElementById("time_data").innerHTML=Date.now()-last_gps_time;
 
 	}
-var cur_screen="";
+var send_data=new Array();
+var send_url=new Array();
+var send_answ=new Array();
+
+function data_send(url, data, async=true)
+	{
+	if (sync_data=="")
+		{
+		if (async==false)
+			{
+			sync_answ=Math.floor(Math.random() * 10000000) + 1;
+			}
+		else {sync_answ=0;}
+		brainhttp.open('GET',url+"?"+data+"&checksum="+sync_answ,true);
+		brainhttp.send(null);
+		console.log("data send: "+url+ "?" +data+"&checksum="+sync_answ+ " / "+async);
+
+		if (async==false)
+			{
+			sync_data=data;
+			sync_url=url;
+			
+			setTimeout("sync_sender();",500);
+			}
+		}
+	else
+		{
+		var sl=send_data.length;
+		send_data[sl]=data;
+		send_url[sl]=url;
+		if (async==true)
+			{
+			send_answ[sl]=0;
+			}
+		else
+			{
+			send_answ[sl]=Math.floor(Math.random() * 10000000) + 1;
+			}
+		
+		}
+	}
+
+function sync_sender()
+	{
+	if (sync_data!="")
+		{
+		brainhttp.open('GET',sync_url+"?"+sync_data,true);
+		brainhttp.send(null);
+		console.log("sync data send: "+url+ "?" +data+ " / "+async);
+		setTimeout("sync_sender();",500);
+		}
+	}
+
 
 function show_screen(scrname)
 	{
@@ -250,10 +331,10 @@ function show_screen(scrname)
 		if (scrname=="login")
 			{
 			document.getElementById("login_screen").style.display="block";
-
-
-
 			}
+		else if (scrname=="home")
+			{
+			document.getElementById("home_screen").style.display="block";
 		cur_screen=scrname;
 		}
 

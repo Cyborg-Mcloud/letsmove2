@@ -144,10 +144,36 @@ var hideKeyboard = function()
 {  document.activeElement.blur(); 
 var inputs = document.querySelectorAll('input');  for(var i=0; i < inputs.length; i++) {   inputs[i].blur();  } };
 
+function send_login_info()
+    {
+	var mdata="?login=1&logme=1&email="+document.getElementById("email").value + "&pass="+document.getElementById("pass").value);
+	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, false);
+		
+
+
+        
+    }
+
+function send_reg_info()
+    {
+	
+	
+		data_send("https://www.smartgps.ge/letsmove/api.php",mdata, false);
+		
+        
+    }
+
 function signin()
 	{
-    //document.getElementById("loginForm").submit();
-    send_login_info();
+	//document.getElementById("loginForm").submit();
+	if (document.getElementById("email").value=='' || document.getElementById("pass").value=='')
+		{	
+		alert("Both fields are required!");
+		}
+	else
+		{
+		send_login_info();
+		}
 	}
 
 function checkregform()

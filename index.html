@@ -21,6 +21,8 @@
 <script type="text/javascript" charset="utf-8" src="main.js"></script>
 <script type="text/javascript" charset="utf-8" src="gps.js"></script>
 <script type="text/javascript" charset="utf-8" src="login.js"></script>
+<script type="text/javascript" charset="utf-8" src="map.js"></script>
+<script type="text/javascript" charset="utf-8" src="func.js"></script>
   </head>
 
   <link rel="stylesheet" href="styles.css">
@@ -51,6 +53,89 @@
 		<div id='infodiv2' style='color:red; '></div>
 		<div id='infodiv' style='color:red; display:none;'></div>
 	</div>
+
+
+
+	<div id='home_Screen' style='width:100%; height:100%; position:absolute; left:0px; top:0px;'>
+		<div style='background-color:#113356; height:87px; width:100%; position:absolute; right:0px; bottom:0px; z-index:101;' >
+			<div style='color:white; margin-left:130px; margin-top:5px;' id='pinfo'></div>
+		</div>
+		<a href="?"class="pop_left"></a>
+		<div class="shape"><img src="images/shape.png"></div>
+		<div class="pop_right">
+			<span style="">☰</span>
+			<a href='?m=profile'><img src="images/mini_foto.png">PROFILE</a>
+			<a href="Javascript:show_data();">SUPPORT</a>
+			<a>CHAT</a>
+		</div>
+	
+		<div id='congrads' style='position:absolute; left 0px; top:40%; width:100%;'>
+			Congradulations<Br><Br>
+			You are <div id='youare'></div>
+	
+		</div>
+	
+		<div id='timer' style='position:absolute; top:60px; right:10px; z-index:1003; background-color:#4a5466; display:block; padding:7px; border-radius:50px; border:2px solid #d8a424;'>4:59</div>
+	
+		<div id="mymap2" style=' height:125px; width:125px; position:absolute; bottom:-20px; left:-4px; z-index:102; background-color:black;  border-radius: 0px 20px 0px 0px; border:4px solid #113356;'></div>
+	
+		<div id="mymap" style='height:90vh; width:100%; position:absolute; top:0px; left:0px; '></div>
+	
+	
+	
+		<a href='Javascript: mapset(1);' style='position:absolute; right:10px; bottom:110px; width:49px; height:49px;  '><img src='icon_onme.png' width=50px ></a>
+		<a href='Javascript: mapset(2);' style='position:absolute; right:10px; bottom:160px; width:49px; height:49px; '><img src='icon_fit.png' width=50px></a>
+		<a href='Javascript: mapset(3);' style='position:absolute; right:10px; bottom:210px; width:49px; height:49px;  '><img src='icon_target.png' width=50px></a>
+		<a href='Javascript: grats_close();' style=' color:Red; position:absolute; right:10px; bottom:270px; display:none; ' id='show_leaderb_but'>Leaderboard</a>
+
+	
+		<div class="game_menu" id='game_menu'>
+			<div class="menu_logo">
+				<a><img src='images/letsmove_2.png'></a>
+			</div>
+			<p>Choose Game Mode</p>
+			<div onclick='Javascript: change_game_mode(2);' class="campaign">
+				<img src='images/campaign.png'>
+				<a class="menu_title">Campaign</a>
+			</div>
+			<div onclick='Javascript: change_game_mode(1);' class="hot_chal">
+				<img src='images/hot_challenge.png'>
+				<a class="menu_title">Hot Challenge</a>
+				<div id='timer2' style='background-color:#59142e; border:1px solid #b23a56; display:inline-block; border-radius:10px; padding:15px; position:absolute; font-size: 20px;left:20px; bottom:20px; z-index:500; '></div>
+			</div>
+			<a class="menu_pry" style='display:none;'>pry</a>
+		</div>
+	
+		<div id='grats_div' style='display:none; position:absolute; left:0%; top:35%;width:100%; background-color:#205690;'>
+		<center><Br><br>
+			You have reached distination<BR><BR>
+			<a href='Javascript: grats_close();'>Close</a>
+			<br>
+			<br><br></center>
+		</div>
+		
+		<div id='small_grats_div' style='display:none; position:absolute; left:0%; top:35%;width:100%; background-color:#205690;'>
+		<center><Br><br>
+			You have taken the point<BR><BR>
+			<a href='Javascript: small_grats_close();'>Next</a>
+			<br>
+			<br><br></center>
+		</div>
+		
+		
+		<div id='leaderboard' style='display:none; position:absolute; left:0%; top:20%; height:60%; width:100%; text-align:center;  background-color:#205690;'>
+			Leaderboard
+			<div id='leaderboard_txt' style='margin-top:20px; color:white; font-size:20px; text-align:left; padding-left:30px;'>
+			</div>
+			<a href='Javascript: leader_close();'>Close</a>
+		</div>
+
+
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFY47FE__z9AvRLBoYG0T2XeOTiHdwzOQ&callback=initMap"></script>
+	</div>
+ 
+
+
 
 	<div id='login_screen' style='width:100%; height:100%; position:absolute; left:0px; top:0px;'>
 		<div id="fb-root"></div>
@@ -124,6 +209,8 @@
   
   </div>
 
+
+  
 </body>
 
 
@@ -232,7 +319,15 @@ function onDeviceReady()
 		});	
 
 	
+	var first_start=getCookie("first_start");
+	if (first_start=="")
+		{
+		setCookie("first_start","1",365);
+		setTimeout("location.reload(); ",100);	
+		}
+	
 	setTimeout("req_players();",1000);	
+	
 	
     }
 
