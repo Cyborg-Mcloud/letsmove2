@@ -330,10 +330,19 @@ function onDeviceReady()
 		setCookie("first_start","1",365);
 		setTimeout("location.reload(); ",100);	
 		}
+
+	navigator.geolocation.activator.askActivation(function(response) {
+		console.log("activator");
+		console.log(response);
+		//Success callback
+		}, function(response) {
+		//Failure callback
+		});
 	
 	AdvancedGeolocation.start(function(success){
 	
 			var jsonObject = JSON.parse(success);
+			console.log("advanced location");
 			console.log(jsonObject);
 			
 		

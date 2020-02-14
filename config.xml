@@ -97,6 +97,7 @@ Lets move
 	<gap:plugin name="pushbots-cordova-plugin" spec="1.6.x" source="npm" />
 	<gap:plugin name="cordova-plugin-background-mode" source="npm" />
 	<gap:plugin name="cordova-plugin-advanced-geolocation" source="npm" />
+	<gap:plugin name="cordova-plugin-geolocation-android-activator" source="npm" />
 
 
 
