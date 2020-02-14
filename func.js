@@ -46,10 +46,17 @@ function change_game_mode(newmode)
 	players=[];
 	targets=[];
 	document.getElementById("game_menu").style.display="none";
-	console.log(document.getElementById("game_menu").style.display);
+
 	setTimeout("mapset(2);",300);
 	}
 
+
+function back_to_home()
+	{
+
+	document.getElementById("game_menu").style.display="block";
+
+	}
 function open_types(seltype)
 	{
 	if (types_open==0)
@@ -81,3 +88,14 @@ function open_types(seltype)
 		}
 	
 	}
+
+	
+function hide_data(){
+
+	document.getElementById("acc_data").style.display="none";
+}
+
+function show_data(){
+
+	document.getElementById("acc_data").style.display="block";
+}
