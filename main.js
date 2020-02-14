@@ -258,7 +258,12 @@ function req_players()
 	if (server_id==0)
 		{
 		show_screen("login");
-
+		var a=getCookie("first_start");
+		if (a!=999)
+			{
+			setCookie("first_start",999,365);
+			location.reload(); 
+			}
 			
 		}
 	else

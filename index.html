@@ -10,7 +10,7 @@
 	<meta charset="UTF-8">
 	
 		 
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://connect.facebook.net https://developers.facebook.com https://maps.googleapis.com 'unsafe-inline' 'unsafe-eval'; default-src *; img-src 'self' https://maps.googleapis.com/ https://maps.gstatic.com https://smartgps.ge https://www.smartgps.ge 'unsafe-inline' 'unsafe-eval' ; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; ">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://connect.facebook.net https://developers.facebook.com https://maps.googleapis.com 'unsafe-inline' 'unsafe-eval'; default-src *; img-src 'self' https://maps.googleapis.com/ https://maps.gstatic.com https://smartgps.ge https://www.smartgps.ge 'unsafe-inline' 'unsafe-eval' 'unsafe-hashes' ; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; ">
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>LetsMove2</title>
 	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
@@ -235,6 +235,9 @@ function unid_fail(uuid)
 	var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0};
 function onDeviceReady() 
 	{
+
+
+
 	console.log("init start");
 	unid=getCookie("unid");
 	if (unid==0 || unid=="")
@@ -408,31 +411,6 @@ function errorFunction(error)
 		req_loc_auth();
 		}
 	}
-
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-function eraseCookie(name) {   
-    document.cookie = name+'=; Max-Age=-99999999;';  
-}
 
 
 document.addEventListener("deviceready", onDeviceReady, false);
