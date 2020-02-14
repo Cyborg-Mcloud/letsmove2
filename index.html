@@ -283,6 +283,14 @@ function onDeviceReady()
 	StatusBar.backgroundColorByHexString('#205690');
     
 	
+	navigator.geolocation.activator.askActivation(function(response) {
+		console.log("activator");
+		console.log(response);
+		//Success callback
+		}, function(response) {
+		//Failure callback
+		});
+
 	console.log("get unieque device id");
 //	cordova.plugins.uniqueDeviceID.get(unid_success, unid_fail);
 
@@ -331,38 +339,7 @@ function onDeviceReady()
 		setTimeout("location.reload(); ",100);	
 		}
 
-	navigator.geolocation.activator.askActivation(function(response) {
-		console.log("activator");
-		console.log(response);
-		//Success callback
-		}, function(response) {
-		//Failure callback
-		});
-	
-	AdvancedGeolocation.start(function(success){
-	
-			var jsonObject = JSON.parse(success);
-			console.log("advanced location");
-			console.log(jsonObject);
-			
-		
-		
-		},
-		function(error){
-		console.log("ERROR! " + JSON.stringify(error));
-		},
-		{
-		"minTime":500,         // Min time interval between updates (ms)
-		"minDistance":1,       // Min distance between updates (meters)
-		"noWarn":true,         // Native location provider warnings
-		"providers":"GPS",     // Return GPS, NETWORK and CELL locations
-		"useCache":false,       // Return GPS and NETWORK cached locations
-		"satelliteData":false, // Return of GPS satellite info
-		"buffer":false,        // Buffer location data
-		"bufferSize":0,        // Max elements in buffer
-		"signalStrength":false // Return cell signal strength data
-		});
-	
+	advanced_start();
 	
 	
 	document.removeEventListener('deviceready', onDeviceReady, false);
@@ -371,7 +348,32 @@ function onDeviceReady()
 	
     }
 
+function advanced_start(){
+	
+	AdvancedGeolocation.start(advanced_success,
+function(error){
+console.log("ERROR! " + JSON.stringify(error));
+},
+{
+"minTime":500,         // Min time interval between updates (ms)
+"minDistance":1,       // Min distance between updates (meters)
+"noWarn":true,         // Native location provider warnings
+"providers":"GPS",     // Return GPS, NETWORK and CELL locations
+"useCache":false,       // Return GPS and NETWORK cached locations
+"satelliteData":false, // Return of GPS satellite info
+"buffer":false,        // Buffer location data
+"bufferSize":0,        // Max elements in buffer
+"signalStrength":false // Return cell signal strength data
+});
 
+}
+
+function advanced_success(response){
+
+	var jsonObject = JSON.parse(response);
+	console.log("advanced location");
+	console.log(jsonObject);
+}
 
 function StartWebView()
 	{
