@@ -167,6 +167,7 @@ function brain_recv()
 					}
 				else
 					{
+					uid=obj["uid"];
 					setTimeout("req_players();",1000);
 					show_screen("home");
 					}
