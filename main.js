@@ -29,7 +29,7 @@ var uid=0;
 var myid="";
 var speed_limit=70;
 var unid="";
-var server_id=0;
+
 
 
 function draw_players()
@@ -167,6 +167,7 @@ function brain_recv()
 					}
 				else
 					{
+					setTimeout("req_players();",1000);
 					show_screen("home");
 					}
 				}
@@ -255,8 +256,9 @@ function brain_recv()
 function req_players()
 {
 
-	if (server_id==0)
+	if (uid==0)
 		{
+	
 		show_screen("login");
 		var a=getCookie("first_start");
 		if (a!=999)
