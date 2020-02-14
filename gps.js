@@ -196,6 +196,8 @@ function onSuccess(position)
 
 	document.getElementById("gpsdata").innerHTML="Speed: "+MySpeed+"<br>Heading: "+MyHead;
 
+	document.getElementById("accuracy_data").innerHTML=MyAcc;
+
 	//	if (mouse_coords==1)
 	//		{
 	//		mouse_coords=2;
