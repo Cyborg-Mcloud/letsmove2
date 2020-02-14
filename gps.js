@@ -305,11 +305,10 @@ function move_marker()
 
 function send_data()
 	{
-	url='https://www.smartgps.ge/letsmove/?update_lat=1&lat='+MyLat+'&lng='+MyLong+"&cur_game_mode="+curgametype;
+	data_send('https://www.smartgps.ge/letsmove/api.php', "update_lat=1&lat="+MyLat+"&lng="+MyLong+"&cur_game_mode="+curgametype);	
+
 	console.log("update lat: "+url);
 	
-	brainhttp.open('GET',url,true);
-	brainhttp.send(null);
 	if (auto_sender==0)
 		{
 		auto_sender=1;
@@ -321,8 +320,9 @@ function send_data()
 
 function data_sender_loop()
 	{
+		auto_sender=1;
 	send_data();
-	auto_sender=1;
+
 	setTimeout("data_sender_loop();",30000);
 	}
 

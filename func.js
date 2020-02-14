@@ -1,3 +1,17 @@
+
+ var last = {time : new Date(),   
+    x    : -100,          
+    y    : -100};         
+var period = 100; 
+var space  = 2;   
+         
+
+var t_circle=new Array();
+var minimap_circle=new Array();
+var types_open=0;
+var curgametype=1;
+
+
 function leader_close()
 	{
 	document.getElementById("leaderboard").style.display="none";
@@ -34,18 +48,6 @@ function change_game_mode(newmode)
 	document.getElementById("game_menu").style.display="none";
 	setTimeout("mapset(2);",300);
 	}
-
- var last = {time : new Date(),   
-                  x    : -100,          
-                  y    : -100};         
-      var period = 100; 
-      var space  = 2;   
-                       
-
-var t_circle=new Array();
-var minimap_circle=new Array();
-var types_open=0;
-var curgametype=1;
 
 function open_types(seltype)
 	{

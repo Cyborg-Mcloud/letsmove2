@@ -263,7 +263,7 @@ function req_players()
 		}
 	else
 		{
-		data_send('https://www.smartgps.ge/letsmove', "update_lat=1");
+		data_send('https://www.smartgps.ge/letsmove/api.php', "update_lat=1");
 		console.log("req players");
 
 	//console.log("background mode: "+cordova.plugins.backgroundMode.isActive());
