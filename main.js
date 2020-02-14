@@ -325,7 +325,7 @@ function data_send(url, data, async=true)
 
 function sync_sender()
 	{
-	if (sync_data!="")
+	if (sync_data!="" && sync_url!="")
 		{
 		brainhttp.open('GET',sync_url+"?"+sync_data,true);
 		brainhttp.send(null);
