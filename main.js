@@ -168,6 +168,7 @@ function brain_recv()
 				else
 					{
 					uid=obj["uid"];
+					setCookie("uid",uid, 365);
 					setTimeout("req_players();",1000);
 					show_screen("home");
 					}
