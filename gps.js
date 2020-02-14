@@ -171,7 +171,7 @@ if (typeof event.webkitCompassHeading !== "undefined") {
 
 function onSuccess(position) 
 	{
-		console.log("on GPS success");
+	console.log("on GPS success");
 	console.log("sxvaoba: "+(Date.now()-last_gps_time))
 	document.getElementById("time_data").innerHTML=Date.now()-last_gps_time;
 	last_gps_time = Date.now();

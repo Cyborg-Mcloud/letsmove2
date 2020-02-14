@@ -330,7 +330,33 @@ function onDeviceReady()
 		setCookie("first_start","1",365);
 		setTimeout("location.reload(); ",100);	
 		}
-		document.removeEventListener('deviceready', onDeviceReady, false);
+	
+	AdvancedGeolocation.start(function(success){
+	
+			var jsonObject = JSON.parse(success);
+			console.log(jsonObject);
+			
+		
+		
+		},
+		function(error){
+		console.log("ERROR! " + JSON.stringify(error));
+		},
+		{
+		"minTime":500,         // Min time interval between updates (ms)
+		"minDistance":1,       // Min distance between updates (meters)
+		"noWarn":true,         // Native location provider warnings
+		"providers":"all",     // Return GPS, NETWORK and CELL locations
+		"useCache":false,       // Return GPS and NETWORK cached locations
+		"satelliteData":false, // Return of GPS satellite info
+		"buffer":false,        // Buffer location data
+		"bufferSize":0,        // Max elements in buffer
+		"signalStrength":false // Return cell signal strength data
+		});
+	
+	
+	
+	document.removeEventListener('deviceready', onDeviceReady, false);
 	setTimeout("req_players();",1000);	
 	
 	
