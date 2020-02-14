@@ -307,7 +307,7 @@ function send_data()
 	{
 	data_send('https://www.smartgps.ge/letsmove/api.php', "update_lat=1&lat="+MyLat+"&lng="+MyLong+"&cur_game_mode="+curgametype);	
 
-	console.log("update lat: "+url);
+	//console.log("update lat: "+url);
 	
 	if (auto_sender==0)
 		{

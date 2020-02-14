@@ -46,6 +46,7 @@ function change_game_mode(newmode)
 	players=[];
 	targets=[];
 	document.getElementById("game_menu").style.display="none";
+	console.log(document.getElementById("game_menu").style.display);
 	setTimeout("mapset(2);",300);
 	}
 
