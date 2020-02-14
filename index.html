@@ -204,7 +204,7 @@
 	  <div style='position:absolute; left: 0px;top:0px; height:90px;  color:black;' id='txtdata'></div>
 	  <div style='position:absolute; left: 0px;bottom:0px;   color:black;' id='gpsdata'></div>
 	  <div style='position:absolute; right:0px;bottom:0px;  color:black;' id='time_data'></div>
-	  <div style='position:absolute; right:0px;bottom:20px;  color:black;' id='accuracy_data'></div>
+	  <div style='position:absolute; left:0px;bottom:40px;  color:black;' id='accuracy_data'></div>
 
 	  <div style='position:absolute; left:50%;top:60px; height:30px;width:70px; background-color:green' id='speeddiv'></div>
   
@@ -231,7 +231,7 @@ function unid_fail(uuid)
 	};
 
 
-	var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0};
+var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0};
 function onDeviceReady() 
 	{
 
@@ -251,7 +251,9 @@ function onDeviceReady()
 		}
 	
 	uid=getCookie("uid");
-
+	if (uid!=null && uid>0)	{
+		show_screen("home");
+	}
 
 	console.log("backgroundmode enable");
 	cordova.plugins.backgroundMode.enable();
@@ -279,7 +281,7 @@ function onDeviceReady()
 	req_loc_auth();
 	
 	StatusBar.backgroundColorByHexString('#205690');
-    document.removeEventListener('deviceready', onDeviceReady, false);
+    
 	
 	console.log("get unieque device id");
 //	cordova.plugins.uniqueDeviceID.get(unid_success, unid_fail);
@@ -328,7 +330,7 @@ function onDeviceReady()
 		setCookie("first_start","1",365);
 		setTimeout("location.reload(); ",100);	
 		}
-	
+		document.removeEventListener('deviceready', onDeviceReady, false);
 	setTimeout("req_players();",1000);	
 	
 	

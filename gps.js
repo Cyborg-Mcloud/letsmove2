@@ -181,17 +181,17 @@ function onSuccess(position)
 //console.log(position);
 	//if (mouse_coords<2)
 //		{
-	console.log(position.coords.latitude + " / " + position.coords.longitude);
+	console.log(position.coords.latitude + " / " + position.coords.longitude + " | "+MyAcc);
 		new_lat=position.coords.latitude ;
 		new_lng=position.coords.longitude ;
 		MyAlt=position.coords.altitude ;
-		MyHead=position.coords.heading ;
+		MyHead=parseInt(position.coords.heading) ;
 		MySpeed=position.coords.speed ;
-		MyAcc=position.coords.accuracy;
+		MyAcc=parseInt(position.coords.accuracy);
 
 
 	
-		MySpeed=parseInt((MySpeed*36/10 )*1000)/1000;
+		MySpeed=parseInt((MySpeed*36/10 ));
 		if (MySpeed>speed_limit){alert("დაფიქსირდა სიჩქარის გადამეტება!");}
 
 	document.getElementById("gpsdata").innerHTML="Speed: "+MySpeed+"<br>Heading: "+MyHead;
@@ -248,9 +248,10 @@ function onSuccess(position)
 			send_data();
 			}
 		}
-	if (MyHead==0 || MyHead!=null)
+	if (MyHead==0 || MyHead==null)
 		{MyMarker_pointer.setVisible(false);}
-	if (old_head!=MyHead && MyHead!=null)
+
+	else if (old_head!=MyHead && MyHead!=null)
 		{
 		MyMarker_pointer.setVisible(true);
 		console.log("heading: "+MyHead);
