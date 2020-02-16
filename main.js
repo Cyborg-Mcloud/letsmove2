@@ -121,8 +121,11 @@ function draw_targets()
 				}
 			
 			}
-
-		document.getElementById("pinfo").innerHTML=targets[0]["name"]+"<BR>distance: "+targets[0]["dist"]+" meters";;
+		var ctext=targets[0]["name"]+"<BR>distance: "+targets[0]["dist"]+" meters";
+		if (document.getElementById("pinfo").innerHTML!=ctext)
+			{
+			document.getElementById("pinfo").innerHTML=ctext;
+			}
 		var myLatLng =  {lat:  parseFloat(targets[0]["lat"]), lng: parseFloat(targets[0]["lng"])};
 	//	logo_marker.setPosition(myLatLng);
 		Target_marker.setPosition(myLatLng);
