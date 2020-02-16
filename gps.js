@@ -224,9 +224,10 @@ function onSuccess(position) {
 			if (tot_records>=5){
 				work_averages();
 				}
+			if (mdebug==1){
 			document.getElementById("gps_delay_info").innerHTML+="<Br>trcmps:"+true_compass+ " | "+avr_comp;
 			document.getElementById("gps_delay_info").innerHTML+="<Br>compass:"+cur_compass;
-			document.getElementById("gpsdata").innerHTML+= " | "+avr_heading;
+			document.getElementById("gpsdata").innerHTML+= " | "+avr_heading;}
 			old_lat=new_lat;
 			old_lng=new_lng;
 			move_marker();

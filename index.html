@@ -349,10 +349,22 @@ function onDeviceReady()
 	
 	
 	document.removeEventListener('deviceready', onDeviceReady, false);
+	AndroidFullScreen.immersiveMode(fsuccessFunction, ferrorFunction);
 	setTimeout("req_players();",1000);	
 	
 	
     }
+
+	function fsuccessFunction()
+{
+    console.info("It worked!");
+}
+ 
+function ferrorFunction(error)
+{
+    console.error(error);
+}
+
 
 function advanced_start(){
 	
