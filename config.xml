@@ -105,7 +105,7 @@ Lets move
 	<gap:plugin name="pushbots-cordova-plugin" spec="1.6.x" source="npm" />
 	<gap:plugin name="cordova-plugin-background-mode" source="npm" />
 	<gap:plugin name="cordova-plugin-advanced-geolocation" source="npm" />
-	<gap:plugin name="cordova-plugin-geolocation-android-activator"/>
+	<gap:plugin name="cordova-plugin-geolocation-android-activator" source="npm"/>
 		<param name="APP_ID" value="997737107224650" />
 </gap:plugin>
 	<!--<gap:plugin name="cordova-plugin-facebook4"/>
