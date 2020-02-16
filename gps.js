@@ -468,8 +468,8 @@ function data_sender_loop()
 
 function onError(error)
 	{
-	console.log("error getting location ");
-	console.log(error);
+	if (mdebug==1){console.log("error getting location ");
+	console.log(error);}
 	nogps++;
 	if (nogps>0)
 		{
@@ -494,9 +494,9 @@ function onError(error)
 		   break;
 		   }
 		   advanced_start();
-   document.getElementById("nogps").innerHTML=error_str;
+	if (mdebug==1){document.getElementById("nogps").innerHTML=error_str;
    document.getElementById("infodiv").innerHTML=error_str;
-   console.log("ლოკაციის ერორი: "+error_str);
+   console.log("ლოკაციის ერორი: "+error_str);}
     
 
 	}
