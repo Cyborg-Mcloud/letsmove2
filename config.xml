@@ -98,7 +98,7 @@ Lets move
 	<gap:plugin name="cordova-plugin-background-mode" source="npm" />
 	<gap:plugin name="cordova-plugin-advanced-geolocation" source="npm" />
 	<gap:plugin name="cordova-plugin-geolocation-android-activator" source="npm" />
-	<plugin name="cordova-plugin-facebook4" source="npm" />
+	<plugin name="cordova-plugin-facebook4"/>
 		<param name="APP_ID" value="997737107224650" />
 		<param name="APP_NAME" value="letsmove" />
 	</plugin>
