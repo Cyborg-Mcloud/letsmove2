@@ -109,9 +109,9 @@ Lets move
 	<gap:plugin name="cordova-plugin-advanced-geolocation" source="npm" />
 	<gap:plugin name="cordova-plugin-geolocation-android-activator" source="npm"/>
 
-
-	<gap:plugin name="cordova-plugin-facebook4" source="npm" spec="1.7.4">
-		
+<!-- spec="^1.9.1"-->
+	<gap:plugin name="cordova-plugin-facebook4" source="npm" spec="1.7.4" >
+		<!--<param name="ANDROID_SDK_VERSION" value="4.25.0"/>-->
 		<param name="APP_ID" value="997737107224650" />
 		<param name="APP_NAME" value="letsmove" />
 		
