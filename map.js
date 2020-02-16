@@ -249,7 +249,22 @@ function initMap()
 	//	label: {text: "", color: "red", fontSize: '16px'}
 		
 		});
+
+	
+	MyMarker_compass = new google.maps.Marker({
+		position: myLatLng,
+		map: MyMap,
+		icon: {
+		path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, fillOpacity: 0, fillColor: 'red', scale: 4, strokeColor: 'red', strokeWeight: 1},
+		zIndex:103,
+		draggable: false,
+		animation: google.maps.Animation.DROP,
+
+	//	label: {text: "", color: "red", fontSize: '16px'}
+		
+		});
 		MyMarker_pointer.setVisible(false);
+		MyMarker_compass.setVisible(true);
 	Myminimap_marker = new google.maps.Marker({
 		position: myLatLng,
 		map: MyMap2,

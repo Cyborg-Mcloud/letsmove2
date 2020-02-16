@@ -33,6 +33,30 @@ var MySpeed;
 var MyAcc;
 
 
+var cur_compass=0;
+var avr_heading=0;
+var avr_comp=0;
+var avr_speed=0;
+var compass_adjust=0;
+
+var gps_delay=100000;
+var nogps=0;
+var auto_sender=0;
+var last_gps_time=0;
+
+var last_five_loc=new Array();
+for (i=0;i<5;i++)
+	{
+	last_five_loc[i]=new Array();
+	}
+var cur_record=0;
+var tot_records=0;
+
+var maxq_compass=0;
+var maxh_deviation=100;
+var maxc_deviation=100;
+
+
 function init_gps() 
 	{
 
@@ -46,87 +70,27 @@ function init_gps()
 	navigator.geolocation.getCurrentPosition(onSuccess, onError, opts);
 	
 	watchID = navigator.geolocation.watchPosition(onSuccess, onError, opts);
+
+
+	if (window.DeviceOrientationAbsoluteEvent) {
+		window.addEventListener("DeviceOrientationAbsoluteEvent", handleOrientation, true);
+		  } 
+	  else if(window.DeviceOrientationEvent){
+		window.addEventListener("deviceorientation", handleOrientation, true);
+	  }
+	console.log("device orientation handle set");
 	//window.addEventListener("devicemotion", handleMotion, true);
 
-
-
-//	if (window.DeviceOrientationAbsoluteEvent) {
-//      window.addEventListener("DeviceOrientationAbsoluteEvent", handleOrientation, true);
-//    } // If not, check if the device sends any orientation data
-  //  else if(window.DeviceOrientationEvent){
-//      window.addEventListener("deviceorientation", handleOrientation, true);
-//    } // Send an alert if the device isn't compatible
-//    else {
-//      alert("Sorry, try again on a compatible mobile device!");
-//    }
-//	 window.addEventListener('compassneedscalibration', function(event) {
-//               alert('Compass needs calibrating! Wave your device in a figure-eight motion');
-//            });
-	console.log("device orientation handle set");
-	//setTimeout("StartWebView();",200); 
-	if (MyLat>0)
-		{
-//		send_data();
-		}
-
-
-	
-
-
     }
-
-
 
 
 var acc_set=0;
 function handleMotion(event) {
 	acc_set=1;
-    // Process event.acceleration, event.accelerationIncludingGravity,
-    // event.rotationRate and event.interval
-//	console.log("data movida");
-//	console.log(event);
-//	console.log(event.accelerationIncludingGravity);
-var accx=parseInt(event.accelerationIncludingGravity.x*1000)/1000;
-var accy=parseInt(event.accelerationIncludingGravity.y*1000)/1000;
-var accz=parseInt(event.accelerationIncludingGravity.z*1000)/1000;
-//console.log( accx + ";" +  accy + ";" + accz ) ;
-//	console.log(event.rotationRate);
-//	console.log(event.interval);
-document.getElementById("txtdata").innerHTML = accx + "<BR>" +  accy + "<BR>" + accz  ;
-if (accx>=0)
-	{
-	document.getElementById("xdiv").style.width=accx*5+"px";
-	document.getElementById("xdiv").style.left="50%";
-	}
-else
-	{
-	document.getElementById("xdiv").style.left=100+accx*5+"px";
-	document.getElementById("xdiv").style.width=-1*accx*5+"px";
-
-	}
-if (accy>=0)
-	{
-	document.getElementById("ydiv").style.width=accy*5+"px";
-	document.getElementById("ydiv").style.left="50%";
-	}
-else
-	{
-	document.getElementById("ydiv").style.left=100+accy*5+"px";
-	document.getElementById("ydiv").style.width=-1*accy*5+"px";
-
-	}
-
-if (accz>=0)
-	{
-	document.getElementById("zdiv").style.width=accz*5+"px";
-	document.getElementById("zdiv").style.left="50%";
-	}
-else
-	{
-	document.getElementById("zdiv").style.left=100+accz*5+"px";
-	document.getElementById("zdiv").style.width=-1*accz*5+"px";
-
-	}
+	
+	var accx=parseInt(event.accelerationIncludingGravity.x*1000)/1000;
+	var accy=parseInt(event.accelerationIncludingGravity.y*1000)/1000;
+	var accz=parseInt(event.accelerationIncludingGravity.z*1000)/1000;
 
 }
 
@@ -138,140 +102,304 @@ function handleOrientation(event) {
   var gamma    = event.gamma;
 
 
-if (typeof event.webkitCompassHeading !== "undefined") {
+	if (typeof event.webkitCompassHeading !== "undefined") {
         alpha = event.webkitCompassHeading; //iOS non-standard
        
-      }
-      else {
-     //   console.log("Your device is reporting relative alpha values, so this compass won't point north! ");
+    }
+	cur_compass=-parseInt(alpha);
+	//if (cur_compass<0){cur_compass=360+cur_compass;}
 
-      }
+	if (cur_compass<0){cur_compass=360+cur_compass;}
 
-//console.log(event);
-  if (old_head!=alpha )
-		{
-		alpha=parseInt(alpha);
-		console.log("heading: "+alpha);
-		var icon = MyMarker_pointer.getIcon();
-		icon.rotation =360-alpha-90;
-		MyMarker_pointer.setIcon(icon);
-		
-		var icon = Myminimap_marker.getIcon();
-		icon.rotation =360-alpha-90;
-		Myminimap_marker.setIcon(icon);
-		
-		
-		old_head=alpha;
+	true_compass=parseInt(compass_adjust)+cur_compass;
+	if (true_compass>360){true_compass=true_compass-360;}
+	if (true_compass<0){true_compass=true_compass+360;}
 
-
-		}
-
-  // Do stuff with the new orientation data
+	document.getElementById("profile_txt").innerHTML=cur_compass + " - "+parseInt(true_compass)+" | "+compass_adjust;
+	var icon = MyMarker_compass.getIcon();
+	icon.rotation =true_compass;
+	MyMarker_compass.setIcon(icon);
 }
 
-function onSuccess(position) 
-	{
+function onSuccess(position) {
 	console.log("on GPS success");
-	console.log("sxvaoba: "+(Date.now()-last_gps_time))
-	document.getElementById("time_data").innerHTML=Date.now()-last_gps_time;
-	last_gps_time = Date.now();
-	nogps=0;
-	document.getElementById("nogps").style.display="none";
+	
+	
+	var cur_delay=Date.now()-last_gps_time;
+	
+	document.getElementById("time_data").innerHTML=cur_delay;
+	if (cur_delay>300){
+		// tu validuri data-aa
 
-//console.log(position);
-	//if (mouse_coords<2)
-//		{
-	console.log(position.coords.latitude + " / " + position.coords.longitude + " | "+MyAcc);
+		console.log("gps_delay: "+cur_delay)
+		console.log(position.coords.latitude + " / " + position.coords.longitude);
+
+		gps_delay=cur_delay;
+		last_gps_time = Date.now();
+		nogps=0;
+		document.getElementById("nogps").style.display="none";
+
 		new_lat=position.coords.latitude ;
 		new_lng=position.coords.longitude ;
 		MyAlt=position.coords.altitude ;
-		MyHead=parseInt(position.coords.heading) ;
+		MyHead=position.coords.heading ;
 		MySpeed=position.coords.speed ;
-		MyAcc=parseInt(position.coords.accuracy);
+		MyAcc=position.coords.accuracy;
 
 
+		MySpeed=parseInt((MySpeed*36/10 )*1000)/1000;
+		last_five_loc[cur_record]["lat"]=new_lat;
+		last_five_loc[cur_record]["lng"]=new_lng;
+		last_five_loc[cur_record]["speed"]=MySpeed;
+		last_five_loc[cur_record]["heading"]=MyHead;
+		last_five_loc[cur_record]["compass"]=cur_compass;
+		last_five_loc[cur_record]["true_compass"]=true_compass;
 	
-		MySpeed=parseInt((MySpeed*36/10 ));
+		
+		var delay_status=0;
+		if (gps_delay<5000){
+			document.getElementById("gps_delay_info").innerHTML="LIVE";
+			delay_status=1;
+		}
+		else if (gps_delay<10000){
+			document.getElementById("gps_delay_info").innerHTML="LATE";
+			delay_status=2;
+		}
+		else {
+			document.getElementById("gps_delay_info").innerHTML="OLD";
+			delay_status=3;
+		}
+
+		last_five_loc[cur_record]["delay"]=delay_status;
+		
+	
+		
 		if (MySpeed>speed_limit){alert("დაფიქსირდა სიჩქარის გადამეტება!");}
 
-	document.getElementById("gpsdata").innerHTML="Speed: "+MySpeed+"<br>Heading: "+MyHead;
+		document.getElementById("gpsdata").innerHTML="Speed: "+MySpeed+"<br>Heading: "+MyHead;
 
-	document.getElementById("accuracy_data").innerHTML=MyAcc;
-
-	//	if (mouse_coords==1)
-	//		{
-	//		mouse_coords=2;
-	//		}
-	//	}
-//document.getElementById("myinfo").innerHTML=MyHead + " | "+MySpeed;
-
-
-
-	if (old_lat!=new_lat || old_lng!=new_lng)
-		{
-		console.log("lat change to new ");
-		var d = new Date();
-		var new_coord_time=d.getTime();
-		if (old_lat>0)
+		if (old_lat!=new_lat || old_lng!=new_lng)
 			{
-			
-			spd_steps=parseInt((new_coord_time-last_coord_time)/100);
-			if (spd_steps>10)
+			// ---------------  tu dafiqsirda gansxvavebuli koordinatebi
+			console.log("lat change to new "+cur_record+ " / "+tot_records);
+		
+			var d = new Date();
+			var new_coord_time=d.getTime();
+			var calc_heading=0;
+			if (tot_records>0)
 				{
-				spd_steps=20;
+				spd_steps=parseInt((new_coord_time-last_coord_time)/100);
+				if (spd_steps>10)
+					{
+					spd_steps=20;
+					}
+				if (spd_steps==0){spd_steps=1;	}
+
+				spd_lat=(new_lat-MyLat)/spd_steps;
+				spd_lng=(new_lng-MyLong)/spd_steps;
+				
+				if ( Math.abs(new_lat-MyLat)>0.00003 || Math.abs(new_lng -MyLong)>0.00003)
+					{
+					var iyr=new_lat-MyLat;
+					var ixs=(new_lng-MyLong);
+					
+					if (iyr==0){iyr+=0.0001;}
+					var kutxe=Math.atan(ixs/iyr)*360/6.28;
+					if (iyr<0){kutxe+=180;}
+					if (kutxe<0){kutxe=360+kutxe;}
+					calc_heading=parseInt(kutxe);
+					console.log("calc_heading: "+calc_heading)
+					}
+				console.log("steps: "+spd_steps);
+				document.getElementById("gps_delay_info").innerHTML+="<Br>calc:"+calc_heading;
 				}
-			if (spd_steps==0){spd_steps=1;	}
+			else
+				{
+				var myLatLng = {lat:  new_lat, lng: new_lng};
+				MyMap.panTo(myLatLng);
+				MyMap2.panTo(myLatLng);
+				}
+			if (tot_records>=5){
+				work_averages();
+				}
+			document.getElementById("gps_delay_info").innerHTML+="<Br>trcmps:"+true_compass+ " | "+avr_comp;
+			document.getElementById("gps_delay_info").innerHTML+="<Br>compass:"+cur_compass;
+			document.getElementById("gpsdata").innerHTML+= " | "+avr_heading;
+			old_lat=new_lat;
+			old_lng=new_lng;
+			move_marker();
 
-			spd_lat=(new_lat-MyLat)/spd_steps;
-			spd_lng=(new_lng-MyLong)/spd_steps;
-			console.log("steps: "+spd_steps + " | "+spd_lat+" : "+spd_lng);
+			last_five_loc[cur_record]["calc_heading"]=calc_heading;
+	
+
+			if ( Math.abs(new_lat-sent_lat)>0.00005 || Math.abs(new_lng -sent_lng)>0.00005)
+				{
+				sent_lng=new_lng;
+				sent_lat=new_lat;
+				send_data();
+				}
+
+			if (MyHead==0 || MyHead==null){
+					if (calc_heading>0)	{
+						MyMarker_pointer.setVisible(true);
+
+						var icon = MyMarker_pointer.getIcon();
+						icon.rotation =calc_heading;
+						MyMarker_pointer.setIcon(icon);
+					
+					} else {
+						MyMarker_pointer.setVisible(false);
+					}
+					
+				
+				}
+			else if (old_head!=MyHead && MyHead!=null){
+				MyMarker_pointer.setVisible(true);
+				console.log("true heading: "+MyHead);
+
+				var icon = MyMarker_pointer.getIcon();
+				icon.rotation =MyHead;
+				MyMarker_pointer.setIcon(icon);
+				
+				var icon = Myminimap_marker.getIcon();
+				icon.rotation =MyHead;
+				Myminimap_marker.setIcon(icon);
+				
+				
+				old_head=MyHead;
 			}
-		else
-			{
-			var myLatLng = {lat:  new_lat, lng: new_lng};
-			MyMap.panTo(myLatLng);
-			MyMap2.panTo(myLatLng);
+			last_coord_time= new_coord_time;
+		}
+
+	
+		cur_record++;
+		if (cur_record>4){cur_record=0;}
+		if(tot_records<100){tot_records++;}
+
+	}
+}
+
+function work_averages(){
+	console.log("working on averages");
+	var che_x=0;
+	var che_y=0;
+	var cco_x=0;
+	var cco_y=0;
+
+	var heading_count=0;
+	var compass_count=0;
+	var maxq=0;
+
+	var heading_deviation=0;
+	var compass_deviation=0;
+
+	var last_heading=0;
+	var last_compass=0;
+
+	var last_che_x=0;
+	var last_che_y=0;
+
+	var last_cco_x=0;
+	var last_cco_y=0;
+
+	for (i=0;i<5;i++){
+		if (last_five_loc[i]["delay"]==1 && last_five_loc[i]["heading"]>0){
+			// zusti lokacia
+			che_x+=Math.sin(last_five_loc[i]["heading"]*6.28/360);
+			che_y+=Math.cos(last_five_loc[i]["heading"]*6.28/360);
+			
+			if (last_heading>0){
+				divx=Math.abs(last_che_x-che_x);
+				divy=Math.abs(last_che_y-che_y);
+				if ((divx+divy)>heading_deviation){
+					heading_deviation=divx+divy;
+				}
 			}
 
-		old_lat=new_lat;
-		old_lng=new_lng;
-		move_marker();
+			last_che_x=Math.sin(last_five_loc[i]["heading"]*6.28/360);
+			last_che_y=Math.cos(last_five_loc[i]["heading"]*6.28/360);
+			last_heading=last_five_loc[i]["heading"];
 
+			heading_count++;
+			maxq+=2;
+		} else if (last_five_loc[i]["calc_heading"]!=0){
+			// arazustia
+			che_x+=Math.sin(last_five_loc[i]["calc_heading"]*6.28/360);
+			che_y+=Math.cos(last_five_loc[i]["calc_heading"]*6.28/360);
+			if (last_heading>0){
+				divx=Math.abs(last_che_x-che_x);
+				divy=Math.abs(last_che_y-che_y);
+				if ((divx+divy)>heading_deviation){
+					heading_deviation=divx+divy;
+				}
+			}
+			last_che_x=Math.sin(last_five_loc[i]["calc_heading"]*6.28/360);
+			last_che_y=Math.cos(last_five_loc[i]["calc_heading"]*6.28/360);
+			last_heading=last_five_loc[i]["calc_heading"];
+			heading_count++;
+			maxq++;
+		}
+	
+		cco_x+=Math.sin(last_five_loc[i]["compass"]*6.28/360);
+		cco_y+=Math.cos(last_five_loc[i]["compass"]*6.28/360);
 
-		console.log("sxvaoba: "+ Math.abs(MyLat-sent_lat));
-		last_coord_time= new_coord_time;
-
-		if ( Math.abs(new_lat-sent_lat)>0.00005 || Math.abs(new_lng -sent_lng)>0.00005)
-			{
-			sent_lng=new_lng;
-			sent_lat=new_lat;
-			send_data();
+		if (last_compass>0){
+			divx=Math.abs(last_cco_x-cco_x);
+			divy=Math.abs(last_cco_y-cco_y);
+			if ((divx+divy)>compass_deviation){
+				compass_deviation=divx+divy;
 			}
 		}
-	if (MyHead==0 || MyHead==null)
-		{MyMarker_pointer.setVisible(false);}
+		last_cco_x=Math.sin(last_five_loc[i]["compass"]*6.28/360);
+		last_cco_y=Math.cos(last_five_loc[i]["compass"]*6.28/360);
+		last_compass=last_five_loc[i]["compass"];
+	}
+	cco_x=cco_x/5;
+	cco_y=cco_y/5;
+	if (cco_y==0){cco_y+=0.0001;}
+	avr_comp=Math.atan(cco_x/cco_y)*360/6.28;
+	if (cco_y<0){avr_comp+=180;}
+	if (avr_comp<0){avr_comp=360+avr_comp;}
+	avr_comp=parseInt(avr_comp);
+	console.log("Avr_comp: "+avr_comp);
 
-	else if (old_head!=MyHead && MyHead!=null)
-		{
-		MyMarker_pointer.setVisible(true);
-		console.log("heading: "+MyHead);
+	if (heading_count>0){
 
-		var icon = MyMarker_pointer.getIcon();
-		icon.rotation =MyHead;
-		MyMarker_pointer.setIcon(icon);
-		
-		var icon = Myminimap_marker.getIcon();
-		icon.rotation =MyHead;
-		Myminimap_marker.setIcon(icon);
-		
-		
-		old_head=MyHead;
+		if (maxc_deviation>=compass_deviation && compass_deviation>0){
+			maxq++;
+			maxc_deviation=compass_deviation;
+			console.log("better comp deviation: "+maxc_deviation);
+		}
+		che_x=che_x/heading_count;
+		che_y=che_y/heading_count;
+
+		if (che_y==0){che_y+=0.0001;}
+		avr_heading=Math.atan(che_x/che_y)*360/6.28;
+		if (che_y<0){avr_heading+=180;}
+		if (avr_heading<0){avr_heading=360+avr_heading;}
+		avr_heading=parseInt(avr_heading);
+		console.log("avr_heading: "+avr_heading);
+
+		if (maxh_deviation>=heading_deviation && heading_deviation>0){
+			maxq++;
+			maxh_deviation=heading_deviation;
+			console.log("better heading deviation: "+maxh_deviation);
 		}
 
-	//console.log(MyLat+ " - "+MyLong);
+		if (maxq>=maxq_compass){
+			compass_adjust=parseInt(avr_heading-avr_comp);
+			maxq_compass=maxq;
+			console.log("comp_adjust: "+compass_adjust);
+			console.log("quality: "+maxq_compass);
+			if (compass_adjust<0){compass_adjust+=360;}
+			setCookie("compass_adjust", compass_adjust, 365);
+		}
 
-    }
+		
+	}
+	
 
+}
 function move_marker()
 	{
 
@@ -285,10 +413,12 @@ function move_marker()
 		MyMarker.setPosition(myLatLng);
 		MyMarker_pointer.setPosition(myLatLng);
 		Myminimap_marker.setPosition(myLatLng);
+
+		MyMarker_compass.setPosition(myLatLng);
 		MyMap2.panTo(myLatLng);
-		console.log("move marker");
+	//	console.log("move marker steps"+spd_steps);
 		spd_steps--;
-		setTimeout("move_marker();",10);
+		setTimeout("move_marker();",50);
 		}
 	else
 		{
@@ -299,12 +429,14 @@ function move_marker()
 		MyMarker.setPosition(myLatLng);
 		MyMarker_pointer.setPosition(myLatLng);
 		Myminimap_marker.setPosition(myLatLng);
+		MyMarker_compass.setPosition(myLatLng);
 		MyMap2.panTo(myLatLng);
 		console.log("move marker");
 		spd_steps--;
 
 		}
 	}
+
 
 function send_data()
 	{
