@@ -6,7 +6,7 @@
 	<meta http-equiv=“Pragma” content=”no-cache”>
 	<meta http-equiv=“Expires” content=”-1″>
 	<meta http-equiv=“CACHE-CONTROL” content=”NO-CACHE”>
-	<meta name="viewport" content="width=365, initial-scale=1">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=365">
 	<meta charset="UTF-8">
 	
 		 
@@ -17,7 +17,7 @@
 
 
 	
-
+<script type='application/javascript' src='fastclick.js'></script>
 <script type="text/javascript" charset="utf-8" src="main.js"></script>
 <script type="text/javascript" charset="utf-8" src="gps.js"></script>
 <script type="text/javascript" charset="utf-8" src="login.js"></script>
@@ -347,6 +347,8 @@ function onDeviceReady()
 
 	advanced_start();
 	
+	var attachFastClick = require('fastclick');
+	attachFastClick(document.body);
 	
 	document.removeEventListener('deviceready', onDeviceReady, false);
 	AndroidFullScreen.immersiveMode(fsuccessFunction, ferrorFunction);

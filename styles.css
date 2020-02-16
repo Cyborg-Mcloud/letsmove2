@@ -1,3 +1,10 @@
+*{
+	-webkit-user-drag: none;
+	-moz-user-drag: none;
+	-ms-user-drag: none;
+	user-drag: none;
+	}
+
 /*@font-face
 {
 src: url(fonts/HELR45W.ttf);

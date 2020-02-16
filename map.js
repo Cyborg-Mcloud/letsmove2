@@ -265,7 +265,8 @@ function initMap()
 		});
 		MyMarker_pointer.setVisible(false);
 		MyMarker_compass.setVisible(true);
-	Myminimap_marker = new google.maps.Marker({
+	
+		Myminimap_marker = new google.maps.Marker({
 		position: myLatLng,
 		map: MyMap2,
 		icon: {
