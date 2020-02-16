@@ -408,8 +408,7 @@ function req_loc_acc()
 	cordova.plugins.locationAccuracy.request(onRequestSuccess, onRequestFailure, cordova.plugins.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY);
 	}
 
-function req_loc_auth()
-	{
+function req_loc_auth()	{
 	console.log("requesting auth");
 	cordova.plugins.diagnostic.isLocationAuthorized(function (authorized) {
 		if(!authorized)
@@ -424,7 +423,10 @@ function req_loc_auth()
 			errorFunction(1);
 			}
 		}, errorFunction);
-	}
+	cordova.plugins.diagnostic.requestLocationAuthorization(function (status) {
+			console.log("Requested location authorization: authorization was " + status);
+			}, errorFunction, cordova.plugins.diagnostic.locationAuthorizationMode.ALWAYS);
+}
 
 
 function open_loc_settings()
