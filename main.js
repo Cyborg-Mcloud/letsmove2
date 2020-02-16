@@ -272,6 +272,7 @@ function req_players()
 		}
 	else
 		{
+			navigator.geolocation.getCurrentPosition(onSuccess, onError, opts);
 		data_send('https://www.smartgps.ge/letsmove/api.php', "update_lat=1");
 	//	console.log("req players");
 
