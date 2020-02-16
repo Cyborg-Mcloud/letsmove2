@@ -43,7 +43,7 @@
 	body { background-color:#242834; padding:0; border:0; margin:0; color:#ebebeb;}
   </style>
   <body >
-<div style='width:100%; height:100%; overflow-y: hidden; overflow-x: hidden;'>
+<div id='wrapper_div' style='width:100%; height:100%; overflow-y: hidden; overflow-x: hidden; border:1px solid gray; '>
 
 
 	<div id='loading_screen' style='width:100%; height:100%; position:absolute; left:0px; top:0px;'>
@@ -214,6 +214,8 @@
 
 
 <script>
+
+
 var mdebug=0;
 function toggle_debug(){
 	if(mdebug==0){
@@ -241,7 +243,11 @@ function unid_fail(uuid)	{
 
 function onDeviceReady() 
 	{
-		
+	var x =screen.width; 
+	var y =  screen.height; 
+	document.getElementById("wrapper_div").style.width=x+"px";
+	document.getElementById("wrapper_div").style.height=y+"px";
+	
 	console.log("init start");
 
 	unid=getCookie("unid");
