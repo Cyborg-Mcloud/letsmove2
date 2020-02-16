@@ -66,7 +66,7 @@ function init_gps()
 //cordova.plugins.backgroundMode.setEnabled(true);
 	
 
-	console.log("device ready 2, getting position");
+if (mdebug==1){console.log("device ready 2, getting position");}
 	
 	navigator.geolocation.getCurrentPosition(onSuccess, onError, opts);
 	
@@ -81,7 +81,7 @@ function init_gps()
 	  else if(window.DeviceOrientationEvent){
 		window.addEventListener("deviceorientation", handleOrientation, true);
 	  }
-	console.log("device orientation handle set");
+	  if (mdebug==1){console.log("device orientation handle set");}
 	//window.addEventListener("devicemotion", handleMotion, true);
 
     }
@@ -125,7 +125,7 @@ function handleOrientation(event) {
 }
 
 function onSuccess(position) {
-	console.log("on GPS success");
+	if (mdebug==1){console.log("on GPS success");}
 	
 	
 	var cur_delay=Date.now()-last_gps_time;
@@ -134,13 +134,13 @@ function onSuccess(position) {
 	if (cur_delay>300){
 		// tu validuri data-aa
 
-		console.log("gps_delay: "+cur_delay)
-		console.log(position.coords.latitude + " / " + position.coords.longitude);
+		if (mdebug==1){console.log("gps_delay: "+cur_delay);}
+		if (mdebug==1){console.log(position.coords.latitude + " / " + position.coords.longitude);}
 
 		gps_delay=cur_delay;
 		last_gps_time = Date.now();
 		nogps=0;
-		document.getElementById("nogps").style.display="none";
+		if (mdebug==1){document.getElementById("nogps").style.display="none";}
 
 		new_lat=position.coords.latitude ;
 		new_lng=position.coords.longitude ;
@@ -161,15 +161,15 @@ function onSuccess(position) {
 		
 		var delay_status=0;
 		if (gps_delay<5000){
-			document.getElementById("gps_delay_info").innerHTML="LIVE";
+			if (mdebug==1){document.getElementById("gps_delay_info").innerHTML="LIVE";}
 			delay_status=1;
 		}
 		else if (gps_delay<10000){
-			document.getElementById("gps_delay_info").innerHTML="LATE";
+			if (mdebug==1){document.getElementById("gps_delay_info").innerHTML="LATE";}
 			delay_status=2;
 		}
 		else {
-			document.getElementById("gps_delay_info").innerHTML="OLD";
+			if (mdebug==1){document.getElementById("gps_delay_info").innerHTML="OLD";}
 			delay_status=3;
 		}
 
@@ -179,12 +179,12 @@ function onSuccess(position) {
 		
 		if (MySpeed>speed_limit){alert("დაფიქსირდა სიჩქარის გადამეტება!");}
 
-		document.getElementById("gpsdata").innerHTML="Speed: "+MySpeed+"<br>Heading: "+MyHead;
+		if (mdebug==1){document.getElementById("gpsdata").innerHTML="Speed: "+MySpeed+"<br>Heading: "+MyHead;}
 
 		if (old_lat!=new_lat || old_lng!=new_lng)
 			{
 			// ---------------  tu dafiqsirda gansxvavebuli koordinatebi
-			console.log("lat change to new "+cur_record+ " / "+tot_records);
+			if (mdebug==1){console.log("lat change to new "+cur_record+ " / "+tot_records);}
 		
 			var d = new Date();
 			var new_coord_time=d.getTime();
@@ -211,10 +211,9 @@ function onSuccess(position) {
 					if (iyr<0){kutxe+=180;}
 					if (kutxe<0){kutxe=360+kutxe;}
 					calc_heading=parseInt(kutxe);
-					console.log("calc_heading: "+calc_heading)
+					if (mdebug==1){console.log("calc_heading: "+calc_heading);}
 					}
-				console.log("steps: "+spd_steps);
-				document.getElementById("gps_delay_info").innerHTML+="<Br>calc:"+calc_heading;
+				if (mdebug==1){console.log("steps: "+spd_steps); document.getElementById("gps_delay_info").innerHTML+="<Br>calc:"+calc_heading;}
 				}
 			else
 				{
@@ -258,7 +257,7 @@ function onSuccess(position) {
 				}
 			else if (old_head!=MyHead && MyHead!=null){
 				MyMarker_pointer.setVisible(true);
-				console.log("true heading: "+MyHead);
+				if (mdebug==1){console.log("true heading: "+MyHead);}
 
 				var icon = MyMarker_pointer.getIcon();
 				icon.rotation =MyHead;
@@ -283,7 +282,7 @@ function onSuccess(position) {
 }
 
 function work_averages(){
-	console.log("working on averages");
+	if (mdebug==1){console.log("working on averages");}
 	var che_x=0;
 	var che_y=0;
 	var cco_x=0;
@@ -364,14 +363,14 @@ function work_averages(){
 	if (cco_y<0){avr_comp+=180;}
 	if (avr_comp<0){avr_comp=360+avr_comp;}
 	avr_comp=parseInt(avr_comp);
-	console.log("Avr_comp: "+avr_comp);
+	if (mdebug==1){console.log("Avr_comp: "+avr_comp);}
 
 	if (heading_count>0){
 
 		if (maxc_deviation>=compass_deviation && compass_deviation>0){
 			maxq++;
 			maxc_deviation=compass_deviation;
-			console.log("better comp deviation: "+maxc_deviation);
+			if (mdebug==1){console.log("better comp deviation: "+maxc_deviation);}
 		}
 		che_x=che_x/heading_count;
 		che_y=che_y/heading_count;
@@ -381,19 +380,19 @@ function work_averages(){
 		if (che_y<0){avr_heading+=180;}
 		if (avr_heading<0){avr_heading=360+avr_heading;}
 		avr_heading=parseInt(avr_heading);
-		console.log("avr_heading: "+avr_heading);
+		if (mdebug==1){console.log("avr_heading: "+avr_heading);}
 
 		if (maxh_deviation>=heading_deviation && heading_deviation>0){
 			maxq++;
 			maxh_deviation=heading_deviation;
-			console.log("better heading deviation: "+maxh_deviation);
+			if (mdebug==1){console.log("better heading deviation: "+maxh_deviation);}
 		}
 
 		if (maxq>=maxq_compass){
 			compass_adjust=parseInt(avr_heading-avr_comp);
 			maxq_compass=maxq;
-			console.log("comp_adjust: "+compass_adjust);
-			console.log("quality: "+maxq_compass);
+			if (mdebug==1){console.log("comp_adjust: "+compass_adjust);
+				console.log("quality: "+maxq_compass);}
 			if (compass_adjust<0){compass_adjust+=360;}
 			setCookie("compass_adjust", compass_adjust, 365);
 		}
@@ -419,7 +418,7 @@ function move_marker()
 
 		MyMarker_compass.setPosition(myLatLng);
 		MyMap2.panTo(myLatLng);
-	//	console.log("move marker steps"+spd_steps);
+	
 		spd_steps--;
 		setTimeout("move_marker();",50);
 		}
@@ -434,7 +433,7 @@ function move_marker()
 		Myminimap_marker.setPosition(myLatLng);
 		MyMarker_compass.setPosition(myLatLng);
 		MyMap2.panTo(myLatLng);
-		console.log("move marker");
+		if (mdebug==1){console.log("move marker");}
 		spd_steps--;
 
 		}

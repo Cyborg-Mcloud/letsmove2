@@ -104,6 +104,7 @@
 				<div id='timer2' style='background-color:#59142e; border:1px solid #b23a56; display:inline-block; border-radius:10px; padding:15px; position:absolute; font-size: 20px;left:20px; bottom:20px; z-index:500; '></div>
 			</div>
 			<a class="menu_pry" style='display:none;'>pry</a>
+			<a href='Javascript: toggle_debug();' id='toggle_debug2'>Toggle Debug</a>
 		</div>
 	
 		<div id='grats_div' style='display:none; position:absolute; left:0%; top:35%;width:100%; background-color:#205690;'>
@@ -162,6 +163,7 @@
 				<a style="color: #ebebeb;">არ ხართ რეგისტრირებული?</a><Br>
 				<a href='Javascript: show_reg();' class="log_faceb" style='background: rgb(97,42,56); background: linear-gradient(8deg, rgba(97,42,56,1) 0%, rgba(209,44,91,1) 86%);'><!--<img src='sign_up.png' width=250px>-->SIGN UP</a>
 				<Br><Br>
+				<a href='Javascript: toggle_debug();' id='toggle_debug1'>Toggle Debug</a>
 				<br>
 			</div>
 
@@ -211,34 +213,47 @@
 
 
 <script>
+var mdebug=0;
+function toggle_debug(){
+	if(mdebug==0){
+		mdebug=1;
+	} else {
+		mdebug=0;
+	}
+	document.getElementById("toggle_debug1").innerHTML=mdebug+ " Toggle Debug";
+	document.getElementById("toggle_debug2").innerHTML=mdebug+ " Toggle Debug";
+}
 
-function unid_success(uuid)
-	{
+function unid_success(uuid)	{
 	myid=uuid;
-    console.log("unique id: "+uuid);
-	};
+	if (mdebug==1){
+		console.log("unique id: "+uuid);
+	}
+}
 
 
-function unid_fail(uuid)
-	{
+function unid_fail(uuid)	{
+	
     console.log("fail: "+uuid);
-	};
+}
 
 
 function onDeviceReady() 
 	{
+		
 	console.log("init start");
-	console.log("mvoashore");
+
 	unid=getCookie("unid");
 	if (unid==0 || unid=="")
 		{
 		unid=parseInt(Math.random()*10000000000)
 		setCookie("unid",unid, 365);
-		console.log("new unid: "+unid);
+		
+		if (mdebug==1){console.log("new unid: "+unid);}
 		}
 	else
 		{
-		console.log("my unid: "+unid);
+			if (mdebug==1){console.log("my unid: "+unid);}
 		}
 	
 	uid=getCookie("uid");
@@ -246,7 +261,7 @@ function onDeviceReady()
 		show_screen("home");
 	}
 
-	console.log("backgroundmode enable");
+	if (mdebug==1){console.log("backgroundmode enable");}
 	cordova.plugins.backgroundMode.enable();
 	cordova.plugins.backgroundMode.setEnabled(true);
 
@@ -275,22 +290,22 @@ function onDeviceReady()
     
 	
 	navigator.geolocation.activator.askActivation(function(response) {
-		console.log("activator");
-		console.log(response);
+		if (mdebug==1){console.log("activator");}
+		if (mdebug==1){console.log(response);}
 		//Success callback
 		}, function(response) {
 		//Failure callback
 		});
 
-	console.log("get unieque device id");
+		if (mdebug==1){console.log("get unieque device id");}
 //	cordova.plugins.uniqueDeviceID.get(unid_success, unid_fail);
 
 	myid=device.uuid;
-	console.log("device ready, getting position");
+	if (mdebug==1){console.log("device ready, getting position");}
 
 	init_gps();
 
-	console.log("pushbots init");
+	if (mdebug==1){console.log("pushbots init");}
 	window.plugins.PushbotsPlugin.initialize("5dddf9233dcb8d26092358a5", {"android":{"sender_id":"754771780635"}});
 
 	
@@ -300,15 +315,15 @@ function onDeviceReady()
 	if (localStorage.getItem("pnotif_id") === null) 
 		{
 		window.plugins.PushbotsPlugin.on("registered", function(token){
-		console.log("Registration Id:" + token);
+			if (mdebug==1){console.log("Registration Id:" + token);}
 		window.localStorage.setItem("pnotif_id", token);
 		});
-		console.log("first lounch");
+		if (mdebug==1){console.log("first lounch");}
 		}
 	else
 		{
 		token = window.localStorage.getItem("pnotif_id");
-		console.log("mytoken: "+token);
+		if (mdebug==1){console.log("mytoken: "+token);}
 		
 		}
 
@@ -362,14 +377,14 @@ console.log("ERROR! " + JSON.stringify(error));
 function advanced_success(response){
 
 	var jsonObject = JSON.parse(response);
-	console.log("advanced location");
-	console.log(jsonObject);
+	if (mdebug==1){console.log("advanced location");}
+	if (mdebug==1){console.log(jsonObject);}
 }
 
 function StartWebView()
 	{
 	var url='https://smartgps.ge/letsmove/?myid='+myid+'&lat='+MyLat+'&lng='+MyLong+"&ragacid="+Math.random()*10000000;
-	console.log(url);
+	if (mdebug==1){console.log(url);}
 	//ref = cordova.InAppBrowser.open(url, '_system', 'location=no, clearcache=yes');
 	window.location=url;
 	}
@@ -378,7 +393,7 @@ function StartWebView()
 
 function onRequestSuccess(success)
 	{
-    console.log("Successfully requested accuracy "+success.message);
+		if (mdebug==1){console.log("Successfully requested accuracy "+success.message);}
 	var k=success.message;
 	var b=k.split("agreed");
 	if (b.length>1)
@@ -398,18 +413,18 @@ function req_loc_acc()
 	{
 	var accuracy = 3;
 	var accuracyName  = "High Accuracy";
-	console.log("requesting acc");
+	if (mdebug==1){console.log("requesting acc");}
 	cordova.plugins.locationAccuracy.request(onRequestSuccess, onRequestFailure, cordova.plugins.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY);
 	}
 
 function req_loc_auth()	{
-	console.log("requesting auth");
+	if (mdebug==1){console.log("requesting auth");}
 	cordova.plugins.diagnostic.isLocationAuthorized(function (authorized) {
 		if(!authorized)
 			{
 
 			cordova.plugins.diagnostic.requestLocationAuthorization(function (status) {
-				console.log("Requested location authorization: authorization was " + status);
+				if (mdebug==1){console.log("Requested location authorization: authorization was " + status);}
 				}, errorFunction, cordova.plugins.diagnostic.locationAuthorizationMode.ALWAYS);
 			}
 		else

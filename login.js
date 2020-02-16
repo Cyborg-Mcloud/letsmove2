@@ -47,7 +47,7 @@ function fbdatasuccess(response){
 }
 
 function fbLoginSuccess(userData) {
-	console.log("UserInfo: ", userData);
+	if (mdebug==1){console.log("UserInfo: ", userData);}
 	if (userData["status"]=="connected"){
 		facebookConnectPlugin.api("/me?fields=id,name,email", ["public_profile", "email"], fbdatasuccess, fberror);
 	}

@@ -92,7 +92,7 @@ function show_leaders()
 
 function draw_targets()
 {
-	console.log("drawing targets");
+	if (mdebug==1){console.log("drawing targets");}
 	var  bounds;
 	var myLatLng = {lat:  MyLat, lng: MyLong};
 	bounds = new google.maps.LatLngBounds();
@@ -158,7 +158,7 @@ function brain_recv()
 				{
 				sync_data="";sync_url="";sync_answ=0;
 				}
-			console.log(obj);
+			//console.log(obj);
 			if (typeof obj["login_data"] !== 'undefined')
 				{
 				if (typeof obj["error"] !== 'undefined')
@@ -174,7 +174,7 @@ function brain_recv()
 					}
 				}
 
-			console.log(obj);
+		
 			if (typeof obj["user_data"] !== 'undefined')
 				{
 				players=obj["users"];
@@ -214,19 +214,19 @@ function brain_recv()
 				if (targets[0]["taken"]==1 && lbut_vis==0)
 					{
 					document.getElementById("show_leaderb_but").style.display="block";
-					console.log("showing");
+					if (mdebug==1){console.log("showing");}
 					lbut_vis=1;
 					}
 				else if (targets[0]["taken"]==0 &&  lbut_vis==1)
 					{
 					document.getElementById("show_leaderb_but").style.display="none";
-					console.log("hiding");
+					if (mdebug==1){console.log("hiding");}
 					lbut_vis=0;
 					}
 
 				if (typeof targets[0]["new_take"] !== 'undefined' && targets[0]["new_take"]==1)
 					{
-					console.log("axalio!");
+						if (mdebug==1){console.log("axalio!");}
 					document.getElementById("grats_div").style.display='block';
 					}
 				}
@@ -243,7 +243,7 @@ function brain_recv()
 				{
 				if (typeof obj["anim"]["take"] !== 'undefined' && obj["anim"]["take"]==1)
 					{
-					console.log("axalio small!");
+						if (mdebug==1){console.log("axalio small!");}
 					document.getElementById("small_grats_div").style.display='block';
 					}
 				}
@@ -297,7 +297,7 @@ function data_send(url, data, async=true)
 			{sync_answ=0;}
 		brainhttp.open('GET',url+"?"+data+"&checksum="+sync_answ,true);
 		brainhttp.send(null);
-		console.log("data send: "+url+ "?" +data+"&checksum="+sync_answ+ " / "+async);
+		if (mdebug==1){console.log("data send: "+url+ "?" +data+"&checksum="+sync_answ+ " / "+async);}
 
 		if (async==false)
 			{
@@ -330,7 +330,7 @@ function sync_sender()
 		{
 		brainhttp.open('GET',sync_url+"?"+sync_data,true);
 		brainhttp.send(null);
-		console.log("sync data sender: "+sync_url+ "?" +sync_data);
+		if (mdebug==1){console.log("sync data sender: "+sync_url+ "?" +sync_data);}
 		setTimeout("sync_sender();",500);
 		}
 	}
