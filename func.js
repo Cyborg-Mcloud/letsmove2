@@ -55,7 +55,7 @@ function change_game_mode(newmode)
 
 function back_to_home()
 	{
-	curgametype=newmode;
+	
 	players=[];
 	targets=[];
 	draw_targets();
