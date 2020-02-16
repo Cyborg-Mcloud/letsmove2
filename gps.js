@@ -72,7 +72,7 @@ function init_gps()
 	
 	watchID = navigator.geolocation.watchPosition(onSuccess, onError, opts);
 
-//	watchId2 = cordova.plugins.locationServices.geolocation.watchPosition(onSuccess,onError,opts);
+	watchId2 = cordova.plugins.locationServices.geolocation.watchPosition(onSuccess,onError,opts);
 
 
 	if (window.DeviceOrientationAbsoluteEvent) {
