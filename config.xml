@@ -144,8 +144,8 @@ Lets move
 		<variable name="ANDROID_SUPPORT_VERSION" value="26.0.1" />
 	</plugin>-->
 	<gap:plugin name="cordova-plugin-insomnia" version="4.1.0" source="npm" />
-	<gap:plugin name="cordova-android-support-gradle-release" >
-	</gap:plugin>
+	<plugin name="cordova-android-support-gradle-release" >
+	</plugin>
 
 	
 </plugins>
