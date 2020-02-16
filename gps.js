@@ -57,7 +57,7 @@ var maxh_deviation=100;
 var maxc_deviation=100;
 
 
-var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0,  priority: cordova.plugins.locationServices.geolocation.priorities.PRIORITY_HIGH_ACCURACY,	interval: 2000,	fastInterval: 1000};
+var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0, 	interval: 2000,	fastInterval: 1000};
 function init_gps() 
 	{
 
@@ -118,7 +118,7 @@ function handleOrientation(event) {
 	if (true_compass>360){true_compass=true_compass-360;}
 	if (true_compass<0){true_compass=true_compass+360;}
 
-	document.getElementById("profile_txt").innerHTML=cur_compass + " - "+parseInt(true_compass)+" | "+compass_adjust;
+
 	var icon = MyMarker_compass.getIcon();
 	icon.rotation =true_compass;
 	MyMarker_compass.setIcon(icon);
