@@ -62,26 +62,23 @@ function myreg()
 	}
 
 
-
-function mylogin()
-	{
-	console.log("fb login, aq var");
-	FB.login(function(response) 
-		{
-		console.log(response);
-		if (response["status"]=="connected")
-			{
-			if (logged==0)
-				{
-				FB.api('/me', {  fields: 'name, email' }, function(response) {
-				console.log(response);
-		   		window.location.href='?fblogin=1&fbid='+response.id + "&email="+response.email;
-				});
-				}
-			}
-		}, {scope: 'public_profile,email'});
-		  	
+function fbLoginSuccess(userData) {
+	console.log("UserInfo: ", userData);
 	}
+	  
+		
+
+function mylogin(){
+	console.log("fb login, aq var");
+
+	facebookConnectPlugin.login(["public_profile,email"], fbLoginSuccess,
+	function loginError (error) {
+	  console.error(error)
+	}
+  );
+
+		  	
+}
 
 function mylogout()
 	{
