@@ -48,7 +48,7 @@ function change_game_mode(newmode)
 	targets=[];
 	
 	document.getElementById("game_menu").style.display="none";
-
+	window.plugins.insomnia.keepAwake();
 	setTimeout("mapset(2);",300);
 	}
 
@@ -60,7 +60,7 @@ function back_to_home()
 	targets=[];
 	draw_targets();
 	document.getElementById("game_menu").style.display="block";
-
+	window.plugins.insomnia.allowSleepAgain();
 	}
 function open_types(seltype)
 	{
