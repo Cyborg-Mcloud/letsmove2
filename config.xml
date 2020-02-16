@@ -23,6 +23,7 @@
 <allow-intent href="http://*/*" launch-external="yes"/>
 <allow-intent href="https://*/*" launch-external="yes"/>
 
+
 <platform name="android">
 	<preference name="android-minSdkVersion" value="20" />
 
@@ -33,17 +34,28 @@
 	 
 	</edit-config>
 	
+
+	<gap:config-file platform="android" parent="/manifest" mode="merge">
+		<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+		<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+		<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+	</gap:config-file>  
+	
        
 </platform>
 
-  <platform name="ios">
-        <allow-intent href="itms:*" />
-        <allow-intent href="itms-apps:*" />
+<platform name="ios">
+	<allow-intent href="itms:*" />
+	<allow-intent href="itms-apps:*" />
 			
 	<gap:config-file platform="ios" parent="CFBundleShortVersionString">
 		<string>1.5.7</string>
 	</gap:config-file>
-	</platform>
+
+	<gap:config-file platform="ios" parent="UIBackgroundModes" overwrite="true"> <array> <string>location</string> </array> </gap:config-file>
+</platform>
+
+
 
 
 <preference name="android-build-tool" value="gradle" /> 
@@ -118,6 +130,9 @@ Lets move
 	</gap:plugin>
 
 
+	<gap:plugin name="cordova-plugin-locationservices" source="npm" />
+
+	
 	<plugin name="cordova.plugins.diagnostic" source="npm" />
 
 	<plugin name="cordova-plugin-globalization" source="npm" />
@@ -131,5 +146,7 @@ Lets move
 
 	<plugin name="cordova-android-support-gradle-release" >
 	</plugin>
+
+	<plugin name="Geolocation" value="CDVLocation" />
 </plugins>
 </widget>
