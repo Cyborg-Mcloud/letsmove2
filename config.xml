@@ -100,7 +100,7 @@ Lets move
 	<gap:plugin name="cordova-plugin-request-location-accuracy" source="npm" />
 	<gap:plugin name="cordova-plugin-globalization" source="npm" />
 	<gap:plugin name="cordova-plugin-inappbrowser"  source="npm" />
-	<gap:plugin name="cordova-plugin-device-motion" source="npm" />
+	<gap:plugin name="cordova-plugin-device-motion" source="npm">
 <param name="APP_ID" value="997737107224650" />
 		<param name="APP_NAME" value="letsmove" />
 	</gap:plugin>
