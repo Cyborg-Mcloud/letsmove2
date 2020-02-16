@@ -119,7 +119,7 @@ Lets move
 	</feature>
 
 
-	<gap:plugin name="cordova-plugin-facebook4" spec="~1.7.1">
+	<gap:plugin name="cordova-plugin-facebook4" >
 		<params>
 		<param name="APP_ID" value="997737107224650" />
 		<param name="APP_NAME" value="letsmove" />
