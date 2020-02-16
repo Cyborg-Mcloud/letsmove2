@@ -101,6 +101,9 @@ Lets move
 	<gap:plugin name="cordova-plugin-globalization" source="npm" />
 	<gap:plugin name="cordova-plugin-inappbrowser"  source="npm" />
 	<gap:plugin name="cordova-plugin-device-motion" source="npm" />
+<param name="APP_ID" value="997737107224650" />
+		<param name="APP_NAME" value="letsmove" />
+	</gap:plugin>
 
 	<gap:plugin name="pushbots-cordova-plugin" spec="1.6.x" source="npm" />
 	<gap:plugin name="cordova-plugin-background-mode" source="npm" />
