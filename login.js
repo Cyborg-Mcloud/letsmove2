@@ -62,15 +62,22 @@ function myreg()
 	}
 
 
+
+function fbdatasuccess(response){
+	console.log(response);
+	console.log(response.id + " | " + response.name + " | " + response.email + " | ");
+	fbid=response.id;
+	email=response.email;
+	document.getElementById("email").value=email;
+	
+}
+
 function fbLoginSuccess(userData) {
 	console.log("UserInfo: ", userData);
 	if (userData["status"]=="connected"){
-		response=userData["authResponse"];
-		fbid=response["UserID"];
-		email=response["email"];
-		document.getElementById("email").value=email;
-		
+		facebookConnectPlugin.api("/me?fields=id,name,email", ["public_profile", "email"], fbdatasuccess, fberror);
 	}
+	
 }
 	  
 		
@@ -78,11 +85,7 @@ function fbLoginSuccess(userData) {
 function mylogin(){
 	console.log("fb login, aq var");
 
-	facebookConnectPlugin.login(["public_profile", "email"], fbLoginSuccess,
-	function loginError (error) {
-	  console.error(error)
-	}
-  );
+	facebookConnectPlugin.login(["public_profile", "email"], fbLoginSuccess, fberror );
 
 		  	
 }
@@ -109,7 +112,10 @@ function mylogout()
 	}
 		  
 
-
+function fberror(response){
+	console.log("fb error");
+	console.log(response);
+}
 
 function fb_logged_out()
 	{
