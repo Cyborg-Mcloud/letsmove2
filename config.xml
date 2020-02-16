@@ -24,7 +24,7 @@
 <allow-intent href="https://*/*" launch-external="yes"/>
 
 <platform name="android">
-	<preference name="android-minSdkVersion" value="15" />
+	<preference name="android-minSdkVersion" value="20" />
 
     <allow-intent href="market:*" />
 
