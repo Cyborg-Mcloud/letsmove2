@@ -42,9 +42,11 @@ function change_game_mode(newmode)
 	curgametype=newmode;
 	players=[];
 	targets=[];
+	draw_targets();
 	send_data();
 	players=[];
 	targets=[];
+	
 	document.getElementById("game_menu").style.display="none";
 
 	setTimeout("mapset(2);",300);
@@ -53,7 +55,10 @@ function change_game_mode(newmode)
 
 function back_to_home()
 	{
-
+	curgametype=newmode;
+	players=[];
+	targets=[];
+	draw_targets();
 	document.getElementById("game_menu").style.display="block";
 
 	}

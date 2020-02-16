@@ -98,8 +98,7 @@ function draw_targets()
 	bounds = new google.maps.LatLngBounds();
 	bounds.extend(myLatLng);
 
-	if (targets.length>0)
-		{
+	if (targets.length>0)		{
 		for (i=0;i<targets.length ;i++ )
 			{	
 			var myLatLng =  {lat:  parseFloat(targets[i]["lat"]), lng: parseFloat(targets[i]["lng"])};
@@ -121,15 +120,19 @@ function draw_targets()
 				}
 			
 			}
-		var ctext=targets[0]["name"]+"<BR>distance: "+targets[0]["dist"]+" meters";
-		if (document.getElementById("pinfo").innerHTML!=ctext)
+		
+		if (meters_old!=targets[0]["dist"])
 			{
+			var ctext=targets[0]["name"]+"<BR>distance: "+targets[0]["dist"]+" meters";
 			document.getElementById("pinfo").innerHTML=ctext;
+			meters_old=targets[0]["dist"];
 			}
 		var myLatLng =  {lat:  parseFloat(targets[0]["lat"]), lng: parseFloat(targets[0]["lng"])};
-	//	logo_marker.setPosition(myLatLng);
 		Target_marker.setPosition(myLatLng);
-		}
+		Target_marker.setVisible(true);
+	}	else{
+		Target_marker.setVisible(false);
+	}
 	//	MyMap2.fitBounds(bounds);
 
 
@@ -138,7 +141,7 @@ function draw_targets()
 var sync_url="";
 var sync_data="";
 var sync_answ=0;
-	
+var meters_old=0;
 var brainhttp;
 var b_recv;
 if (window.XMLHttpRequest) {brainhttp=new XMLHttpRequest();}
@@ -147,11 +150,9 @@ else {alert('Your browser does not support XMLHTTP!');}
 
 brainhttp.onreadystatechange=brain_recv;
 
-function brain_recv()
-{
+function brain_recv(){
 
-	if (brainhttp.readyState==4 && brainhttp.status==200)
-	{
+	if (brainhttp.readyState==4 && brainhttp.status==200)	{
 		b_recv=brainhttp.responseText;
 		if (b_recv!="")
 		{
@@ -277,12 +278,8 @@ function req_players()
 		}
 	else
 		{
-			navigator.geolocation.getCurrentPosition(onSuccess, onError, opts);
+			
 		data_send('https://www.smartgps.ge/letsmove/api.php', "update_lat=1");
-	//	console.log("req players");
-
-	//console.log("background mode: "+cordova.plugins.backgroundMode.isActive());
-
 		setTimeout("req_players();",1000);
 		}
 	document.getElementById("time_data").innerHTML=Date.now()-last_gps_time;

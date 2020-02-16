@@ -1,37 +1,35 @@
-
-
  
-
-  
-function myreg()
-	{
+function myreg(){
 	console.log("fb reg: aq var2");
-
-	FB.login(function(response) 
-		{
-	  	console.log(response);
-		if (response["status"]=="connected")
-			{
-			FB.api('/me', {  fields: 'name, email' }, function(response) {
-			console.log(response);
-		   
-			document.getElementById("fbid").value=response.id;
-			document.getElementById("reg_uname").value=response.name;
-			document.getElementById("reg_email").value=response.email;
-				
-			document.getElementById("reg_pass1").style.display="none";
-			document.getElementById("reg_pass2").style.display="none";
-			document.getElementById("fbregbut").style.display="none";
-
-//			submit_form();
-			});
-		}
-
-	}, {scope: 'public_profile,email'});
+	facebookConnectPlugin.login(["public_profile", "email"], fbregSuccess, fberror );
 		 
+}
+
+
+function fbregdatasuccess(response){
+	console.log(response);
+	console.log(response.id + " | " + response.name + " | " + response.email + " | ");
+	fbid=response.id;
+	email=response.email;
+	document.getElementById("fbid").value=response.id;
+	document.getElementById("reg_uname").value=response.name;
+	document.getElementById("reg_email").value=response.email;
+	document.getElementById("reg_pass1").style.display="none";
+	document.getElementById("reg_pass2").style.display="none";
+	document.getElementById("fbregbut").style.display="none";
+	var mdata="login=1&fblogin=1&email="+email + "&fbid="+ fbid;
+	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, false);
+		
+	
+}
+
+function fbregSuccess(userData) {
+	if (mdebug==1){console.log(userData);}
+	if (userData["status"]=="connected"){
+		facebookConnectPlugin.api("/me?fields=id,name,email", ["public_profile", "email"], fbregdatasuccess, fberror);
 	}
 
-
+}
 
 function fbdatasuccess(response){
 	console.log(response);
@@ -47,7 +45,7 @@ function fbdatasuccess(response){
 }
 
 function fbLoginSuccess(userData) {
-	if (mdebug==1){console.log("UserInfo: ", userData);}
+	if (mdebug==1){console.log(userData);}
 	if (userData["status"]=="connected"){
 		facebookConnectPlugin.api("/me?fields=id,name,email", ["public_profile", "email"], fbdatasuccess, fberror);
 	}

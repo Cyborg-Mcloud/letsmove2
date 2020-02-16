@@ -487,7 +487,7 @@ function onError(error)
 		   break;
 	   case error.TIMEOUT:
 		   error_str+= "<BR>ლოკაციის მოთხოვნას ვადა გაუვიდა";
-		   navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: 10000, enableHighAccuracy: true,  maximumAge:0});
+		   navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: 3000, enableHighAccuracy: true,  maximumAge:0});
 		   break;
 	   case error.UNKNOWN_ERROR:
 		   error_str+="<BR>უცნობი ლოკაციის მოთხოვნის პრობლემა";
@@ -500,4 +500,9 @@ function onError(error)
     
 
 	}
+
+function force_req_gps(){
+	navigator.geolocation.getCurrentPosition(onSuccess, onError, opts);
+	setTimeout("force_req_gps();",3000);
+}
 
