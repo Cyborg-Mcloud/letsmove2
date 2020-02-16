@@ -130,7 +130,7 @@ Lets move
 	</gap:plugin>
 
 
-	<gap:plugin name="cordova-plugin-locationservices" source="npm" />
+	<!--<gap:plugin name="cordova-plugin-locationservices" source="npm" />-->
 	
 	<plugin name="cordova.plugins.diagnostic" source="npm" />
 
