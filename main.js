@@ -174,7 +174,7 @@ function brain_recv()
 					}
 				}
 
-		//	console.log(obj);
+			console.log(obj);
 			if (typeof obj["user_data"] !== 'undefined')
 				{
 				players=obj["users"];
@@ -273,7 +273,7 @@ function req_players()
 	else
 		{
 		data_send('https://www.smartgps.ge/letsmove/api.php', "update_lat=1");
-		console.log("req players");
+	//	console.log("req players");
 
 	//console.log("background mode: "+cordova.plugins.backgroundMode.isActive());
 
@@ -329,7 +329,7 @@ function sync_sender()
 		{
 		brainhttp.open('GET',sync_url+"?"+sync_data,true);
 		brainhttp.send(null);
-		console.log("sync data send: "+url+ "?" +data+ " / "+async);
+		console.log("sync data sender: "+sync_url+ "?" +sync_data);
 		setTimeout("sync_sender();",500);
 		}
 	}
