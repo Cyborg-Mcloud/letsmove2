@@ -24,7 +24,7 @@
 <allow-intent href="https://*/*" launch-external="yes"/>
 
 <platform name="android">
-	<preference name="android-minSdkVersion" value="20" />
+	<preference name="android-minSdkVersion" value="15" />
 
     <allow-intent href="market:*" />
 
@@ -110,15 +110,21 @@ Lets move
 	<gap:plugin name="cordova-plugin-geolocation-android-activator" source="npm"/>
 
 
-	<gap:plugin name="cordova-plugin-facebook4" source="npm"/>
 		
 	<feature name="facebook4">
+		<params>
 		<param name="APP_ID" value="997737107224650" />
 		<param name="APP_NAME" value="letsmove" />
-	
+		</params>
 	</feature>
 
 
+	<gap:plugin name="cordova-plugin-facebook4" spec="~1.7.1">
+		<params>
+		<param name="APP_ID" value="997737107224650" />
+		<param name="APP_NAME" value="letsmove" />
+		</params>
+	</gap:plugin>
 
 
 	<plugin name="cordova.plugins.diagnostic" source="npm" />
