@@ -330,7 +330,7 @@ function sync_sender()
 	{
 	if (sync_data!="" && sync_url!="")
 		{
-		brainhttp.open('GET',sync_url+"?"+sync_data,true);
+		brainhttp.open('GET',url+"?"+data+"&checksum="+sync_answ,true);
 		brainhttp.send(null);
 		if (mdebug==1){console.log("sync data sender: "+sync_url+ "?" +sync_data);}
 		setTimeout("sync_sender();",500);
