@@ -104,7 +104,7 @@ Lets move
 	</gap:plugin>-->
 
 
-<gap:plugin name="com.phonegap.plugins.facebookconnect">
+<gap:plugin name="cordova-plugin-facebookconnect">
     <param name="APP_ID" value="997737107224650" />
     <param name="APP_NAME" value="letsmove" />
 </gap:plugin>
