@@ -67,22 +67,23 @@ function mylogout()
 
 	if (fblogged==1)
 		{
-		
+		facebookConnectPlugin.logout(fblogoutsuccess,fberror);
 		
 		}
 
 	}
 		  
 
+function fblogoutsuccess() {
+	console.log("fb logged out");
+	fblogged=0;
+	fbid=0;
+	}
 function fberror(response){
 	console.log("fb error");
 	console.log(response);
 }
 
-function fb_logged_out()
-	{
-	//window.location.href='?logout=1';
-	}
 
 
 
