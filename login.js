@@ -64,14 +64,21 @@ function myreg()
 
 function fbLoginSuccess(userData) {
 	console.log("UserInfo: ", userData);
+	if (userData["status"]=="connected"){
+		response=userData["authResponse"];
+		fbid=response["UserID"];
+		email=response["email"];
+		document.getElementById("email").value=email;
+		
 	}
+}
 	  
 		
 
 function mylogin(){
 	console.log("fb login, aq var");
 
-	facebookConnectPlugin.login(["public_profile,email"], fbLoginSuccess,
+	facebookConnectPlugin.login(["public_profile", "email"], fbLoginSuccess,
 	function loginError (error) {
 	  console.error(error)
 	}
