@@ -1,4 +1,5 @@
- 
+var fblogged=0;
+
 function myreg(){
 	console.log("fb reg: aq var2");
 	facebookConnectPlugin.login(["public_profile", "email"], fbregSuccess, fberror );
@@ -7,6 +8,7 @@ function myreg(){
 
 
 function fbregdatasuccess(response){
+	
 	console.log(response);
 	console.log(response.id + " | " + response.name + " | " + response.email + " | ");
 	fbid=response.id;
@@ -26,6 +28,7 @@ function fbregdatasuccess(response){
 function fbregSuccess(userData) {
 	if (mdebug==1){console.log(userData);}
 	if (userData["status"]=="connected"){
+		fblogged=1;
 		facebookConnectPlugin.api("/me?fields=id,name,email", ["public_profile", "email"], fbregdatasuccess, fberror);
 	}
 
@@ -47,19 +50,16 @@ function fbdatasuccess(response){
 function fbLoginSuccess(userData) {
 	if (mdebug==1){console.log(userData);}
 	if (userData["status"]=="connected"){
+		fblogged=1;
 		facebookConnectPlugin.api("/me?fields=id,name,email", ["public_profile", "email"], fbdatasuccess, fberror);
 	}
 	
 }
 	  
-		
-
 function mylogin(){
 	console.log("fb login, aq var");
 
 	facebookConnectPlugin.login(["public_profile", "email"], fbLoginSuccess, fberror );
-
-		  	
 }
 
 function mylogout()
@@ -69,18 +69,8 @@ function mylogout()
 		{
 		
 		
-		FB.logout(function(response) {
-		   // Person is now logged out
-//		   fb_logged_out();
-			fblogged=0;
-			 fb_logged_out()
-			});
 		}
 
-	if (fblogged==0 && gmlogged==0)
-		{
-		fb_logged_out();
-		}
 	}
 		  
 
@@ -94,32 +84,6 @@ function fb_logged_out()
 	//window.location.href='?logout=1';
 	}
 
-
-function fbstatus(response)
-	{
-	console.log("aq var 1");
-
-	console.log(response);
-	if (response["status"]=="connected")
-		{
-		fblogged=1;
-
-		if (logged==0 && force_logout==0)
-			{
-			FB.api('/me', {  fields: 'name, email' }, function(response) {
-			  console.log(response);
-			
-			window.location.href='?fblogin=1&fbid='+response.id + "&email="+response.email;
-		
-			});
-			}
-		else if (force_logout==1)		
-			{
-			fbid=1;
-			mylogout();
-			}
-		}
-	}
 
 
 var hideKeyboard = function() 
