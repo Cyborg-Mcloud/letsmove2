@@ -57,6 +57,7 @@ var maxh_deviation=100;
 var maxc_deviation=100;
 
 
+var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0,  priority: cordova.plugins.locationServices.geolocation.priorities.PRIORITY_HIGH_ACCURACY,	interval: 2000,	fastInterval: 1000};
 function init_gps() 
 	{
 
@@ -70,6 +71,8 @@ function init_gps()
 	navigator.geolocation.getCurrentPosition(onSuccess, onError, opts);
 	
 	watchID = navigator.geolocation.watchPosition(onSuccess, onError, opts);
+
+	watchId2 = cordova.plugins.locationServices.geolocation.watchPosition(onSuccess,onError,opts);
 
 
 	if (window.DeviceOrientationAbsoluteEvent) {
