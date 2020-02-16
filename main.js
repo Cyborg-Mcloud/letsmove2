@@ -191,8 +191,10 @@ function brain_recv()
 
 			if (typeof obj["timer_data"] !== 'undefined')
 				{
-				document.getElementById("timer").innerHTML=obj["data"]["timer"];
-				document.getElementById("timer2").innerHTML=obj["data"]["timer"];
+				if (obj["data"]["timer"]!=document.getElementById("timer").innerHTML){
+					document.getElementById("timer").innerHTML=obj["data"]["timer"];
+					document.getElementById("timer2").innerHTML=obj["data"]["timer"];
+					}
 				}
 				
 			if (typeof obj["targets"] !== 'undefined')
