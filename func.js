@@ -96,13 +96,50 @@ function open_types(seltype)
 
 	
 function hide_data(){
-
 	document.getElementById("acc_data").style.display="none";
 }
 
 function show_data(){
-
 	document.getElementById("acc_data").style.display="block";
+}
+
+
+
+function show_screen(scrname) {
+	if (scrname!=cur_screen) {
+		document.getElementById("login_screen").style.display="none";
+		document.getElementById("loading_screen").style.display="none";
+		document.getElementById("profile_screen").style.display="none";
+		document.getElementById("home_screen").style.display="none";
+		if (scrname=="login") {
+			document.getElementById("login_screen").style.display="block";
+		} else if (scrname=="home") {
+			document.getElementById("home_screen").style.display="block";
+		} else if (scrname=="profile") {
+			document.getElementById("profile_screen").style.display="block";
+		}
+		cur_screen=scrname;
+	}
+
+}
+
+function show_edit(){
+	document.getElementById("login_logo").style.display="inline-block";
+	document.getElementById("prof_edit").style.display="block";
+	document.getElementById("prof_logo").style.display="none";
+	document.getElementById("langli").style.display="none";
+	document.getElementById("prof_main").style.display="none";
+	var link = document.getElementById("pop_left");
+	link.setAttribute("href", "Javascript: hide_edit();");
+}
+function hide_edit()	{
+	document.getElementById("login_logo").style.display="none";
+	document.getElementById("prof_edit").style.display="none";
+	document.getElementById("langli").style.display="inline-block";
+	document.getElementById("prof_logo").style.display="inline-block";
+	document.getElementById("prof_main").style.display="inline-block";
+	var link = document.getElementById("pop_left");
+	link.setAttribute("href", "Javascript: show_screen('home');");
 }
 
  

@@ -41,6 +41,12 @@
 	
 	a {text-decoration:none; color:white;}
 	body { background-color:#242834; padding:0; border:0; margin:0; color:#ebebeb;}
+	input {width:300px; border-radius:25px; padding:10px; margin:4px; border:0px; background-color:#746486; opacity:0.95; color:white; }
+
+input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #aaaaaa;
+  opacity: 1; /* Firefox */
+}
   </style>
   <body >
 <div id='wrapper_div' style='width:100%; height:100%; overflow:hidden; overflow-y: hidden; overflow-x: hidden; border:1px solid gray;'>
@@ -65,7 +71,7 @@
 		<div class="shape"><img src="images/shape.png"></div>
 		<div class="pop_right">
 			<span style="">☰</span>
-			<a href='?m=profile'><img src="images/mini_foto.png">PROFILE</a>
+			<a href="Javascript: show_screen('profile');""><img src="images/mini_foto.png">PROFILE</a>
 			<a href="Javascript:show_data();">SUPPORT</a>
 			<a>CHAT</a>
 		</div>
@@ -206,7 +212,71 @@
 	  <div style='position:absolute; right:0px;bottom:0px;  color:black;' id='time_data'></div>
   
   </div>
+  <div id='profile_screen' style=' width:100%; height:100vh;  '>
+	<a href="Javascript: show_screen('home');" id="pop_left"class="pop_left"><span></span></a>
+		<center style="height: 80%;">
+		<div id="login_logo" class="login_logo"style="display:none"><a><img src='images/letsmove_2.png'></a></div>
+		<div id="prof_logo"class="prof_logo">
+			<a href="Javascript: show_edit();"><img src="images/avatar.png"></a><br>
+			
+			<a id='my_name'></a><br>
+			<a style='font-size: 13px;color: #8e9eb2;'>Level / Achievement</a>
+			<div></div>
+			<a href="Javascript: show_edit();"class="prof_edprof">
+				<img src='images/edit_prof_2.png'>
+				<span style="">Edit Profile</span>
+			</a>
+			<a href="Javascript: logout();" class="prof_logout">LOG OUT</a>
+		</div>
+		<li class="langli" id="langli"><a href="#" class="langa">Eng</a>
+			<ul class="langul">
+				<li class="langli2"><a href="?m=profile&lang=_en"class="langa2"> ENG</a></li>
+				<li class="langli2"><a href="?m=profile&lang=" class="langa2"> GEO</a></li>
+				<li class="langli2"><a href="?m=profile&lang=_ru" class="langa2"> RUS</a></li>
+			</ul>
+		</li>
+		<div id="prof_main"class="prof_main">
+			<a class="ur_rating"><span class="maru"></span>&nbsp;<span id='qulebi'></span></a>
+			<div class="prof_score">
+				<a id='rating'></a>
+				<a>YOUR RATING</a>
+			</div>
+			<div style="background:#3e406a; border-radius:20px 20px 0 0;padding-top:20px;padding-bottom:20px;margin-top: 10vh;">
+				<a href="Javascript: show_leaderboard();"style="font-weight: normal;">
+					<div class="prof_led" >
+						<p >LEADERBOARD</p>
+						<img src='images/leaderboard_2.png'>
+					</div>
+				</a>
+				<a href="#"style="font-weight: normal;">
+					<div class="prof_week">
+						<p>WEEKLY REPORT</p>
+						<img src='images/week_rep_2.png'>
+					</div>
+				</a>
+			
+				<a class="prof_sub">Subscribe</a>
+			</div>
+		</div>
 
+		<div id="prof_edit"class="prof_edit">
+			<p >Profile Info</p>
+			
+				<input class="prof_inp" type="text"   id="prof_uname" name="prof_uname" placeholder="Your name" value=''><Br>
+				<input class="prof_inp" type="email"  id="prof_email" name="prof_email" aria-describedby="emailHelp" placeholder="Email" value=''><Br>
+				<input class="prof_inp" type="telephone"   id="prof_tel" name="prof_tel"  placeholder="Tel. Number" value=''><Br>
+				<input class="prof_save"style="" type="button"   id="save_me" name="save_me"  value="Save" onclick="save_profile();"><Br>
+		
+			<div id='subscribtion_div'>
+				You are not subscribed
+				<a class="prof_sub" style="margin-top: 6px;">Subscribe</a>
+				
+				<div id="paypal-button-container" style='width:80%;' id='paypal_button'></div>
+				
+		
+			</div>
+		</div>
+	</div>
 
 </div>
 </body>
@@ -214,6 +284,16 @@
 
 
 <script>
+
+paypal.Buttons({
+	createSubscription: function(data, actions) {
+		return actions.subscription.create({'plan_id': 'P-55K10073CB0482040LVJYOKY'});
+	},
+	onApprove: function(data, actions) {
+		alert('You have successfully created subscription ' + data.subscriptionID);
+	}
+}).render('#paypal-button-container');
+	
 
 
 var mdebug=0;
