@@ -87,6 +87,9 @@ if (mdebug==1){console.log("device ready 2, getting position");}
     }
 
 
+
+	
+
 var acc_set=0;
 function handleMotion(event) {
 	acc_set=1;
