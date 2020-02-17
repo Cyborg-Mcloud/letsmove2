@@ -23,6 +23,8 @@
 <script type="text/javascript" charset="utf-8" src="login.js"></script>
 <script type="text/javascript" charset="utf-8" src="map.js"></script>
 <script type="text/javascript" charset="utf-8" src="func.js"></script>
+
+<script src="https://www.paypal.com/sdk/js?client-id=AXuS-I_pMxXpja5wrSvDkgKBRlPpt3gGSaNFRubrtSvWwB-VfNSg-Fuir6xdk8_EMFv_y44EjaH_AzNo&vault=true"></script>
   </head>
 
   <link rel="stylesheet" href="styles.css">
@@ -278,6 +280,20 @@ input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
 		</div>
 	</div>
 
+	<div style='background: rgb(30,32,43); background: linear-gradient(0deg, rgba(30,32,43,1) 0%, rgba(37,41,53,1) 100%); width:365px;; height:100vh;  ' id="leaderboard_screen">
+		<center>
+		<a href="Javascript: show_screen('profile');" id="pop_left"class="pop_left"></a>
+		<div class="led_top">
+			<p>Leaderboard</p>
+			<p>your rating</p>
+			<p id='rating'></p>
+		</div>
+		<div class="led_bot">
+			
+			
+		</div>
+		</center>
+	</div>
 </div>
 </body>
 
@@ -346,7 +362,8 @@ function onDeviceReady()
 	uid=getCookie("uid");
 	if (uid!=null && uid>0)	{
 		show_screen("home");
-	}
+		request_mydata();
+	} else {show_screen("login");}
 
 	if (mdebug==1){console.log("backgroundmode enable");}
 	cordova.plugins.backgroundMode.enable();

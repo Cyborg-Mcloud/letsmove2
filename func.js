@@ -111,12 +111,16 @@ function show_screen(scrname) {
 		document.getElementById("loading_screen").style.display="none";
 		document.getElementById("profile_screen").style.display="none";
 		document.getElementById("home_screen").style.display="none";
+		document.getElementById("leaderboard_screen").style.display="none";
 		if (scrname=="login") {
 			document.getElementById("login_screen").style.display="block";
 		} else if (scrname=="home") {
 			document.getElementById("home_screen").style.display="block";
 		} else if (scrname=="profile") {
 			document.getElementById("profile_screen").style.display="block";
+			request_mydata();
+		} else if (scrname=="leaderboard") {
+			document.getElementById("leaderboard_screen").style.display="block";
 		}
 		cur_screen=scrname;
 	}
@@ -140,6 +144,10 @@ function hide_edit()	{
 	document.getElementById("prof_main").style.display="inline-block";
 	var link = document.getElementById("pop_left");
 	link.setAttribute("href", "Javascript: show_screen('home');");
+}
+
+function show_leaderboard(){
+	show_screen("leaderboard");
 }
 
  

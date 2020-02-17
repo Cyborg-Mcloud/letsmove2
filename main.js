@@ -276,3 +276,8 @@ function sync_sender() {
 		setTimeout("sync_sender();",500);
 	}
 }
+
+function request_mydata(){
+	var mdata="mydata=1";
+	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, true);
+}
