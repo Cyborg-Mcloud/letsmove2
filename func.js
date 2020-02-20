@@ -133,6 +133,7 @@ function show_edit(){
 	document.getElementById("prof_logo").style.display="none";
 	document.getElementById("langli").style.display="none";
 	document.getElementById("prof_main").style.display="none";
+	document.getElementById("footer").style.background="#2b2c4d";
 	var link = document.getElementById("pop_left");
 	link.setAttribute("href", "Javascript: hide_edit();");
 }
@@ -142,6 +143,7 @@ function hide_edit()	{
 	document.getElementById("langli").style.display="inline-block";
 	document.getElementById("prof_logo").style.display="inline-block";
 	document.getElementById("prof_main").style.display="inline-block";
+	document.getElementById("footer").style.background="#3e406a";
 	var link = document.getElementById("pop_left");
 	link.setAttribute("href", "Javascript: show_screen('home');");
 }

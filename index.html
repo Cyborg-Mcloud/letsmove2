@@ -28,8 +28,9 @@
   </head>
 
   <link rel="stylesheet" href="styles.css">
+	
 		
-	<style>
+  <style>
 
 
 	*{
@@ -41,20 +42,13 @@
 	}
 
 	
-	a {text-decoration:none; color:white;}
-	body { background-color:#242834; padding:0; border:0; margin:0; color:#ebebeb;}
-	input {width:300px; border-radius:25px; padding:10px; margin:4px; border:0px; background-color:#746486; opacity:0.95; color:white; }
 
-	input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-	  color: #aaaaaa;
-	  opacity: 1; /* Firefox */
-	}
   </style>
-  <body >
-<div id='wrapper_div' style='width:100%; height:100%; overflow:hidden; overflow-y: hidden; overflow-x: hidden; border:1px solid gray;'>
+  <body>
+<div id='wrapper_div' class="wrapper_div">
 
 
-	<div id='loading_screen' style='width:100%; height:100%; position:absolute; left:0px; top:0px;'>
+	<div id='loading_screen' style='width:100%; height:100%; position:absolute; left:0px; top:0px;display: none;'>
 		<center>
 		<Br><br><br><Br><br><br>
 		<img src='icon_1024.png' style='width:90%;'>
@@ -69,53 +63,61 @@
 		<div style='background-color:#113356; height:87px; width:100%; position:absolute; right:0px; bottom:0px; z-index:101;' >
 			<div style='color:white; margin-left:130px; margin-top:5px;' id='pinfo'></div>
 		</div>
-		<a href="Javascript: back_to_home();" class="pop_left" style=' width:50px; height:50px;'></a>
-		<div class="shape"><img src="images/shape.png"></div>
-		<div class="pop_right">
-			<span style="">☰</span>
-			<a href="Javascript: show_screen('profile');""><img src="images/mini_foto.png">PROFILE</a>
-			<a href="Javascript:show_data();">SUPPORT</a>
-			<a>CHAT</a>
-		</div>
-	
+		<a href="Javascript: back_to_home();" class="pop_left"><span></span></a>
+		
+
 		<div id='congrads' style='position:absolute; left 0px; top:40%; width:100%;'>
 			Congradulations<Br><Br>
 			You are <div id='youare'></div>
-	
+
 		</div>
-	
+
 		<div id='timer' style='position:absolute; top:60px; right:10px; z-index:1003; background-color:#4a5466; display:block; padding:7px; border-radius:50px; border:2px solid #d8a424;'>4:59</div>
-	
-		<div id="mymap2" style=' height:125px; width:125px; position:absolute; bottom:-20px; left:-4px; z-index:102; background-color:black;  border-radius: 0px 20px 0px 0px; border:4px solid #113356;'></div>
-	
+		<div style="height:113px; overflow:hidden;position:absolute; left:0;bottom:0;width:125px;">
+			<div id="mymap2" style=' height:125px; width:125px; position:absolute; bottom:-20px; left:-4px; z-index:102; background-color:black;  border-radius: 0px 20px 0px 0px; border:4px solid #113356;'></div>
+		</div>
 		<div id="mymap" style='height:90vh; width:100%; position:absolute; top:0px; left:0px; '></div>
-	
-	
-	
+
+
+
 		<a href='Javascript: mapset(1);' style='position:absolute; right:10px; bottom:110px; width:49px; height:49px;  '><img src='images/icon_onme.png' width=50px ></a>
 		<a href='Javascript: mapset(2);' style='position:absolute; right:10px; bottom:160px; width:49px; height:49px; '><img src='images/icon_fit.png' width=50px></a>
 		<a href='Javascript: mapset(3);' style='position:absolute; right:10px; bottom:210px; width:49px; height:49px;  '><img src='images/icon_target.png' width=50px></a>
 		<a href='Javascript: grats_close();' style=' color:Red; position:absolute; right:10px; bottom:270px; display:none; ' id='show_leaderb_but'>Leaderboard</a>
 
-	
+
 		<div class="game_menu" id='game_menu'>
+			<img class="back_img" style="z-index:-1"src="images/background_2.png">
+			<div class="pop_right"id="pop_right" onmouseup="mouseUp()">
+				<span id="pop_right_span">
+					<img src="images/menu_icon_2.png">
+				</span>
+				<a href="Javascript: show_screen('profile');"id='profile_txt_old'>
+					<img src="images/mini_foto.png">
+					PROFILE
+				</a>
+				<a href="Javascript:show_data();" id="support_txt">SUPPORT</a>
+				<a href="#"id="chat_txt">CHAT</a>
+			</div>
 			<div class="menu_logo">
 				<a><img src='images/letsmove_2.png'></a>
 			</div>
 			<p>Choose Game Mode</p>
 			<div onclick='Javascript: change_game_mode(2);' class="campaign">
-				<img src='images/campaign.png'>
+				<img src='images/campaign_2.png'>
 				<a class="menu_title">Campaign</a>
 			</div>
 			<div onclick='Javascript: change_game_mode(1);' class="hot_chal">
-				<img src='images/hot_challenge.png'>
+				<img src='images/hot_chal_2.png'>
 				<a class="menu_title">Hot Challenge</a>
-				<div id='timer2' style='background-color:#59142e; border:1px solid #b23a56; display:inline-block; border-radius:10px; padding:15px; position:absolute; font-size: 20px;left:20px; bottom:20px; z-index:500; '></div>
+				<a class="menu_startin"style="">starting in:</a>
+				<div id='timer2' style='background-color:#59142e; border:1px solid #b23a56; display:inline-block; border-radius:10px; padding:15px; position:absolute; font-size: 20px;left:20px; bottom:20px; z-index:500; '>01:02:30</div>
 			</div>
+			<a class="prof_sub">Subscribe</a>
 			<a class="menu_pry" style='display:none;'>pry</a>
-			<a href='Javascript: toggle_debug();' id='toggle_debug2'>Toggle Debug</a>
+			<a style="display:block"href='Javascript: toggle_debug();' id='toggle_debug2'>Toggle Debug</a>
 		</div>
-	
+
 		<div id='grats_div' style='display:none; position:absolute; left:0%; top:35%;width:100%; background-color:#205690;'>
 		<center><Br><br>
 			You have reached distination<BR><BR>
@@ -143,34 +145,33 @@
 
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFY47FE__z9AvRLBoYG0T2XeOTiHdwzOQ&callback=initMap"></script>
 	</div>
- 
 
 
 
-	<div id='login_screen' style='width:100%; height:100%; position:absolute; left:0px; top:0px;'>
+
+	<div id='login_screen' class="login_screen">
+	<div class="login_footer"></div>
 		<div id="fb-root"></div>
 
-		<div style='background: rgb(30,32,43); background: linear-gradient(0deg, rgba(30,32,43,1) 0%, rgba(37,41,53,1) 100%);overflow:auto;'>
+		<div style='/*background: rgb(30,32,43); background: linear-gradient(0deg, rgba(30,32,43,1) 0%, rgba(37,41,53,1) 100%);*/overflow:auto;'>
+		<img class="back_img" src="images/background_2.png">
 			<center>
-			<div id="login_logo" class="login_logo"style=""><a><img src='images/letsmove_2.png'></a></div>
-			<div id='logindiv'>
+			<div id="login_logo" class="login_logo"style=""><a><img class="login_logo_img" src='images/letsmove_2.png'></a></div>
+			<div id='logindiv'class="logindiv">
 
 				
 				<input style="background-color:#d2d4d9 !important;"class="log_inp" type="email" placeholder="Email" name='email' id='email'>
 				<input class="log_inp"type="password" placeholder="Password" name='pass' id='pass'>
-				<a href='Javascript: forgotten();' style='color: #ebebeb;'>პაროლი</a>
-				<br>
-				<a href='Javascript: signin();'class="log_faceb" style='background: rgb(43,113,89);
-				background: linear-gradient(8deg, rgba(43,113,89,1) 0%, rgba(72,133,156,1) 86%);'><!--<img src='sign_in.png' width=250px>--> SIGN IN</a>
+				<div class=""style="width: 300px;height: 33px;">
+					<a href='Javascript: forgotten();' style='color: #a0a8ce; width:150px; float:right;font-family: lato_medium_it;'>Forgot password</a>
+				</div>
+				<a href='Javascript: signin();'class="log_in"><img src='images/edit_prof_2.png'> <span>SIGN IN</span></a>
 			
-				<a href='Javascript: mylogin();'class="log_faceb" style="color: #ebebeb; line-height:2.5; background: rgb(59,52,126); background: linear-gradient(8deg, rgba(59,52,126,1) 0%, rgba(82,103,180,1) 86%);">or sign in with <br><span>FACEBOOK</span></a>
+				<a href='Javascript: mylogin();'class="log_faceb" style="color: #ebebeb; font-size: 12px;line-height:4;">CONTINUE WITH FACEBOOK</a>
 				
+				<a style="color: #a0a8ce; margin-top: 8vh; display: block;font-size:13px;">Don't have an acount yet?</a>
 
-			<br><br>
-
-
-				<a style="color: #ebebeb;">არ ხართ რეგისტრირებული?</a><Br>
-				<a href='Javascript: show_reg();' class="log_faceb" style='background: rgb(97,42,56); background: linear-gradient(8deg, rgba(97,42,56,1) 0%, rgba(209,44,91,1) 86%);'><!--<img src='sign_up.png' width=250px>-->SIGN UP</a>
+				<a href='Javascript: show_reg();' class="log_siup" >SIGN UP</a>
 				<Br><Br>
 				<a href='Javascript: toggle_debug();' id='toggle_debug1'>Toggle Debug</a>
 				<br>
@@ -186,14 +187,15 @@
 				<input class="log_inp" type="password"id="reg_pass2" name ="reg_pass2"placeholder="გაიმ.პაროლი">
 				<input class="log_inp" type="text" id="referal" name ="referal" placeholder="რეფერალი">
 				<Br>
-				<p>By clicking Sign up you agree to the following <br><a href="#">Terms and Conditions</a></p>
-				<a href='Javascript: checkregform();'class="log_up" style="background: rgb(97,42,56); background: linear-gradient(8deg, rgba(97,42,56,1) 0%, rgba(209,44,91,1) 86%);">SIGN UP</a>
+				<div class=""style="width: 300px;">
+					<a href="#" style="float:right; margin-right:4%; color:#a0a8ce;font-family: lato_medium_it; margin-bottom:10px;">Terms and Conditions</a>
+				</div>
+				<a href='Javascript: checkregform();'class="log_siup">SIGN UP</a>
 				
-				<a href='Javascript: myreg();' id='fbregbut'class="log_up"style="color: #ebebeb; line-height:2.5; background: rgb(59,52,126); background: linear-gradient(8deg, rgba(59,52,126,1) 0%, rgba(82,103,180,1) 86%);">or sign in with <br><span>FACEBOOK</span></a>
-				<Br><Br>
-				<b>უკვე დარეგისტრირებული ხართ?</b><Br>
-				<a href='Javascript: show_login();'class="log_up" style=' background: rgb(43,113,89);
-				background: linear-gradient(8deg, rgba(43,113,89,1) 0%, rgba(72,133,156,1) 86%);'>SIGN IN</a>
+				<a href='Javascript: myreg();' id='fbregbut'class="log_up"style="color: #ebebeb;font-size: 12px;line-height: 4;">CONTINUE WITH FACEBOOK</a>
+				<Br>
+				<b style="color: #9fa8cd;font-size: 14px;">Already a member?</b><Br>
+				<a href='Javascript: show_login();'class="log_in"><img src='images/edit_prof_2.png'> <span>SIGN IN</span></a>
 			<br><br><br>
 			</div>
 
@@ -201,97 +203,166 @@
 
 	</div>
 
-  <div id='nogps' style='color:white; font-weight:bold; position:fixed; top:5px; width:100%; text-align:center;'><?echo "$mstr[no_gps]";?></div>
+	<div id='nogps' style='color:white; font-weight:bold; position:fixed; top:5px; width:100%; text-align:center;'><?echo "$mstr[no_gps]";?></div>
 
 
-  <div id='acc' style='display:none; height:30px; color:black; width:50px; background-color:white; position:fixed; bottom:10px; left:10px; z-index:11000;'></div>
-  <div id='acc_data' style='display:none; height:110px;  color:black;width:200px; background-color:white; position:fixed; bottom:10px; left:10px;  z-index:11000;' onclick="hide_data();">
-  
+	<div id='acc' style='display:none; height:30px; color:black; width:50px; background-color:white; position:fixed; bottom:10px; left:10px; z-index:11000;'></div>
+	<div id='acc_data' style='display:none; height:110px;  color:black;width:200px; background-color:white; position:fixed; bottom:10px; left:10px;  z-index:11000;' onclick="hide_data();">
+
 
 	  <div style='position:absolute; left:0px;top:0px;  color:black;' id='gps_delay_info'></div>
 	  <div style='position:absolute; left: 0px;top:0px; height:90px;  color:black;' id='txtdata'></div>
 	  <div style='position:absolute; left: 0px;bottom:0px;   color:black;' id='gpsdata'></div>
 	  <div style='position:absolute; right:0px;bottom:0px;  color:black;' id='time_data'></div>
-  
-  </div>
-  <div id='profile_screen' style=' width:100%; height:100vh;  '>
-	<a href="Javascript: show_screen('home');" id="pop_left"class="pop_left"><span></span></a>
-		<center style="height: 80%;">
-		<div id="login_logo" class="login_logo"style="display:none"><a><img src='images/letsmove_2.png'></a></div>
-		<div id="prof_logo"class="prof_logo">
-			<a href="Javascript: show_edit();"><img src="images/avatar.png"></a><br>
-			
-			<a id='my_name'></a><br>
-			<a style='font-size: 13px;color: #8e9eb2;'>Level / Achievement</a>
-			<div></div>
-			<a href="Javascript: show_edit();"class="prof_edprof">
-				<img src='images/edit_prof_2.png'>
-				<span style="">Edit Profile</span>
-			</a>
-			<a href="Javascript: logout();" class="prof_logout">LOG OUT</a>
-		</div>
-		<li class="langli" id="langli"><a href="#" class="langa">Eng</a>
-			<ul class="langul">
-				<li class="langli2"><a href="?m=profile&lang=_en"class="langa2"> ENG</a></li>
-				<li class="langli2"><a href="?m=profile&lang=" class="langa2"> GEO</a></li>
-				<li class="langli2"><a href="?m=profile&lang=_ru" class="langa2"> RUS</a></li>
-			</ul>
-		</li>
-		<div id="prof_main"class="prof_main">
-			<a class="ur_rating"><span class="maru"></span>&nbsp;<span id='qulebi'></span></a>
-			<div class="prof_score">
-				<a id='rating'></a>
-				<a>YOUR RATING</a>
-			</div>
-			<div style="background:#3e406a; border-radius:20px 20px 0 0;padding-top:20px;padding-bottom:20px;margin-top: 10vh;">
-				<a href="Javascript: show_leaderboard();"style="font-weight: normal;">
-					<div class="prof_led" >
-						<p >LEADERBOARD</p>
-						<img src='images/leaderboard_2.png'>
-					</div>
-				</a>
-				<a href="#"style="font-weight: normal;">
-					<div class="prof_week">
-						<p>WEEKLY REPORT</p>
-						<img src='images/week_rep_2.png'>
-					</div>
-				</a>
-			
-				<a class="prof_sub">Subscribe</a>
-			</div>
-		</div>
 
-		<div id="prof_edit"class="prof_edit">
-			<p >Profile Info</p>
-			
-				<input class="prof_inp" type="text"   id="prof_uname" name="prof_uname" placeholder="Your name" value=''><Br>
-				<input class="prof_inp" type="email"  id="prof_email" name="prof_email" aria-describedby="emailHelp" placeholder="Email" value=''><Br>
-				<input class="prof_inp" type="telephone"   id="prof_tel" name="prof_tel"  placeholder="Tel. Number" value=''><Br>
-				<input class="prof_save"style="" type="button"   id="save_me" name="save_me"  value="Save" onclick="save_profile();"><Br>
-		
-			<div id='subscribtion_div'>
-				You are not subscribed
-				<a class="prof_sub" style="margin-top: 6px;">Subscribe</a>
-				
-				<div id="paypal-button-container" style='width:80%;' id='paypal_button'></div>
-				
-		
-			</div>
-		</div>
 	</div>
+	<div id='profile_screen' style=' width:100%; height:100vh;  overflow:auto;'>
+		<a href="Javascript: show_screen('home');" id="pop_left"class="pop_left"><span></span></a>
+		<center style="height: 80%;">
+			<div id="prof_logo"class="prof_logo">
+				<a href="Javascript: show_edit();"><img src="images/avatar.png"></a>
+				<br>
+				<a id='my_name'></a>
+				<br>
+				<a style='font-size: 13px;color: #8e9eb2;'>Level / Achievement</a>
+				<div></div>
+				<a href="Javascript: show_edit();"class="prof_edprof">
+					<img src='images/edit_prof_2.png'>
+					<span style="">Edit Profile</span>
+				</a>
+				<a href="Javascript: logout();" class="prof_logout">LOG OUT</a>
+			</div>
+			<li class="langli" id="langli"><a href="#" class="langa">ENG</a>
+				<ul class="langul">
+					<li class="langli2"><a href="?m=profile&lang=_en"class="langa2"> ENG</a></li>
+					<li class="langli2"><a href="?m=profile&lang=" class="langa2"> GEO</a></li>
+					<li class="langli2"><a href="?m=profile&lang=_ru" class="langa2"> RUS</a></li>
+				</ul>
+			</li>
+			<div id="prof_main"class="prof_main">
+				<a class="ur_rating"><span class="maru"></span>&nbsp;<span id='qulebi'></span></a>
+				<div class="prof_score">
+					<a id='rating'></a>
+					<a>YOUR RATING</a>
+				</div>
+				<div class="prof_ledwek_holder">
+					
+						<div id="prof_led" class="prof_led" onclick="show_screen('leaderboard');" >
+							<p >LEADERBOARD</p>
+							<img src='images/leaderboard_2.png'>
+						</div>
+					
+					
+						<div id="prof_week"class="prof_week" onclick="show_screen('weekly');" >
+							<p>WEEKLY REPORT</p>
+							<img src='images/week_rep_2.png'>
+						</div>
+					
+				
+					<a class="prof_sub">Subscribe</a>
+				</div>
+			</div>
 
-	<div style='background: rgb(30,32,43); background: linear-gradient(0deg, rgba(30,32,43,1) 0%, rgba(37,41,53,1) 100%); width:365px;; height:100vh;  ' id="leaderboard_screen">
+			<div id="prof_edit" style="display:none;">
+				<div id="login_logo" class="login_logo"style="">
+					<a><img class="login_logo_img" src='images/letsmove_2.png'></a>
+					<img class="back_img"src="images/background_2.png">
+				</div>
+				<div id="prof_edit_bot"class="prof_edit">
+					<p>Profile Info</p>
+					<input class="prof_inp" type="text"   id="prof_uname" name="prof_uname" placeholder="Your name" value=''><Br>
+					<input class="prof_inp" type="email"  id="prof_email" name="prof_email" aria-describedby="emailHelp" placeholder="Email" value=''><Br>
+					<input class="prof_inp" type="telephone"   id="prof_tel" name="prof_tel"  placeholder="Tel. Number" value=''><Br>
+					<input class="prof_save"style="" type="button"   id="save_me" name="save_me"  value="Save" onclick="save_profile();"><Br>
+					<div id='subscribtion_div'>
+						<p style="margin:inherit;">You are not subscribed</p>
+						<a class="prof_sub" style="margin-top: 6px;">Subscribe</a>
+						<div id="paypal-button-container" style='width:80%;' id='paypal_button'></div>
+					</div>
+				</div>
+			</div>
+		</center>
+		<div class="footer" id="footer"></div>
+	</div>
+		
+	<div class="leaderboard_screen" id="leaderboard_screen">
 		<center>
-		<a href="Javascript: show_screen('profile');" id="pop_left"class="pop_left"></a>
-		<div class="led_top">
-			<p>Leaderboard</p>
-			<p>your rating</p>
-			<p id='rating'></p>
-		</div>
-		<div class="led_bot">
-			
-			
-		</div>
+			<a href="Javascript: show_screen('profile');" id="pop_left"class="pop_left"><span></span></a>
+			<div class="led_top">
+				<p id='rating'>20</p>
+				<p>YOUR RATING</p>
+			</div>
+			<div class="led_bot">
+				<div class="led_bot_div led_div_1">
+				<a>1</a>
+				<a></a>
+				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
+				<a>132</a>
+				</div>
+
+				<div class="led_bot_div led_div_2">
+				<a>1</a>
+				<a></a>
+				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
+				<a>132</a>
+				</div>
+
+				<div class="led_bot_div led_div_1">
+				<a>1</a>
+				<a></a>
+				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
+				<a>132</a>
+				</div>
+
+				<div class="led_bot_div led_div_1">
+				<a>1</a>
+				<a></a>
+				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
+				<a>132</a>
+				</div>
+				
+				<div class="led_bot_div led_div_1">
+				<a>1</a>
+				<a></a>
+				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
+				<a>132</a>
+				</div>
+				
+				<div class="led_bot_div led_div_1">
+				<a>1</a>
+				<a></a>
+				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
+				<a>132</a>
+				</div>
+				
+				<div class="led_bot_div led_div_1">
+				<a>1</a>
+				<a></a>
+				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
+				<a>132</a>
+				</div>
+				
+				<div class="led_bot_div led_div_1">
+				<a>1</a>
+				<a></a>
+				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
+				<a>132</a>
+				</div>
+				
+				<div class="led_bot_div led_div_1">
+				<a>1</a>
+				<a></a>
+				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
+				<a>132</a>
+				</div>
+				
+				<div class="led_bot_div led_div_1">
+				<a>1</a>
+				<a></a>
+				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
+				<a>132</a>
+				</div>
+			</div>
 		</center>
 	</div>
 </div>
@@ -300,6 +371,14 @@
 
 
 <script>
+/* \/pop_right is mausis acevaze funqcia chavamate \/*/
+function mouseUp() 
+	{
+	document.getElementById("pop_right_span").style.display="none";
+	document.getElementById("profile_txt_old").style.display="inline-flex";
+	document.getElementById("support_txt").style.display="block";
+	document.getElementById("chat_txt").style.display="block";
+	}
 
 paypal.Buttons({
 	createSubscription: function(data, actions) {
