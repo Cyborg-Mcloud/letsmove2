@@ -149,6 +149,9 @@ function hide_edit()	{
 }
 
 function show_leaderboard(){
+	var mdata="leaderboard=1";
+	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, true);
+        
 	show_screen("leaderboard");
 }
 

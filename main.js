@@ -81,6 +81,15 @@ function show_leaders(){
 	}
 }
 
+function display_leaderboard(mdata){
+	document.getElementById("leaderboard_info").innerHTML="";
+	for (i=0;i<mdata.length;i++){
+		document.getElementById("leaderboard_info")+="<div class='led_bot_div led_div_1'><a>"+(i+1)+"</a><a></a><a>"+mdata[i]["uname"]+" <br></a><a>"+mdata[i]["mpoints"]+"</a></div>";
+	
+	}
+	
+}
+
 function draw_targets(){
 	if (mdebug==1){console.log("drawing targets");}
 	var  bounds;
@@ -146,6 +155,10 @@ function brain_recv(){
 					setTimeout("req_players();",1000);
 					show_screen("home");
 				}
+			}
+
+			if (typeof obj["leaderboard_data"] !== 'undefined') {
+				display_leaderboard(obj["leaderboard"]);
 			}
 
 			if (typeof obj["profile_data"] !== 'undefined') {
