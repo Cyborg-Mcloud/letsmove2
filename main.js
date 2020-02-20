@@ -84,7 +84,7 @@ function show_leaders(){
 function display_leaderboard(mdata){
 	document.getElementById("leaderboard_info").innerHTML="";
 	for (i=0;i<mdata.length;i++){
-		document.getElementById("leaderboard_info")+="<div class='led_bot_div led_div_1'><a>"+(i+1)+"</a><a></a><a>"+mdata[i]["uname"]+" <br></a><a>"+mdata[i]["mpoints"]+"</a></div>";
+		document.getElementById("leaderboard_info").innerHTML+="<div class='led_bot_div led_div_1'><a>"+(i+1)+"</a><a></a><a>"+mdata[i]["uname"]+" <br></a><a>"+mdata[i]["mpoints"]+"</a></div>";
 	
 	}
 	
@@ -180,8 +180,7 @@ function brain_recv(){
 				players=obj["users"];
 				
 				if (curmenu==1)	{
-					document.getElementById("qulebi").innerHTML=obj["data"]["mpoints"];
-					document.getElementById("rating").innerHTML=obj["data"]["rating"];
+		
 				}
 			}
 
@@ -190,6 +189,8 @@ function brain_recv(){
 					document.getElementById("timer").innerHTML=obj["data"]["timer"];
 					document.getElementById("timer2").innerHTML=obj["data"]["timer"];
 				}
+				document.getElementById("qulebi").innerHTML=obj["data"]["mpoints"];
+				document.getElementById("rating").innerHTML=obj["data"]["rating"];
 			}
 				
 			if (typeof obj["targets"] !== 'undefined') {
