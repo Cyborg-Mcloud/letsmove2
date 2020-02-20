@@ -333,27 +333,17 @@ margin-bottom: 10px;
 font-size: 10px;
 letter-spacing:1px;
 }
-#pop_right_rad:checked + label
-{
-padding-top:15px;
-background:#373b52;
-height: 80px;
-width: 100px;
-border-radius:20px;
-}
-.pop_right:hover  span
+/*.pop_right:hover  span
 {
 display:none ;
 }
 .pop_right:hover  a
 {
 display:block ;
-}
+}*/
 .pop_right:hover a:nth-child(2)
 {
-display: inline-flex;
 font-size: 15px;
-
 }
 .pop_right a:nth-child(4)
 {

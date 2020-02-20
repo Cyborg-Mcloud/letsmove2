@@ -87,11 +87,16 @@
 
 		<div class="game_menu" id='game_menu'>
 			<img class="back_img" style="z-index:-1"src="images/background_2.png">
-			<div class="pop_right">
-				<span style=""><img src="images/menu_icon_2.png"></span>
-				<a href="Javascript: show_screen('profile');""><img src="images/mini_foto.png">PROFILE</a>
-				<a href="Javascript:show_data();">SUPPORT</a>
-				<a>CHAT</a>
+			<div class="pop_right"id="pop_right" onmouseup="mouseUp()">
+				<span id="pop_right_span">
+					<img src="images/menu_icon_2.png">
+				</span>
+				<a href="Javascript: show_screen('profile');"id='profile_txt_old'>
+					<img src="images/mini_foto.png">
+					PROFILE
+				</a>
+				<a href="Javascript:show_data();" id="support_txt">SUPPORT</a>
+				<a href="#"id="chat_txt">CHAT</a>
 			</div>
 			<div class="menu_logo">
 				<a><img src='images/letsmove_2.png'></a>
@@ -365,7 +370,14 @@
 
 
 <script>
-
+/* \/pop_right is mausis acevaze funqcia chavamate \/*/
+function mouseUp() 
+	{
+	document.getElementById("pop_right_span").style.display="none";
+	document.getElementById("profile_txt_old").style.display="inline-flex";
+	document.getElementById("support_txt").style.display="block";
+	document.getElementById("chat_txt").style.display="block";
+	}
 paypal.Buttons({
 	createSubscription: function(data, actions) {
 		return actions.subscription.create({'plan_id': 'P-55K10073CB0482040LVJYOKY'});
