@@ -17,6 +17,7 @@
 
 
 	
+	<link rel="stylesheet" href="styles.css">
 	<script type='application/javascript' src='fastclick.js'></script>
 	<script type="text/javascript" charset="utf-8" src="main.js"></script>
 	<script type="text/javascript" charset="utf-8" src="gps.js"></script>
@@ -27,7 +28,6 @@
 	<script src="https://www.paypal.com/sdk/js?client-id=AXuS-I_pMxXpja5wrSvDkgKBRlPpt3gGSaNFRubrtSvWwB-VfNSg-Fuir6xdk8_EMFv_y44EjaH_AzNo&vault=true"></script>
   </head>
 
-  <link rel="stylesheet" href="styles.css">
 	
 		
   <style>
@@ -114,7 +114,7 @@
 				<div id='timer2' style='background-color:#59142e; border:1px solid #b23a56; display:inline-block; border-radius:10px; padding:15px; position:absolute; font-size: 20px;left:20px; bottom:20px; z-index:500; '>01:02:30</div>
 			</div>
 			<a class="prof_sub">Subscribe</a>
-			<a class="menu_pry" style='display:none;'>pry</a>
+			<!--<a class="menu_pry" style='display:none;'>pry</a>-->
 			<a style="display:block"href='Javascript: toggle_debug();' id='toggle_debug2'>Toggle Debug</a>
 		</div>
 
@@ -292,7 +292,7 @@
 				<p id='rating'>20</p>
 				<p>YOUR RATING</p>
 			</div>
-			<div class="led_bot">
+			<div class="led_bot" id='leaderboard_info'>
 				<div class="led_bot_div led_div_1">
 				<a>1</a>
 				<a></a>

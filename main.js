@@ -164,8 +164,6 @@ function brain_recv(){
 			if (typeof obj["profile_data"] !== 'undefined') {
 				
 				mydata=obj["mydata"];
-				
-				
 				document.getElementById("prof_uname").innerHTML=mydata["uname"];
 				document.getElementById("prof_email").innerHTML=mydata["email"];
 				document.getElementById("prof_tel").innerHTML=mydata["tel"];
