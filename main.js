@@ -145,7 +145,7 @@ function brain_recv(){
 			if (obj["checksum"]==sync_answ)	{
 				sync_data="";sync_url="";sync_answ=0;
 			}
-		
+			if (mdebug==1){console.log(obj);}
 			if (typeof obj["login_data"] !== 'undefined') {
 				if (typeof obj["error"] !== 'undefined') {
 					alert(obj["error"]);
