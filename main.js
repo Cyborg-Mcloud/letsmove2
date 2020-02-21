@@ -167,6 +167,13 @@ function brain_recv(){
 				document.getElementById("prof_uname").innerHTML=mydata["uname"];
 				document.getElementById("prof_email").innerHTML=mydata["email"];
 				document.getElementById("prof_tel").innerHTML=mydata["tel"];
+				document.getElementById("prof_referal").innerHTML=mydata["referal_id"];
+
+				if (mydata["referal"]!=""){
+					document.getElementById("my_referer_div").innerHTML="invited by <b>"+mydata["referal"]+"</b>";
+					document.getElementById("my_referer_div").style.display="block";
+				}
+				
 				if (mydata["subscribed"]!=1){
 					document.getElementById("subscribtion_div").style.display="block";
 				}else{
