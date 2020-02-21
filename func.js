@@ -155,4 +155,12 @@ function show_leaderboard(){
 	show_screen("leaderboard");
 }
 
+
+function copy_referal(){
+	var copyText = document.getElementById("prof_referal");
+	copyText.select();
+	copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+	document.execCommand("copy");
+}
+
  
