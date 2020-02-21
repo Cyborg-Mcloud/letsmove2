@@ -117,7 +117,7 @@ function handleOrientation(event) {
 
 	if (cur_compass<0){cur_compass=360+cur_compass;}
 
-	true_compass=parseInt(compass_adjust)+cur_compass;
+	true_compass=compass_adjust+cur_compass;
 	if (true_compass>360){true_compass=true_compass-360;}
 	if (true_compass<0){true_compass=true_compass+360;}
 
@@ -148,7 +148,7 @@ function onSuccess(position) {
 		new_lat=position.coords.latitude ;
 		new_lng=position.coords.longitude ;
 		MyAlt=position.coords.altitude ;
-		MyHead=position.coords.heading ;
+		MyHead=parseInt(position.coords.heading) ;
 		MySpeed=position.coords.speed ;
 		MyAcc=position.coords.accuracy;
 
@@ -228,13 +228,13 @@ function onSuccess(position) {
 				work_averages();
 				}
 			if (mdebug==1){
-			document.getElementById("gps_delay_info").innerHTML+="<Br>trcmps:"+true_compass+ " | "+avr_comp;
+			document.getElementById("gps_delay_info").innerHTML+="<Br>trcmps:"+true_compass+ " | "+avr_comp+"|"+compass_adjust;
 			document.getElementById("gps_delay_info").innerHTML+="<Br>compass:"+cur_compass;
 			document.getElementById("gpsdata").innerHTML+= " | "+avr_heading;}
 			old_lat=new_lat;
 			old_lng=new_lng;
 			move_marker();
-
+			
 			last_five_loc[cur_record]["calc_heading"]=calc_heading;
 	
 
@@ -309,7 +309,7 @@ function work_averages(){
 	var last_cco_y=0;
 
 	for (i=0;i<5;i++){
-		if (last_five_loc[i]["delay"]==1 && last_five_loc[i]["heading"]>0){
+		if ( last_five_loc[i]["heading"]>0){
 			// zusti lokacia
 			che_x+=Math.sin(last_five_loc[i]["heading"]*6.28/360);
 			che_y+=Math.cos(last_five_loc[i]["heading"]*6.28/360);
@@ -393,7 +393,7 @@ function work_averages(){
 		}
 
 		if (maxq>=maxq_compass){
-			compass_adjust=parseInt(avr_heading-avr_comp);
+			compass_adjust=avr_heading-avr_comp;
 			maxq_compass=maxq;
 			if (mdebug==1){console.log("comp_adjust: "+compass_adjust);
 				console.log("quality: "+maxq_compass);}
