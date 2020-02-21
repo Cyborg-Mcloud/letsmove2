@@ -164,10 +164,10 @@ function brain_recv(){
 			if (typeof obj["profile_data"] !== 'undefined') {
 				
 				mydata=obj["mydata"];
-				document.getElementById("prof_uname").innerHTML=mydata["uname"];
-				document.getElementById("prof_email").innerHTML=mydata["email"];
-				document.getElementById("prof_tel").innerHTML=mydata["tel"];
-				document.getElementById("prof_referal").innerHTML=mydata["referal_id"];
+				document.getElementById("prof_uname").value=mydata["uname"];
+				document.getElementById("prof_email").value=mydata["email"];
+				document.getElementById("prof_tel").value=mydata["tel"];
+				document.getElementById("prof_referal").value=mydata["referal_id"];
 
 				if (mydata["referal"]!=""){
 					document.getElementById("my_referer_div").innerHTML="invited by <b>"+mydata["referal"]+"</b>";
