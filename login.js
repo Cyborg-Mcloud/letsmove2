@@ -117,7 +117,7 @@ function signin()
 
 function checkregform()
 	{
-	if (document.getElementById("reg_email").value=='' || (( document.getElementById("reg_pass1").value=='' || document.getElementById("reg_tel").value=='') && document.getElementById("fbid").value=="")  )
+	if (document.getElementById("reg_email").value=='' || (( document.getElementById("reg_pass1").value=='' || document.getElementById("reg_tel").value==''))  )
 		{	
 		alert("All Fields are Required!");
 		return false;
