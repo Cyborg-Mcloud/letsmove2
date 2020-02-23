@@ -164,7 +164,7 @@ function copy_referal(){
 }
 
 function open_subscribe(){
-	var win=window.open( "https://smartgps.ge/letsmove/pay.php?myid="+myid, "_self");
+	var win=window.open( "https://smartgps.ge/letsmove/pay.php?myid="+myid, "_blank");
 	win.addEventListener( "loadstop", function(){
        var loop = window.setInterval(function(){
            win.executeScript({
