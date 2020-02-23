@@ -261,7 +261,7 @@ function req_players(){
 			location.reload(); 
 		}		
 	} else {
-		data_send('https://www.smartgps.ge/letsmove/api.php', "update_lat=1");
+		data_send('https://www.smartgps.ge/letsmove/api.php', "update_lat=1&myid="+myid);
 		setTimeout("req_players();",1000);
 	}
 	document.getElementById("time_data").innerHTML=Date.now()-last_gps_time;

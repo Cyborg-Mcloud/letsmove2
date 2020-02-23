@@ -564,14 +564,6 @@ function advanced_success(response){
 	if (mdebug==1){console.log(jsonObject);}
 }
 
-function StartWebView()
-	{
-	var url='https://smartgps.ge/letsmove/?myid='+myid+'&lat='+MyLat+'&lng='+MyLong+"&ragacid="+Math.random()*10000000;
-	if (mdebug==1){console.log(url);}
-	//ref = cordova.InAppBrowser.open(url, '_system', 'location=no, clearcache=yes');
-	window.location=url;
-	}
-
 
 
 function onRequestSuccess(success)
