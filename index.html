@@ -24,9 +24,7 @@
 	<script type="text/javascript" charset="utf-8" src="login.js"></script>
 	<script type="text/javascript" charset="utf-8" src="map.js"></script>
 	<script type="text/javascript" charset="utf-8" src="func.js"></script>
-
-	<script src="https://www.paypal.com/sdk/js?client-id=AXuS-I_pMxXpja5wrSvDkgKBRlPpt3gGSaNFRubrtSvWwB-VfNSg-Fuir6xdk8_EMFv_y44EjaH_AzNo&vault=true"></script>
-  </head>
+ </head>
 
 	
 		
@@ -113,7 +111,7 @@
 				<a class="menu_startin"style="">starting in:</a>
 				<div id='timer2' style='background-color:#59142e; border:1px solid #b23a56; display:inline-block; border-radius:10px; padding:15px; position:absolute; font-size: 20px;left:20px; bottom:20px; z-index:500; '>01:02:30</div>
 			</div>
-			<a class="prof_sub">Subscribe</a>
+			<a class="prof_sub" href='Javascript: open_subscribe();' id='subscribe_but'>Subscribe</a>
 			<!--<a class="menu_pry" style='display:none;'>pry</a>-->
 			<a style="display:block"href='Javascript: toggle_debug();' id='toggle_debug2'>Toggle Debug</a>
 		</div>
@@ -259,7 +257,7 @@
 						</div>
 					
 				
-					<a class="prof_sub" href="Javascript: show_edit();" >Subscribe</a>
+					<a class="prof_sub" href="Javascript: show_edit();" id='subscribtion_div'>Subscribe</a>
 					<a style="display:block"href='Javascript: toggle_debug();' id='toggle_debug2'>Toggle Debug</a>
 				</div>
 			</div>
@@ -278,11 +276,7 @@
 					<input class="prof_referal" type="text"  id="prof_referal" name="prof_referal"  placeholder="Your referal ID" value='' readonly="readonly" style='text-align:center; width:150px; vertical-align:bottom; height:30px;'>
 					<a onclick='copy_referal();'><img src='images/copy.png' height='30px'></a><Br>
 					<input class="prof_save"style="" type="button"   id="save_me" name="save_me"  value="Save" onclick="save_profile();"><Br>
-					<div id='subscribtion_div'>
-						<p style="margin:inherit;">You are not subscribed, Subscribe:</p>
-						<!--a class="prof_sub" style="margin-top: 6px;">Subscribe</a>-->
-						<div id="paypal-button-container" style='width:80%;' id='paypal_button'></div>
-					</div>
+					
 				</div>
 			</div>
 		</center>
@@ -384,16 +378,6 @@ function mouseUp()
 	document.getElementById("chat_txt").style.display="block";
 	}
 
-paypal.Buttons({
-	createSubscription: function(data, actions) {
-		return actions.subscription.create({'plan_id': 'P-55K10073CB0482040LVJYOKY'});
-	},
-	onApprove: function(data, actions) {
-		alert('You have successfully created subscription ' + data.subscriptionID);
-	}
-}).render('#paypal-button-container');
-	
-
 
 var mdebug=0;
 function toggle_debug(){
@@ -450,8 +434,8 @@ function onDeviceReady()
 	} else {show_screen("login");}
 
 	if (mdebug==1){console.log("backgroundmode enable");}
-	cordova.plugins.backgroundMode.enable();
-	cordova.plugins.backgroundMode.setEnabled(true);
+	//cordova.plugins.backgroundMode.enable();
+	//cordova.plugins.backgroundMode.setEnabled(true);
 
 
 //cordova.plugins.backgroundMode.setDefaults({
@@ -466,10 +450,7 @@ function onDeviceReady()
 
 
 
-	cordova.plugins.backgroundMode.on('activate', function() {
-		console.log("background mode optimizations disable");
-	cordova.plugins.backgroundMode.disableWebViewOptimizations(); 
-	});
+	//cordova.plugins.backgroundMode.on('activate', function() {console.log("background mode optimizations disable"); cordova.plugins.backgroundMode.disableWebViewOptimizations(); });
 
 	req_loc_acc();
 	req_loc_auth();

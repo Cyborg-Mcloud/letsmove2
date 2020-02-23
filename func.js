@@ -163,4 +163,22 @@ function copy_referal(){
 	document.execCommand("copy");
 }
 
+function open_subscribe(){
+	var win=window.open( "https://smartgps.ge/letsmove/pay.php", "_blank");
+	win.addEventListener( "loadstop", function(){
+       var loop = window.setInterval(function(){
+           win.executeScript({
+                   code: "window.shouldClose"
+               },
+               function(values){
+                   if(values[0]){
+                     win.close();
+                     window.clearInterval(loop);
+                   }
+               }
+           );
+       },100);
+   });
+}
+
  

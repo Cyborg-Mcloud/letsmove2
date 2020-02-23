@@ -157,6 +157,12 @@ function brain_recv(){
 				}
 			}
 
+			if (obj["subscribed"]==0 && document.getElementById("subscribe_but").style.display!="block"){
+				document.getElementById("subscribe_but").style.display="block";
+			} else if (obj["subscribed"]==1 && document.getElementById("subscribe_but").style.display!="none"){
+				document.getElementById("subscribe_but").style.display="none";	
+			}
+
 			if (typeof obj["leaderboard_data"] !== 'undefined') {
 				display_leaderboard(obj["leaderboard"]);
 			}

@@ -61,9 +61,6 @@ var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0, 	interval: 2
 function init_gps() 
 	{
 
-	//	cordova.plugins.backgroundMode.enable();
-
-//cordova.plugins.backgroundMode.setEnabled(true);
 	
 
 if (mdebug==1){console.log("device ready 2, getting position");}
