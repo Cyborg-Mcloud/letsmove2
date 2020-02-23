@@ -168,9 +168,11 @@ function open_subscribe(){
 	win.addEventListener( "loadstop", function(){
        var loop = window.setInterval(function(){
            win.executeScript({
-                   code: "window.shouldClose"
+                   code: "window.shouldClose=false;"
                },
                function(values){
+				   console.log("win event");
+				   console.log(values);
                    if(values[0]){
                      win.close();
                      window.clearInterval(loop);
