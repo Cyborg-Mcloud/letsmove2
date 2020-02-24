@@ -151,3 +151,7 @@ function show_reg()
 	document.getElementById("login_logo").style.height="180px";
 	}
 
+function cade(){
+	console.log(document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value  );
+}
+
