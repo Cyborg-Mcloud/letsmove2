@@ -119,9 +119,10 @@ function checkregform()
 	{
 	if (document.getElementById("reg_uname").value=='' || document.getElementById("reg_email").value=='' ||  document.getElementById("reg_pass1").value=='' || document.getElementById("reg_tel").value==''  )
 		{	
-		alert("All Fields are Required!");
 		console.log(document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value  );
 		
+		alert("All Fields are Required! "+document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value );
+	
 		return false;
 		
 
