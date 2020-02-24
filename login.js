@@ -138,6 +138,30 @@ function checkregform()
 
 	}
 
+
+function check_reg()
+	{
+	if (document.getElementById("reg_uname").value=='' || document.getElementById("reg_email").value=='' ||  document.getElementById("reg_pass1").value=='' || document.getElementById("reg_tel").value==''  )
+		{	
+		console.log(document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value  );
+		
+		alert("All Fields are Required! "+document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value );
+	
+		
+		
+
+		}
+	else
+		{
+        //document.getElementById("registerForm").submit();
+        send_reg_info();
+
+		
+
+		}
+
+	}
+
 function show_login()
 	{
 	document.getElementById("logindiv").style.display="block";
