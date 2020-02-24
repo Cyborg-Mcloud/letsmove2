@@ -98,7 +98,8 @@ function send_login_info(){
 }
 
 function send_reg_info(){
-	var mdata="login=1&reg=1&fbid="+document.getElementById("fbid").value + "&referal="+document.getElementById("referal").value + "&reg_pass2="+document.getElementById("reg_pass2").value + "&reg_uname="+document.getElementById("reg_uname").value + "&reg_tel="+document.getElementById("reg_tel").value + "&reg_email="+document.getElementById("reg_email").value + "&reg_pass="+ document.getElementById("reg_pass1").value;
+	var mdata="login=1&reg=1&fbid="+document.getElementById("fbid").value + "&referal="+document.getElementById("referal").value + "&reg_pass2="+document.getElementById("reg_pass2").value + "&reg_uname="+document.getElementById("reg_uname").value + "&reg_tel="+document.getElementById("reg_tel").value + "&reg_email="+document.getElementById("reg_email").value + "&reg_pass1="+ document.getElementById("reg_pass1").value;
+	console.log("https://www.smartgps.ge/letsmove/api.php"+mdata);
 	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, false);
 }
 
@@ -145,7 +146,7 @@ function check_reg()
 		{	
 		console.log(document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value  );
 		
-		alert("All Fields are Required! "+document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value );
+		alert("auu All Fields are Required! "+document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value );
 	
 		
 		
