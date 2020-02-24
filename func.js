@@ -162,25 +162,10 @@ function copy_referal(){
 	copyText.setSelectionRange(0, 99999); /*For mobile devices*/
 	document.execCommand("copy");
 }
+var win;
 
 function open_subscribe(){
-	var win=window.open( "https://smartgps.ge/letsmove/pay.php?myid="+myid, '_system', 'location=no, clearcache=yes');
-	win.addEventListener( "loadstop", function(){
-       var loop = window.setInterval(function(){
-           win.executeScript({
-                   code: "window.shouldClose=false;"
-               },
-               function(values){
-				   console.log("win event");
-				   console.log(values);
-                   if(values[0]){
-                     win.close();
-                     window.clearInterval(loop);
-                   }
-               }
-           );
-       },100);
-   });
+	win=window.open( "https://smartgps.ge/letsmove/pay.php?myid="+myid, '_blank', 'location=yes, clearcache=yes');
 }
 
  

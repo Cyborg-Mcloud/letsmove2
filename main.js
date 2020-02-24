@@ -197,6 +197,11 @@ function brain_recv(){
 				}
 			}
 
+			if (typeof obj["close_pay"] !== 'undefined') {
+				win.close();
+				console.log("pay window close");
+			}
+
 			if (typeof obj["timer_data"] !== 'undefined') {
 				if (obj["data"]["timer"]!=document.getElementById("timer").innerHTML){
 					document.getElementById("timer").innerHTML=obj["data"]["timer"];
