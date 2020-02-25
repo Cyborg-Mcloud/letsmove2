@@ -60,7 +60,7 @@ function back_to_home()
 	targets=[];
 	draw_targets();
 	Target_marker.setVisible(false);
-	t_circle.setVisible(false);
+	t_circle[0].setOptions({strokeOpacity:0});
 	document.getElementById("game_menu").style.display="block";
 	window.plugins.insomnia.allowSleepAgain();
 	}

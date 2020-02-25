@@ -96,7 +96,7 @@ function draw_targets(){
 	var myLatLng = {lat:  MyLat, lng: MyLong};
 	bounds = new google.maps.LatLngBounds();
 	bounds.extend(myLatLng);
-
+	t_circle[0].setOptions({strokeOpacity:0.8});
 	if (targets.length>0){
 		for (i=0;i<targets.length ;i++ ) {	
 			var myLatLng =  {lat:  parseFloat(targets[i]["lat"]), lng: parseFloat(targets[i]["lng"])};
@@ -119,7 +119,7 @@ function draw_targets(){
 		var myLatLng =  {lat:  parseFloat(targets[0]["lat"]), lng: parseFloat(targets[0]["lng"])};
 		Target_marker.setPosition(myLatLng);
 		Target_marker.setVisible(true);
-		t_circle[0].setOptions({strokeOpacity:0.8});
+		
 		
 	} else {
 		Target_marker.setVisible(false);
