@@ -204,6 +204,8 @@ function brain_recv(){
 			if (typeof obj["close_pay"] !== 'undefined') {
 				win.close();
 				console.log("pay window close");
+
+				data_send("https://www.smartgps.ge/letsmove/api.php","pay_closed=1", true);
 			}
 
 			if (typeof obj["timer_data"] !== 'undefined') {
