@@ -59,6 +59,8 @@ function back_to_home()
 	players=[];
 	targets=[];
 	draw_targets();
+	Target_marker.setVisible(false);
+	t_circle.setVisible(false);
 	document.getElementById("game_menu").style.display="block";
 	window.plugins.insomnia.allowSleepAgain();
 	}

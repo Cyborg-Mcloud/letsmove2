@@ -119,8 +119,10 @@ function draw_targets(){
 		var myLatLng =  {lat:  parseFloat(targets[0]["lat"]), lng: parseFloat(targets[0]["lng"])};
 		Target_marker.setPosition(myLatLng);
 		Target_marker.setVisible(true);
+		t_circle.setVisible(true);
 	} else {
 		Target_marker.setVisible(false);
+		t_circle.setVisible(false);
 	}
 	//	MyMap2.fitBounds(bounds);
 }
