@@ -114,6 +114,7 @@ function show_screen(scrname) {
 		document.getElementById("profile_screen").style.display="none";
 		document.getElementById("home_screen").style.display="none";
 		document.getElementById("leaderboard_screen").style.display="none";
+		document.getElementById("support_menu").style.display="none";
 		if (scrname=="login") {
 			document.getElementById("login_screen").style.display="block";
 		} else if (scrname=="home") {
@@ -123,6 +124,8 @@ function show_screen(scrname) {
 			request_mydata();
 		} else if (scrname=="leaderboard") {
 			document.getElementById("leaderboard_screen").style.display="block";
+		} else if (scrname=="support_menu") {
+			document.getElementById("support_menu").style.display="block";
 		}
 		cur_screen=scrname;
 	}

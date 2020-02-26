@@ -282,6 +282,7 @@ function onSuccess(position) {
 	}
 }
 
+var last_adj_time=0;
 function work_averages(){
 	if (mdebug==1){console.log("working on averages");}
 	var che_x=0;
@@ -389,7 +390,8 @@ function work_averages(){
 			if (mdebug==1){console.log("better heading deviation: "+maxh_deviation);}
 		}
 
-		if (maxq>=maxq_compass){
+		if (maxq>=maxq_compass || (Date.now()-last_adj_time)> 60 * 1000  ){
+			last_adj_time=Date.now();
 			compass_adjust=avr_heading-avr_comp;
 			maxq_compass=maxq;
 			if (mdebug==1){console.log("comp_adjust: "+compass_adjust);

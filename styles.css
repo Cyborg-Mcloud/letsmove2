@@ -133,6 +133,19 @@ overflow-x: hidden;*/
 border:1px solid gray;
 }
 
+.support_menu
+{
+width:100%;
+height:100vh; 
+background-color:black;
+background-repeat:no-repeat;
+z-index:10000;
+text-align:center;
+position:absolute; 
+background: rgb(30,32,43);
+background: linear-gradient(0deg, rgba(30,32,43,1) 0%, rgba(37,41,53,1) 100%);
+}
+
 .game_menu
 {
 width:100%;
