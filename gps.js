@@ -177,7 +177,25 @@ function onSuccess(position) {
 		
 	
 		
-		if (MySpeed>speed_limit){alert("დაფიქსირდა სიჩქარის გადამეტება!");}
+		if (MySpeed>speed_limit){
+			speed_limit_vis=1;
+			document.getElementById("speed_limit_div").style.display="block";
+			document.getElementById("speed_limit_text").innerHTML="SLOW DOWN!<Br><br>You are moving faster than 70 km/h speed limit!";
+			document.getElementById("speed_limit_value").innerHTML=MySpeed+" km/h<BR><BR>"+( 15 - parseInt((Date.now()-speed_counter_start)/1000) )+" seconds before block";
+			if (speed_counter_start==0){
+				speed_counter_start=Date.now();
+			} else {
+				if (Date.now()-speed_counter_start>15000){
+					var mdata="myid="+myid+ "&block=1";
+					data_send("https://www.smartgps.ge/letsmove/api.php",mdata, true);
+				}
+			}
+			
+		} else if (speed_limit_vis==1){
+			speed_limit_vis=0;
+			document.getElementById("speed_limit_div").style.display="none";
+		}
+		
 
 		if (mdebug==1){document.getElementById("gpsdata").innerHTML="Speed: "+MySpeed+"<br>Heading: "+MyHead;}
 

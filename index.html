@@ -46,6 +46,13 @@
 <div id='wrapper_div' class="wrapper_div">
 
 
+	<div id='blocked_screen' style='width:100%; height:100%; position:absolute; left:0px; top:0px;display: none; color:Red; font-size:20px; '>
+		<center>
+		<Br><br><br><Br><br><br>
+			YOU HAVE BEEN BLOCKED<BR><bR>Wait time:<BR>
+		<div id='block_wait_time'></div>
+	</div>
+
 	<div id='loading_screen' style='width:100%; height:100%; position:absolute; left:0px; top:0px;display: none;'>
 		<center>
 		<Br><br><br><Br><br><br>
@@ -147,6 +154,14 @@
 			<a href='Javascript: leader_close();'>Close</a>
 		</div>
 
+		<div id='speed_limit_div' style='display:none; position:absolute; left:0%; top:20%; height:60%; width:100%; text-align:center;  background-color:#205690;'>
+			Leaderboard
+			<div id='speed_limit_text' style='margin-top:20px; color:white; font-size:20px; text-align:left; padding-left:30px;'>
+			</div><br>
+			<div id='speed_limit_value' style='margin-top:20px; color:red; font-size:20px; text-align:left; padding-left:30px;'>
+			</div>
+			<a href='Javascript: speed_limit_close();'>Close</a>
+		</div>
 
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFY47FE__z9AvRLBoYG0T2XeOTiHdwzOQ&callback=initMap"></script>
 	</div>
@@ -239,11 +254,11 @@
 				<a href="Javascript: logout();" class="prof_logout">LOG OUT</a>
 			</div>
 			<li class="langli" id="langli"><a href="#" class="langa">ENG</a>
-				<ul class="langul">
+				<!--<ul class="langul">
 					<li class="langli2"><a href="?m=profile&lang=_en"class="langa2"> ENG</a></li>
 					<li class="langli2"><a href="?m=profile&lang=" class="langa2"> GEO</a></li>
 					<li class="langli2"><a href="?m=profile&lang=_ru" class="langa2"> RUS</a></li>
-				</ul>
+				</ul>-->
 			</li>
 			<div id="prof_main"class="prof_main">
 				<a class="ur_rating"><span class="maru"></span>&nbsp;<span id='qulebi'></span></a>
@@ -295,7 +310,7 @@
 		<center>
 			<a href="Javascript: show_screen('profile');" id="pop_left"class="pop_left"><span></span></a>
 			<div class="led_top">
-				<p id='rating'>20</p>
+				<p id='rating_2'>20</p>
 				<p>YOUR RATING</p>
 			</div>
 			<div class="led_bot" id='leaderboard_info'>

@@ -193,6 +193,20 @@ function brain_recv(){
 			
 			}
 		
+			if (typeof obj["blocked"] !== 'undefined') {
+				var btime=obj["blocked_time"];
+				var a=parseInt(btime/60);
+				var b=btime-a*60;
+				btime=a+":"+b;
+
+				show_screen("blocked");
+				document.getElementById("block_wait_time").innerHTML=btime;
+			
+			} else if (blocked==1){
+				blocked=0;
+				show_screen("home");
+			}
+
 			if (typeof obj["user_data"] !== 'undefined') {
 				players=obj["users"];
 				
@@ -215,6 +229,7 @@ function brain_recv(){
 				}
 				document.getElementById("qulebi").innerHTML=obj["data"]["mpoints"];
 				document.getElementById("rating").innerHTML=obj["data"]["rating"];
+				document.getElementById("rating_2").innerHTML=obj["data"]["rating"];
 			}
 				
 			if (typeof obj["targets"] !== 'undefined') {

@@ -10,6 +10,8 @@ var t_circle=new Array();
 var minimap_circle=new Array();
 var types_open=0;
 var curgametype=1;
+var speed_limit_vis=0;
+var speed_counter_start=0;
 
 
 function leader_close()
@@ -115,6 +117,8 @@ function show_screen(scrname) {
 		document.getElementById("home_screen").style.display="none";
 		document.getElementById("leaderboard_screen").style.display="none";
 		document.getElementById("support_menu").style.display="none";
+		document.getElementById("blocked_screen").style.display="none";
+		
 		if (scrname=="login") {
 			document.getElementById("login_screen").style.display="block";
 		} else if (scrname=="home") {
@@ -126,6 +130,8 @@ function show_screen(scrname) {
 			document.getElementById("leaderboard_screen").style.display="block";
 		} else if (scrname=="support_menu") {
 			document.getElementById("support_menu").style.display="block";
+		} else if (scrname=="blocked") {
+			document.getElementById("blocked_screen").style.display="block";
 		}
 		cur_screen=scrname;
 	}
