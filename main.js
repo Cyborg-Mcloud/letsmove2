@@ -81,13 +81,22 @@ function show_leaders(){
 	}
 }
 
+function display_leaderboard(mdata){
+	document.getElementById("leaderboard_info").innerHTML="";
+	for (i=0;i<mdata.length;i++){
+		document.getElementById("leaderboard_info").innerHTML+="<div class='led_bot_div led_div_1'><a>"+(i+1)+"</a><a></a><a>"+mdata[i]["uname"]+" <br></a><a>"+mdata[i]["mpoints"]+"</a></div>";
+	
+	}
+	
+}
+
 function draw_targets(){
 	if (mdebug==1){console.log("drawing targets");}
 	var  bounds;
 	var myLatLng = {lat:  MyLat, lng: MyLong};
 	bounds = new google.maps.LatLngBounds();
 	bounds.extend(myLatLng);
-
+	t_circle[0].setOptions({strokeOpacity:0.8});
 	if (targets.length>0){
 		for (i=0;i<targets.length ;i++ ) {	
 			var myLatLng =  {lat:  parseFloat(targets[i]["lat"]), lng: parseFloat(targets[i]["lng"])};
@@ -110,8 +119,12 @@ function draw_targets(){
 		var myLatLng =  {lat:  parseFloat(targets[0]["lat"]), lng: parseFloat(targets[0]["lng"])};
 		Target_marker.setPosition(myLatLng);
 		Target_marker.setVisible(true);
+		
+		
 	} else {
 		Target_marker.setVisible(false);
+
+		t_circle[0].setOptions({strokeOpacity:0});
 	}
 	//	MyMap2.fitBounds(bounds);
 }
@@ -136,7 +149,7 @@ function brain_recv(){
 			if (obj["checksum"]==sync_answ)	{
 				sync_data="";sync_url="";sync_answ=0;
 			}
-		
+			if (mdebug==1){console.log(obj);}
 			if (typeof obj["login_data"] !== 'undefined') {
 				if (typeof obj["error"] !== 'undefined') {
 					alert(obj["error"]);
@@ -148,14 +161,29 @@ function brain_recv(){
 				}
 			}
 
+			if (obj["subscribed"]==0 && document.getElementById("subscribe_but").style.display!="block"){
+				document.getElementById("subscribe_but").style.display="block";
+			} else if (obj["subscribed"]==1 && document.getElementById("subscribe_but").style.display!="none"){
+				document.getElementById("subscribe_but").style.display="none";	
+			}
+
+			if (typeof obj["leaderboard_data"] !== 'undefined') {
+				display_leaderboard(obj["leaderboard"]);
+			}
+
 			if (typeof obj["profile_data"] !== 'undefined') {
 				
 				mydata=obj["mydata"];
+				document.getElementById("prof_uname").value=mydata["uname"];
+				document.getElementById("prof_email").value=mydata["email"];
+				document.getElementById("prof_tel").value=mydata["tel"];
+				document.getElementById("prof_referal").value=mydata["referal_id"];
+
+				if (mydata["referal"]!=""){
+					document.getElementById("my_referer_div").innerHTML="invited by <b>"+mydata["referal"]+"</b>";
+					document.getElementById("my_referer_div").style.display="block";
+				}
 				
-				
-				document.getElementById("prof_uname").innerHTML=mydata["uname"];
-				document.getElementById("prof_email").innerHTML=mydata["email"];
-				document.getElementById("prof_tel").innerHTML=mydata["tel"];
 				if (mydata["subscribed"]!=1){
 					document.getElementById("subscribtion_div").style.display="block";
 				}else{
@@ -165,13 +193,33 @@ function brain_recv(){
 			
 			}
 		
+			if (typeof obj["blocked"] !== 'undefined') {
+				var btime=obj["blocked_time"];
+				var a=parseInt(btime/60);
+				var b=btime-a*60;
+				btime=a+":"+b;
+
+				show_screen("blocked");
+				document.getElementById("block_wait_time").innerHTML=btime;
+			
+			} else if (blocked==1){
+				blocked=0;
+				show_screen("home");
+			}
+
 			if (typeof obj["user_data"] !== 'undefined') {
 				players=obj["users"];
 				
 				if (curmenu==1)	{
-					document.getElementById("qulebi").innerHTML=obj["data"]["mpoints"];
-					document.getElementById("rating").innerHTML=obj["data"]["rating"];
+		
 				}
+			}
+
+			if (typeof obj["close_pay"] !== 'undefined') {
+				win.close();
+				console.log("pay window close");
+
+				data_send("https://www.smartgps.ge/letsmove/api.php","pay_closed=1", false);
 			}
 
 			if (typeof obj["timer_data"] !== 'undefined') {
@@ -179,6 +227,9 @@ function brain_recv(){
 					document.getElementById("timer").innerHTML=obj["data"]["timer"];
 					document.getElementById("timer2").innerHTML=obj["data"]["timer"];
 				}
+				document.getElementById("qulebi").innerHTML=obj["data"]["mpoints"];
+				document.getElementById("rating").innerHTML=obj["data"]["rating"];
+				document.getElementById("rating_2").innerHTML=obj["data"]["rating"];
 			}
 				
 			if (typeof obj["targets"] !== 'undefined') {
@@ -236,7 +287,7 @@ function req_players(){
 			location.reload(); 
 		}		
 	} else {
-		data_send('https://www.smartgps.ge/letsmove/api.php', "update_lat=1");
+		data_send('https://www.smartgps.ge/letsmove/api.php', "update_lat=1&myid="+myid);
 		setTimeout("req_players();",1000);
 	}
 	document.getElementById("time_data").innerHTML=Date.now()-last_gps_time;
