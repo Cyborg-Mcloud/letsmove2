@@ -10,8 +10,6 @@ var t_circle=new Array();
 var minimap_circle=new Array();
 var types_open=0;
 var curgametype=1;
-var speed_limit_vis=0;
-var speed_counter_start=0;
 
 
 function leader_close()
@@ -61,8 +59,6 @@ function back_to_home()
 	players=[];
 	targets=[];
 	draw_targets();
-	Target_marker.setVisible(false);
-	t_circle[0].setOptions({strokeOpacity:0});
 	document.getElementById("game_menu").style.display="block";
 	window.plugins.insomnia.allowSleepAgain();
 	}
@@ -116,9 +112,6 @@ function show_screen(scrname) {
 		document.getElementById("profile_screen").style.display="none";
 		document.getElementById("home_screen").style.display="none";
 		document.getElementById("leaderboard_screen").style.display="none";
-		document.getElementById("support_menu").style.display="none";
-		document.getElementById("blocked_screen").style.display="none";
-		
 		if (scrname=="login") {
 			document.getElementById("login_screen").style.display="block";
 		} else if (scrname=="home") {
@@ -128,10 +121,6 @@ function show_screen(scrname) {
 			request_mydata();
 		} else if (scrname=="leaderboard") {
 			document.getElementById("leaderboard_screen").style.display="block";
-		} else if (scrname=="support_menu") {
-			document.getElementById("support_menu").style.display="block";
-		} else if (scrname=="blocked") {
-			document.getElementById("blocked_screen").style.display="block";
 		}
 		cur_screen=scrname;
 	}
@@ -144,7 +133,6 @@ function show_edit(){
 	document.getElementById("prof_logo").style.display="none";
 	document.getElementById("langli").style.display="none";
 	document.getElementById("prof_main").style.display="none";
-	document.getElementById("footer").style.background="#2b2c4d";
 	var link = document.getElementById("pop_left");
 	link.setAttribute("href", "Javascript: hide_edit();");
 }
@@ -154,29 +142,12 @@ function hide_edit()	{
 	document.getElementById("langli").style.display="inline-block";
 	document.getElementById("prof_logo").style.display="inline-block";
 	document.getElementById("prof_main").style.display="inline-block";
-	document.getElementById("footer").style.background="#3e406a";
 	var link = document.getElementById("pop_left");
 	link.setAttribute("href", "Javascript: show_screen('home');");
 }
 
 function show_leaderboard(){
-	var mdata="leaderboard=1";
-	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, true);
-        
 	show_screen("leaderboard");
-}
-
-
-function copy_referal(){
-	var copyText = document.getElementById("prof_referal");
-	copyText.select();
-	copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-	document.execCommand("copy");
-}
-var win;
-
-function open_subscribe(){
-	win=window.open( "https://smartgps.ge/letsmove/pay.php?myid="+myid, '_blank', 'location=yes, clearcache=yes');
 }
 
  

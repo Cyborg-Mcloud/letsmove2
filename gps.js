@@ -61,6 +61,9 @@ var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0, 	interval: 2
 function init_gps() 
 	{
 
+	//	cordova.plugins.backgroundMode.enable();
+
+//cordova.plugins.backgroundMode.setEnabled(true);
 	
 
 if (mdebug==1){console.log("device ready 2, getting position");}
@@ -114,7 +117,7 @@ function handleOrientation(event) {
 
 	if (cur_compass<0){cur_compass=360+cur_compass;}
 
-	true_compass=compass_adjust+cur_compass;
+	true_compass=parseInt(compass_adjust)+cur_compass;
 	if (true_compass>360){true_compass=true_compass-360;}
 	if (true_compass<0){true_compass=true_compass+360;}
 
@@ -145,7 +148,7 @@ function onSuccess(position) {
 		new_lat=position.coords.latitude ;
 		new_lng=position.coords.longitude ;
 		MyAlt=position.coords.altitude ;
-		MyHead=parseInt(position.coords.heading) ;
+		MyHead=position.coords.heading ;
 		MySpeed=position.coords.speed ;
 		MyAcc=position.coords.accuracy;
 
@@ -177,25 +180,7 @@ function onSuccess(position) {
 		
 	
 		
-		if (MySpeed>speed_limit){
-			speed_limit_vis=1;
-			document.getElementById("speed_limit_div").style.display="block";
-			document.getElementById("speed_limit_text").innerHTML="SLOW DOWN!<Br><br>You are moving faster than 70 km/h speed limit!";
-			document.getElementById("speed_limit_value").innerHTML=MySpeed+" km/h<BR><BR>"+( 15 - parseInt((Date.now()-speed_counter_start)/1000) )+" seconds before block";
-			if (speed_counter_start==0){
-				speed_counter_start=Date.now();
-			} else {
-				if (Date.now()-speed_counter_start>15000){
-					var mdata="myid="+myid+ "&block=1";
-					data_send("https://www.smartgps.ge/letsmove/api.php",mdata, true);
-				}
-			}
-			
-		} else if (speed_limit_vis==1){
-			speed_limit_vis=0;
-			document.getElementById("speed_limit_div").style.display="none";
-		}
-		
+		if (MySpeed>speed_limit){alert("დაფიქსირდა სიჩქარის გადამეტება!");}
 
 		if (mdebug==1){document.getElementById("gpsdata").innerHTML="Speed: "+MySpeed+"<br>Heading: "+MyHead;}
 
@@ -243,13 +228,13 @@ function onSuccess(position) {
 				work_averages();
 				}
 			if (mdebug==1){
-			document.getElementById("gps_delay_info").innerHTML+="<Br>trcmps:"+true_compass+ " | "+avr_comp+"|"+compass_adjust;
+			document.getElementById("gps_delay_info").innerHTML+="<Br>trcmps:"+true_compass+ " | "+avr_comp;
 			document.getElementById("gps_delay_info").innerHTML+="<Br>compass:"+cur_compass;
 			document.getElementById("gpsdata").innerHTML+= " | "+avr_heading;}
 			old_lat=new_lat;
 			old_lng=new_lng;
 			move_marker();
-			
+
 			last_five_loc[cur_record]["calc_heading"]=calc_heading;
 	
 
@@ -300,7 +285,6 @@ function onSuccess(position) {
 	}
 }
 
-var last_adj_time=0;
 function work_averages(){
 	if (mdebug==1){console.log("working on averages");}
 	var che_x=0;
@@ -325,7 +309,7 @@ function work_averages(){
 	var last_cco_y=0;
 
 	for (i=0;i<5;i++){
-		if ( last_five_loc[i]["heading"]>0){
+		if (last_five_loc[i]["delay"]==1 && last_five_loc[i]["heading"]>0){
 			// zusti lokacia
 			che_x+=Math.sin(last_five_loc[i]["heading"]*6.28/360);
 			che_y+=Math.cos(last_five_loc[i]["heading"]*6.28/360);
@@ -408,9 +392,8 @@ function work_averages(){
 			if (mdebug==1){console.log("better heading deviation: "+maxh_deviation);}
 		}
 
-		if (maxq>=maxq_compass || (Date.now()-last_adj_time)> 60 * 1000  ){
-			last_adj_time=Date.now();
-			compass_adjust=avr_heading-avr_comp;
+		if (maxq>=maxq_compass){
+			compass_adjust=parseInt(avr_heading-avr_comp);
 			maxq_compass=maxq;
 			if (mdebug==1){console.log("comp_adjust: "+compass_adjust);
 				console.log("quality: "+maxq_compass);}
