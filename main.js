@@ -31,7 +31,7 @@ var speed_limit=70;
 var unid="";
 
 var old_takers="";
-
+var blocked=0;
 
 
 function draw_players(){
