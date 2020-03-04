@@ -10,13 +10,12 @@
 	<meta charset="UTF-8">
 	
 		 
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.facebook.com/ https://www.sandbox.paypal.com https://connect.facebook.net https://developers.facebook.com https://maps.googleapis.com https://www.paypal.com https://www.paypalobjects.com https://www.google-analytics.com 'unsafe-inline' 'unsafe-eval'; default-src *; img-src 'self' https://maps.googleapis.com/ https://maps.gstatic.com https://smartgps.ge https://www.smartgps.ge data: https: 'unsafe-inline' 'unsafe-eval' 'unsafe-hashes' ; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; ">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://connect.facebook.net https://developers.facebook.com https://maps.googleapis.com https://www.paypal.com 'unsafe-inline' 'unsafe-eval'; default-src *; img-src 'self' https://maps.googleapis.com/ https://maps.gstatic.com https://smartgps.ge https://www.smartgps.ge data: https: 'unsafe-inline' 'unsafe-eval' 'unsafe-hashes' ; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; ">
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>LetsMove2</title>
 	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 
 
-	
 	<link rel="stylesheet" href="styles.css">
 	<script type='application/javascript' src='fastclick.js'></script>
 	<script type="text/javascript" charset="utf-8" src="main.js"></script>
@@ -24,11 +23,13 @@
 	<script type="text/javascript" charset="utf-8" src="login.js"></script>
 	<script type="text/javascript" charset="utf-8" src="map.js"></script>
 	<script type="text/javascript" charset="utf-8" src="func.js"></script>
- </head>
 
-	
+	<script src="https://www.paypal.com/sdk/js?client-id=AXuS-I_pMxXpja5wrSvDkgKBRlPpt3gGSaNFRubrtSvWwB-VfNSg-Fuir6xdk8_EMFv_y44EjaH_AzNo&vault=true"></script>
+  </head>
+
+  
 		
-  <style>
+	<style>
 
 
 	*{
@@ -42,16 +43,9 @@
 	
 
   </style>
-  <body onmouseup="Javascript: pop_right_hider(event);">
+  <body>
 <div id='wrapper_div' class="wrapper_div">
 
-
-	<div id='blocked_screen' style='width:100%; height:100%; position:absolute; left:0px; top:0px;display: none; color:Red; font-size:20px; '>
-		<center>
-		<Br><br><br><Br><br><br>
-			YOU HAVE BEEN BLOCKED<BR><bR>Wait time:<BR>
-		<div id='block_wait_time'></div>
-	</div>
 
 	<div id='loading_screen' style='width:100%; height:100%; position:absolute; left:0px; top:0px;display: none;'>
 		<center>
@@ -68,11 +62,7 @@
 		<div style='background-color:#113356; height:87px; width:100%; position:absolute; right:0px; bottom:0px; z-index:101;' >
 			<div style='color:white; margin-left:130px; margin-top:5px;' id='pinfo'></div>
 		</div>
-		<div class="pop_left_wrapper" onclick="Javascript: back_to_home();" id="pop_left">
-			<a class="pop_left">
-				<span></span>
-			</a>
-		</div>
+		<a href="Javascript: back_to_home();" class="pop_left"><span></span></a>
 		
 
 		<div id='congrads' style='position:absolute; left 0px; top:40%; width:100%;'>
@@ -94,17 +84,10 @@
 		<a href='Javascript: mapset(3);' style='position:absolute; right:10px; bottom:210px; width:49px; height:49px;  '><img src='images/icon_target.png' width=50px></a>
 		<a href='Javascript: grats_close();' style=' color:Red; position:absolute; right:10px; bottom:270px; display:none; ' id='show_leaderb_but'>Leaderboard</a>
 
-		<div class="support_menu" id='support_menu' style='color:white;'>
-			<Br>
-			<a href="Javascript: show_screen('home');" id="pop_left"class="pop_left"><span></span></a>
-			<Br><Br><Br><Br>
-			Support text will be here
-
-		</div>
 
 		<div class="game_menu" id='game_menu'>
 			<img class="back_img" style="z-index:-1"src="images/background_2.png">
-			<div class="pop_right"id="pop_right">
+			<div class="pop_right"id="pop_right" onmouseup="mouseUp()">
 				<span id="pop_right_span">
 					<img src="images/menu_icon_2.png">
 				</span>
@@ -112,8 +95,8 @@
 					<img src="images/mini_foto.png">
 					PROFILE
 				</a>
-				<a href="Javascript: show_screen('support');" id="support_txt">SUPPORT</a>
-				<!--<a href="#"id="chat_txt">CHAT</a> tu daamateb func.js shic unda chaamato-->
+				<a href="Javascript:show_data();" id="support_txt">SUPPORT</a>
+				<a href="#"id="chat_txt">CHAT</a>
 			</div>
 			<div class="menu_logo">
 				<a><img src='images/letsmove_2.png'></a>
@@ -129,8 +112,8 @@
 				<a class="menu_startin"style="">starting in:</a>
 				<div id='timer2' style='background-color:#59142e; border:1px solid #b23a56; display:inline-block; border-radius:10px; padding:15px; position:absolute; font-size: 20px;left:20px; bottom:20px; z-index:500; '>01:02:30</div>
 			</div>
-			<a class="prof_sub" href='Javascript: open_subscribe();' id='subscribe_but'>Earn Money</a>
-			<!--<a class="menu_pry" style='display:none;'>pry</a>-->
+			<a class="prof_sub">Subscribe</a>
+			<a class="menu_pry" style='display:none;'>pry</a>
 			<a style="display:block"href='Javascript: toggle_debug();' id='toggle_debug2'>Toggle Debug</a>
 		</div>
 
@@ -158,14 +141,6 @@
 			<a href='Javascript: leader_close();'>Close</a>
 		</div>
 
-		<div id='speed_limit_div' style='display:none; position:absolute; left:0%; top:20%; height:60%; width:100%; text-align:center;  background-color:#205690;'>
-			Leaderboard
-			<div id='speed_limit_text' style='margin-top:20px; color:white; font-size:20px; text-align:left; padding-left:30px;'>
-			</div><br>
-			<div id='speed_limit_value' style='margin-top:20px; color:red; font-size:20px; text-align:left; padding-left:30px;'>
-			</div>
-			<a href='Javascript: speed_limit_close();'>Close</a>
-		</div>
 
 		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFY47FE__z9AvRLBoYG0T2XeOTiHdwzOQ&callback=initMap"></script>
 	</div>
@@ -204,21 +179,17 @@
 			<div id='regdiv' class="regdiv">
 				
 				<input type="hidden" id="fbid" name="fbid"  >
-				<input class="log_inp" type="tel"  size='20' id="reg_tel" name="reg_tel"  placeholder="Telephone" >
-				<input class="log_inp" type="text"   id="reg_uname" name="reg_uname" placeholder="Username" >
-				<input class="log_inp" type="email"  id="reg_email" name="reg_email" aria-describedby="emailHelp" placeholder="Email" >
-				<input class="log_inp" type="password" id="reg_pass1" name="reg_pass1" placeholder="Password" >
-				<input class="log_inp" type="password"id="reg_pass2" name ="reg_pass2"placeholder="repeat Password" >
-				<input class="log_inp" type="text" id="referal" name ="referal" placeholder="Referal">
+				<input class="log_inp" type="telephone"  size='20' id="reg_tel" name="reg_tel"  placeholder="ტელეფონი">
+				<input class="log_inp" type="text"   id="reg_uname" name="reg_uname" placeholder="username">
+				<input class="log_inp" type="email"  id="reg_email" name="reg_email" aria-describedby="emailHelp" placeholder="ელ.ფოსტა">
+				<input class="log_inp" type="password" id="reg_pass1" name="reg_pass1" placeholder="პაროლი">
+				<input class="log_inp" type="password"id="reg_pass2" name ="reg_pass2"placeholder="გაიმ.პაროლი">
+				<input class="log_inp" type="text" id="referal" name ="referal" placeholder="რეფერალი">
 				<Br>
-				<div class="term_cond"style="width: 300px;">
-					<label class="term_cond_lab">I AGREE TO
-						<input type="checkbox" id="term_cond">
-						<span class="term_cond_span"></span>
-					</label>
-					<a href="#" style="">Terms and Conditions</a>
+				<div class=""style="width: 300px;">
+					<a href="#" style="float:right; margin-right:4%; color:#a0a8ce;font-family: lato_medium_it; margin-bottom:10px;">Terms and Conditions</a>
 				</div>
-				<a onclick='check_reg();' class="log_siup">SIGN UP</a>
+				<a href='Javascript: checkregform();'class="log_siup">SIGN UP</a>
 				
 				<a href='Javascript: myreg();' id='fbregbut'class="log_up"style="color: #ebebeb;font-size: 12px;line-height: 4;">CONTINUE WITH FACEBOOK</a>
 				<Br>
@@ -245,11 +216,7 @@
 
 	</div>
 	<div id='profile_screen' style=' width:100%; height:100vh;  overflow:auto;'>
-		<div class="pop_left_wrapper" onclick="Javascript: show_screen('home');" id="pop_left_prof">
-			<a class="pop_left">
-				<span></span>
-			</a>
-		</div>
+		<a href="Javascript: show_screen('home');" id="pop_left"class="pop_left"><span></span></a>
 		<center style="height: 80%;">
 			<div id="prof_logo"class="prof_logo">
 				<a href="Javascript: show_edit();"><img src="images/avatar.png"></a>
@@ -258,41 +225,40 @@
 				<br>
 				<a style='font-size: 13px;color: #8e9eb2;'>Level / Achievement</a>
 				<div></div>
-				<a href="Javascript: show_edit();" class="prof_edprof">
+				<a href="Javascript: show_edit();"class="prof_edprof">
 					<img src='images/edit_prof_2.png'>
 					<span style="">Edit Profile</span>
 				</a>
 				<a href="Javascript: logout();" class="prof_logout">LOG OUT</a>
 			</div>
 			<li class="langli" id="langli"><a href="#" class="langa">ENG</a>
-				<!--<ul class="langul">
+				<ul class="langul">
 					<li class="langli2"><a href="?m=profile&lang=_en"class="langa2"> ENG</a></li>
 					<li class="langli2"><a href="?m=profile&lang=" class="langa2"> GEO</a></li>
 					<li class="langli2"><a href="?m=profile&lang=_ru" class="langa2"> RUS</a></li>
-				</ul>-->
+				</ul>
 			</li>
 			<div id="prof_main"class="prof_main">
-				<a class="ur_rating"><span class="maru"></span>&nbsp;<span id='qulebi'>150</span></a>
+				<a class="ur_rating"><span class="maru"></span>&nbsp;<span id='qulebi'></span></a>
 				<div class="prof_score">
 					<a id='rating'></a>
 					<a>YOUR RATING</a>
 				</div>
 				<div class="prof_ledwek_holder">
 					
-						<div id="prof_led" class="prof_led" onclick="show_leaderboard();" >
+						<div id="prof_led"class="prof_led" onclick="show_screen('leaderboard');">
 							<p >LEADERBOARD</p>
 							<img src='images/leaderboard_2.png'>
 						</div>
 					
 					
-						<div id="prof_week"class="prof_week" onclick="show_weekly('weekly');" >
+						<div id="prof_week"class="prof_week"  onclick="show_screen('weekly');">
 							<p>WEEKLY REPORT</p>
 							<img src='images/week_rep_2.png'>
 						</div>
 					
-					<center>
-					<a class="prof_sub" href="Javascript: open_subscribe();" id='subscribtion_div'>Earn Money</a>
-					<a style="display:block"href='Javascript: toggle_debug();' id='toggle_debug2'>Toggle Debug</a></center>
+				
+					<a class="prof_sub">Earn Money</a>
 				</div>
 			</div>
 
@@ -303,32 +269,47 @@
 				</div>
 				<div id="prof_edit_bot"class="prof_edit">
 					<p>Profile Info</p>
-					<div id='my_referer_div' style='display:none;'></div>
 					<input class="prof_inp" type="text"   id="prof_uname" name="prof_uname" placeholder="Your name" value=''><Br>
 					<input class="prof_inp" type="email"  id="prof_email" name="prof_email" aria-describedby="emailHelp" placeholder="Email" value=''><Br>
-					<input class="prof_inp" type="telephone"   id="prof_tel" name="prof_tel"  placeholder="Tel. Number" value=''>
-					<input class="prof_referal" type="text"  id="prof_referal" name="prof_referal"  placeholder="Your referal ID" value='' readonly="readonly">
-					<a onclick='copy_referal();'><img src='images/copy.png' height='30px'></a><Br>
+					<input class="prof_inp" type="telephone"   id="prof_tel" name="prof_tel"  placeholder="Tel. Number" value=''><Br>
 					<input class="prof_save"style="" type="button"   id="save_me" name="save_me"  value="Save" onclick="save_profile();"><Br>
-					
+					<div id='subscribtion_div'>
+						<p style="margin:inherit;">You are not subscribed</p>
+						<a class="prof_sub" style="margin-top: 6px;">Earn Money</a>
+						<div id="paypal-button-container" style='width:80%;' id='paypal_button'></div>
+					</div>
 				</div>
 			</div>
 		</center>
 		<div class="footer" id="footer"></div>
 	</div>
 		
+
+	<div class="weekly_screen" id="weekly_screen">
+		<a href="Javascript: show_screen('profile');" id="pop_left"class="pop_left"><span></span></a>
+		<div class="led_top">
+			
+			<p>Weekly Report</p>
+		</div>
+		<div class="led_bot">
+			<div class="led_bot_div led_div_1">
+			<a>25/03/2019</a>
+			<a></a>
+			<a>CYBORG <br><!--<span>level / achievement</span>--></a>
+			<a>132</a>
+			</div>
+
+		</div>
+	</div>
+
 	<div class="leaderboard_screen" id="leaderboard_screen">
 		<center>
-			<div class="pop_left_wrapper" onclick="Javascript: show_screen('profile');" id="pop_left">
-				<a class="pop_left">
-					<span></span>
-				</a>
-			</div>
+			<a href="Javascript: show_screen('profile');" id="pop_left"class="pop_left"><span></span></a>
 			<div class="led_top">
-				<p id='rating_2'>20</p>
+				<p id='rating'>20</p>
 				<p>YOUR RATING</p>
 			</div>
-			<div class="led_bot" id='leaderboard_info'>
+			<div class="led_bot">
 				<div class="led_bot_div led_div_1">
 				<a>1</a>
 				<a></a>
@@ -407,25 +388,24 @@
 
 
 <script>
-/* pop_rights achens mousup ze da akrobs tu sadme sxvagan daacher body shi aris onmouseup chacerili*/
-function pop_right_hider(event)
-{
-var mizani = event.target;	
-if(mizani.id == "pop_right" || mizani.parentNode.id == "pop_right"|| mizani.parentNode.parentNode.id == "pop_right")
+/* \/pop_right is mausis acevaze funqcia chavamate \/*/
+function mouseUp() 
 	{
 	document.getElementById("pop_right_span").style.display="none";
 	document.getElementById("profile_txt_old").style.display="inline-flex";
 	document.getElementById("support_txt").style.display="block";
-	/*document.getElementById("chat_txt").style.display="block";*/
+	document.getElementById("chat_txt").style.display="block";
 	}
-else
-	{
-	document.getElementById("pop_right_span").style.display="inline-flex";
-	document.getElementById("profile_txt_old").style.display="none";
-	document.getElementById("support_txt").style.display="none";
-	/*document.getElementById("chat_txt").style.display="none";*/
+paypal.Buttons({
+	createSubscription: function(data, actions) {
+		return actions.subscription.create({'plan_id': 'P-55K10073CB0482040LVJYOKY'});
+	},
+	onApprove: function(data, actions) {
+		alert('You have successfully created subscription ' + data.subscriptionID);
 	}
-}
+}).render('#paypal-button-container');
+	
+
 
 var mdebug=0;
 function toggle_debug(){
@@ -482,8 +462,8 @@ function onDeviceReady()
 	} else {show_screen("login");}
 
 	if (mdebug==1){console.log("backgroundmode enable");}
-	//cordova.plugins.backgroundMode.enable();
-	//cordova.plugins.backgroundMode.setEnabled(true);
+	cordova.plugins.backgroundMode.enable();
+	cordova.plugins.backgroundMode.setEnabled(true);
 
 
 //cordova.plugins.backgroundMode.setDefaults({
@@ -498,7 +478,10 @@ function onDeviceReady()
 
 
 
-	//cordova.plugins.backgroundMode.on('activate', function() {console.log("background mode optimizations disable"); cordova.plugins.backgroundMode.disableWebViewOptimizations(); });
+	cordova.plugins.backgroundMode.on('activate', function() {
+		console.log("background mode optimizations disable");
+	cordova.plugins.backgroundMode.disableWebViewOptimizations(); 
+	});
 
 	req_loc_acc();
 	req_loc_auth();
@@ -611,6 +594,14 @@ function advanced_success(response){
 	if (mdebug==1){console.log("advanced location");}
 	if (mdebug==1){console.log(jsonObject);}
 }
+
+function StartWebView()
+	{
+	var url='https://smartgps.ge/letsmove/?myid='+myid+'&lat='+MyLat+'&lng='+MyLong+"&ragacid="+Math.random()*10000000;
+	if (mdebug==1){console.log(url);}
+	//ref = cordova.InAppBrowser.open(url, '_system', 'location=no, clearcache=yes');
+	window.location=url;
+	}
 
 
 
