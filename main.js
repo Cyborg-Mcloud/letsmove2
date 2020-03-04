@@ -84,8 +84,14 @@ function show_leaders(){
 function display_leaderboard(mdata){
 	document.getElementById("leaderboard_info").innerHTML="";
 	for (i=0;i<mdata.length;i++){
-		document.getElementById("leaderboard_info").innerHTML+="<div class='led_bot_div led_div_1'><a>"+(i+1)+"</a><a></a><a>"+mdata[i]["uname"]+" <br></a><a>"+mdata[i]["mpoints"]+"</a></div>";
-	
+		if (mdata[i]["id"]== uid) {
+			feri = "led_div_2";
+		} else if (i+1 < 4)	{
+			feri = "led_div_1";
+		} else if (i+1 > 3) {
+			feri = "led_div_3";
+		}
+		document.getElementById("leaderboard_info").innerHTML+="<div class='led_bot_div "+feri+"'><a>"+(i+1)+"</a><a></a><a>"+mdata[i]["uname"]+" <br></a><a>"+mdata[i]["mpoints"]+"</a></div>";
 	}
 	
 }
