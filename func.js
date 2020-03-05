@@ -172,7 +172,7 @@ function show_screen(scrname) {
 		document.getElementById("profile_screen").style.display="none";
 		document.getElementById("home_screen").style.display="none";
 		document.getElementById("leaderboard_screen").style.display="none";
-		document.getElementById("support_menu").style.display="none";
+		document.getElementById("support_screen").style.display="none";
 		document.getElementById("blocked_screen").style.display="none";
 		document.getElementById("terms_screen").style.display="none";
 		document.getElementById("weekly_screen").style.display="none";
@@ -186,8 +186,8 @@ function show_screen(scrname) {
 			request_mydata();
 		} else if (scrname=="leaderboard") {
 			document.getElementById("leaderboard_screen").style.display="block";
-		} else if (scrname=="support_menu") {
-			document.getElementById("support_menu").style.display="block";
+		} else if (scrname=="support") {
+			document.getElementById("support_screen").style.display="block";
 		} else if (scrname=="blocked") {
 			document.getElementById("blocked_screen").style.display="block";
 		} else if (scrname=="terms") {
