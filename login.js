@@ -6,6 +6,10 @@ function myreg(){
 		 
 }
 
+function logout(){
+	eraseCookie("uid");
+	location.reload();
+}
 
 function fbregdatasuccess(response){
 	
