@@ -2,6 +2,7 @@ var send_data=new Array();
 var send_url=new Array();
 var send_answ=new Array();
 var curstate="none";
+var fbid=0;
 
 var cur_screen="";
 
@@ -35,6 +36,7 @@ var blocked=0;
 
 
 function draw_players(){
+	
 	if (players.length>max_players)
 		{
 		// new player came
@@ -44,7 +46,7 @@ function draw_players(){
 				position: just_latlng,
 				map: MyMap,
 				icon: micon,
-				label: {text: "gamarjoba", color: "white"},
+				label: {text: "gamarjoba", color: "#4c59a6"},
 				animation: google.maps.Animation.DROP
 				});
 			}
@@ -55,7 +57,8 @@ function draw_players(){
 		{	
 		var mlabel=p_marker[i].getLabel();
 		mlabel.text=players[i]["uname"];
-		mlabel.color="red";
+		mlabel.color="#4c59a6";
+		//mlabel.fontSize="12px";
 		p_marker[i].setIcon(micon);
 		p_marker[i].setLabel(mlabel);
 		var myLatLng = {lat:  parseFloat(players[i]["lat"]), lng: parseFloat(players[i]["lng"])};
@@ -169,12 +172,23 @@ function brain_recv(){
 
 			if (obj["subscribed"]==0 && document.getElementById("subscribe_but").style.display!="block"){
 				document.getElementById("subscribe_but").style.display="block";
+				document.getElementById("subscribtion_div").style.display="block";
+				document.getElementById("referals_but").style.display="none";
 			} else if (obj["subscribed"]==1 && document.getElementById("subscribe_but").style.display!="none"){
 				document.getElementById("subscribe_but").style.display="none";	
+				document.getElementById("subscribtion_div").style.display="none";
+				document.getElementById("referals_but").style.display="block";
 			}
 
 			if (typeof obj["leaderboard_data"] !== 'undefined') {
 				display_leaderboard(obj["leaderboard"]);
+			}
+
+			if (typeof obj["fbid"] !== 'undefined') {
+				fbid=obj["fbid"];
+				if (fbid!=""){
+					document.getElementById("prof_image").src="https://graph.facebook.com/"+fbid+"/picture?type=normal";
+				}
 			}
 
 			if (typeof obj["profile_data"] !== 'undefined') {
@@ -189,13 +203,6 @@ function brain_recv(){
 					document.getElementById("my_referer_div").innerHTML="invited by <b>"+mydata["referal"]+"</b>";
 					document.getElementById("my_referer_div").style.display="block";
 				}
-				
-				if (mydata["subscribed"]!=1){
-					document.getElementById("subscribtion_div").style.display="block";
-				}else{
-					document.getElementById("subscribtion_div").style.display="none";
-				}
-				
 			
 			}
 		
@@ -211,6 +218,10 @@ function brain_recv(){
 			} else if (blocked==1){
 				blocked=0;
 				show_screen("home");
+			}
+
+			if (typeof obj["referal_data"] !== 'undefined') {
+				display_referals(obj["referals"]);
 			}
 
 			if (typeof obj["user_data"] !== 'undefined') {
@@ -238,6 +249,14 @@ function brain_recv(){
 				document.getElementById("rating_2").innerHTML=obj["data"]["rating"];
 			}
 				
+			if (typeof obj["terms"] !== 'undefined') {
+				document.getElementById("terms_text").innerHTML=obj["terms"];
+			}
+
+			if (typeof obj["weekly"] !== 'undefined') {
+				document.getElementById("weekly_text").innerHTML=obj["weekly"];
+			}
+
 			if (typeof obj["targets"] !== 'undefined') {
 				var new_tars=new Array();
 				new_tars=obj["targets"];
@@ -283,6 +302,20 @@ function brain_recv(){
 	}
 }
 
+function display_referals(referals){
+	var mtable="<table width=90% border=0><tr><td></td><td>Name</td><Td>subs.</td></tr>";
+	for (i=0;i<referals.length;i++){
+		if (referals[i]["fbid"]!=""){
+			mtable+="<tr><td><img src='https://graph.facebook.com/"+ referals[i]["fbid"] + "/picture?type=small'></td><td>"+referals[i]["uname"]+"</td><td>"+referals[i]["subscribed"]+"</td></tr>";
+		}else{
+			mtable+="<tr><td></td><td>"+referals[i]["uname"]+"</td><td>"+referals[i]["subscribed"]+"</td></tr>";
+		}
+	}
+	mtable+="</table>";
+	document.getElementById("referals_text").innerHTML=mtable;
+
+
+}
 
 function req_players(){
 	if (uid==0)	{

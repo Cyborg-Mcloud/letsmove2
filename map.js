@@ -6,6 +6,7 @@ var geocoder;
 var infowindow;
 var firststart=1;
 
+var micon;
 var SelLat=0;
 var SelLng=0;
 var logo_icon;
@@ -147,8 +148,8 @@ function initMap()
 
 	ciricon={
 			path: google.maps.SymbolPath.CIRCLE,
-			fillColor: '#FFFFFF',
-			strokeColor: '#FFFFFF',
+			fillColor: '#4c59a6',
+			strokeColor: '#4c59a6',
 			strokeWeight: 7,
 			scale: 5
 			}
@@ -174,7 +175,7 @@ function initMap()
 
 	
 	target_icon = {
-		url: "https://smartgps.ge/letsmove/marker_target.png", 
+		url: "https://smartgps.ge/letsmove2/images/marker_target_"+curgametype+".png", 
 		scaledSize: new google.maps.Size(60, 60),
 		origin: new google.maps.Point(0,0), 
 		anchor: new google.maps.Point(30, 30),  
@@ -182,22 +183,22 @@ function initMap()
 		};
 
 	logo_icon = {
-		url: "https://smartgps.ge/letsmove/Logo.png", 
+		url: "https://smartgps.ge/letsmove2/images/Logo.png", 
 		scaledSize: new google.maps.Size(45, 55),
 		origin: new google.maps.Point(0,0), 
 		anchor: new google.maps.Point(21, 55),  
 		labelOrigin: new google.maps.Point(0,40)
 		};
 	micon = {
-		url: "https://smartgps.ge/letsmove/images/car_icon.png", 
-		scaledSize: new google.maps.Size(32, 32),
+		url: "https://smartgps.ge/letsmove2/images/car_icon.png", 
+		scaledSize: new google.maps.Size(32, 38),
 		origin: new google.maps.Point(0,0), 
-		anchor: new google.maps.Point(16, 16),  
-		labelOrigin: new google.maps.Point(0,40)
+		anchor: new google.maps.Point(16, 38),  
+		labelOrigin: new google.maps.Point(16,45)
 		};
-
+	
 	myicon = {
-		url: "https://smartgps.ge/letsmove/myself.png", 
+		url: "https://smartgps.ge/letsmove2/images/myself_"+curgametype+".png", 
 		scaledSize: new google.maps.Size(60, 60),
 		origin: new google.maps.Point(0,0), 
 		anchor: new google.maps.Point(30, 30),  
@@ -232,8 +233,6 @@ function initMap()
 		icon: target_icon,
 		draggable: false,
 		animation: google.maps.Animation.DROP,
-
-	//	label: {text: "", color: "red", fontSize: '16px'}
 		zIndex:105,
 		});
 

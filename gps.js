@@ -10,7 +10,6 @@ var MyMarker;
 var MyMarker_Circle;
 var Target_marker;
 
-var micon;
 var old_lat=0;
 var old_lng=0;
 var old_head=0;

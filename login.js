@@ -137,30 +137,27 @@ function checkregform()
 		}
 
 	}
+function show_terms(){
+	var mdata="terms=1";
+	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, false );
+	show_screen("terms");
+}
 
-
-function check_reg()
-	{
-	if (document.getElementById("reg_uname").value=='' || document.getElementById("reg_email").value=='' ||  document.getElementById("reg_pass1").value=='' || document.getElementById("reg_tel").value==''  )
-		{	
-		console.log(document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value  );
+function check_reg() {
+	if (document.getElementById("term_cond").checked==true){
 		
-		alert("auu All Fields are Required! "+document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value );
-	
-		
-		
-
+		if (document.getElementById("reg_uname").value=='' || document.getElementById("reg_email").value=='' ||  document.getElementById("reg_pass1").value=='' || document.getElementById("reg_tel").value==''  ) {	
+			console.log(document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value  );
+			
+			alert("All Fields are Required! "+document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value );
+		} else {
+			send_reg_info();
 		}
-	else
-		{
-        //document.getElementById("registerForm").submit();
-        send_reg_info();
-
-		
-
-		}
-
+	} else {
+		alert("You must accept agreement");
 	}
+
+}
 
 function show_login()
 	{

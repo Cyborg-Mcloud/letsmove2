@@ -10,7 +10,7 @@
 	<meta charset="UTF-8">
 	
 		 
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.facebook.com/ https://www.sandbox.paypal.com https://connect.facebook.net https://developers.facebook.com https://maps.googleapis.com https://www.paypal.com https://www.paypalobjects.com https://www.google-analytics.com 'unsafe-inline' 'unsafe-eval'; default-src *; img-src 'self' https://maps.googleapis.com/ https://maps.gstatic.com https://smartgps.ge https://www.smartgps.ge data: https: 'unsafe-inline' 'unsafe-eval' 'unsafe-hashes' ; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; ">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.facebook.com/ https://www.sandbox.paypal.com https://connect.facebook.net https://developers.facebook.com https://maps.googleapis.com https://www.paypal.com https://www.paypalobjects.com https://www.google-analytics.com 'unsafe-inline' 'unsafe-eval'; default-src *; img-src 'self' https://maps.googleapis.com/ https://maps.gstatic.com https://smartgps.ge https://www.smartgps.ge https://graph.facebook.com data: https: 'unsafe-inline' 'unsafe-eval' 'unsafe-hashes' ; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; ">
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>LetsMove2</title>
 	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
@@ -65,7 +65,9 @@
 
 
 	<div id='home_screen' style='display:none; width:100%; height:100%; position:absolute; left:0px; top:0px;'>
-		<div style='background-color:#113356; height:87px; width:100%; position:absolute; right:0px; bottom:0px; z-index:101;' >
+
+		<img src='images/zeda_bar_1.png' style='position:absolute; left:2%; top:0px; width:96%; z-index:101;' id='zeda_bar'>
+		<div style='background-color:#292b4e; height:87px; width:100%; position:absolute; right:0px; bottom:0px; z-index:101;' >
 			<div style='color:white; margin-left:130px; margin-top:5px;' id='pinfo'></div>
 		</div>
 		<div class="pop_left_wrapper" onclick="Javascript: back_to_home();" id="pop_left">
@@ -81,7 +83,8 @@
 
 		</div>
 
-		<div id='timer' style='position:absolute; top:60px; right:10px; z-index:1003; background-color:#4a5466; display:block; padding:7px; border-radius:50px; border:2px solid #d8a424;'>4:59</div>
+		<div id='timer' style='position:absolute; top:10px; right:10px; z-index:1003; background-color:#3f446d; display:block; padding:7px; border-radius:50%; color:white; font-family:lato_bold;'>4:59</div>
+
 		<div style="height:113px; overflow:hidden;position:absolute; left:0;bottom:0;width:125px;">
 			<div id="mymap2" style=' height:125px; width:125px; position:absolute; bottom:-20px; left:-4px; z-index:102; background-color:black;  border-radius: 0px 20px 0px 0px; border:4px solid #113356;'></div>
 		</div>
@@ -89,9 +92,10 @@
 
 
 
-		<a href='Javascript: mapset(1);' style='position:absolute; right:10px; bottom:110px; width:49px; height:49px;  '><img src='images/icon_onme.png' width=50px ></a>
+		<a href='Javascript: mapset(1);' style='position:absolute; right:10px; bottom:110px; width:49px; height:49px;  '><img src='images/icon_onme.png' width=50px id='onme_img' ></a>
 		<a href='Javascript: mapset(2);' style='position:absolute; right:10px; bottom:160px; width:49px; height:49px; '><img src='images/icon_fit.png' width=50px></a>
 		<a href='Javascript: mapset(3);' style='position:absolute; right:10px; bottom:210px; width:49px; height:49px;  '><img src='images/icon_target.png' width=50px></a>
+
 		<a href='Javascript: grats_close();' style=' color:Red; position:absolute; right:10px; bottom:270px; display:none; ' id='show_leaderb_but'>Leaderboard</a>
 
 		<div class="support_menu" id='support_menu' style='color:white;'>
@@ -216,7 +220,7 @@
 						<input type="checkbox" id="term_cond">
 						<span class="term_cond_span"></span>
 					</label>
-					<a href="#" style="">Terms and Conditions</a>
+					<a href="Javascript: show_terms();" >Terms and Conditions</a>
 				</div>
 				<a onclick='check_reg();' class="log_siup">SIGN UP</a>
 				
@@ -252,7 +256,12 @@
 		</div>
 		<center style="height: 80%;">
 			<div id="prof_logo"class="prof_logo">
-				<a href="Javascript: show_edit();"><img src="images/avatar.png"></a>
+				<a href="Javascript: show_edit();">
+					<div style='position:relative;  width:100px; height:100px;'>
+						<img src="images/avatar.png" id='prof_image' style='position:absolute; left:0px; top:0px; '>
+						<img src="images/avatar_charcho.png" id='prof_image' style='position:absolute; left:0px; top:0px;'>
+					</div>
+				</a>
 				<br>
 				<a id='my_name'></a>
 				<br>
@@ -291,7 +300,10 @@
 						</div>
 					
 					<center>
+
 					<a class="prof_sub" href="Javascript: open_subscribe();" id='subscribtion_div'>Earn Money</a>
+					<a class="prof_sub" href="Javascript: open_referals();" id='referals_but' style='display:none;'>Your Referals</a>
+
 					<a style="display:block"href='Javascript: toggle_debug();' id='toggle_debug2'>Toggle Debug</a></center>
 				</div>
 			</div>
@@ -316,7 +328,53 @@
 		</center>
 		<div class="footer" id="footer"></div>
 	</div>
-		
+	
+	<div class="leaderboard_screen" id="terms_screen" style='display:none;'>
+		<center>
+			<div class="pop_left_wrapper" onclick="Javascript: show_screen('login');" id="pop_left">
+				<a class="pop_left">
+					<span></span>
+				</a>
+			</div><Br><br>
+			<div class="led_top">
+				<p>Terms and Conditions</p>
+			</div>
+			<div id='terms_text'></div>
+
+		</center>
+	</div>
+
+
+	<div class="leaderboard_screen" id="referals_screen" style='display:none; '>
+		<center>
+			<div class="pop_left_wrapper" onclick="Javascript: show_screen('profile');" id="pop_left">
+				<a class="pop_left">
+					<span></span>
+				</a>
+			</div><Br>
+			<div class="led_top" style='border:0;'>
+				<p>You have invited:</p>
+			</div>
+			<div id='referals_text'></div>
+
+		</center>
+	</div>
+
+	<div class="leaderboard_screen" id="weekly_screen" style='display:none;'>
+		<center>
+			<div class="pop_left_wrapper" onclick="Javascript: show_screen('profile');" id="pop_left">
+				<a class="pop_left">
+					<span></span>
+				</a>
+			</div><Br>
+			<div class="led_top">
+				<p>Weekly Report</p>
+			</div>
+			<div id='weekly_text'></div>
+
+		</center>
+	</div>
+
 	<div class="leaderboard_screen" id="leaderboard_screen">
 		<center>
 			<div class="pop_left_wrapper" onclick="Javascript: show_screen('profile');" id="pop_left">
