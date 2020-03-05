@@ -49,62 +49,8 @@ function change_game_mode(newmode)
 	players=[];
 	targets=[];
 
-	
-	
 	document.getElementById("zeda_bar").src='images/zeda_bar_'+newmode+".png";
 
-	
-	target_icon = {
-		url: "https://smartgps.ge/letsmove2/images/marker_target_"+newmode+".png", 
-		scaledSize: new google.maps.Size(60, 60),
-		origin: new google.maps.Point(0,0), 
-		anchor: new google.maps.Point(30, 30),  
-		labelOrigin: new google.maps.Point(0,40)
-		};
-
-	myicon = {
-		url: "https://smartgps.ge/letsmove2/images/myself_"+newmode+".png", 
-		scaledSize: new google.maps.Size(60, 60),
-		origin: new google.maps.Point(0,0), 
-		anchor: new google.maps.Point(30, 30),  
-		labelOrigin: new google.maps.Point(0,30)
-		};
-	
-	MyMarker = new google.maps.Marker({
-		
-		map: MyMap,
-		icon: myicon,
-		draggable: false,
-		animation: google.maps.Animation.DROP,
-		zIndex:105,
-		});
-
-	Target_marker = new google.maps.Marker({
-		
-		map: MyMap,
-		icon: target_icon,
-		draggable: false,
-		animation: google.maps.Animation.DROP,
-		zIndex:105,
-		});
-	var mcolor=new Array();
-	
-	mcolor[2]="#4c59a6";
-	mcolor[1]="#bc3654";
-	ciricon={
-		path: google.maps.SymbolPath.CIRCLE,
-		fillColor: mcolor[newmode],
-		strokeColor: mcolor[newmode],
-		strokeWeight: 7,
-		scale: 5
-		}
-	
-	MyMarker_Circle = new google.maps.Marker({
-		
-		map: MyMap,
-		icon: ciricon,
-		animation: google.maps.Animation.DROP,
-		});
 	document.getElementById("game_menu").style.display="none";
 	window.plugins.insomnia.keepAwake();
 	setTimeout("mapset(2);",300);
