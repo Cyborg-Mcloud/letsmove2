@@ -10,8 +10,9 @@ function logout(){
 	eraseCookie("uid");
 	mylogout();
 	var mdata="logout=1";
-	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, false);
-	setTimeout("location.reload();",500);
+	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, true);
+	//setTimeout("location.reload();",500);
+	show_screen("login");
 }
 
 function fbregdatasuccess(response){
@@ -72,11 +73,11 @@ function mylogin(){
 function mylogout()
 	{
 
-	//if (fblogged==1)
-	//	{
+	if (iamweb==0)
+		{
 		facebookConnectPlugin.logout(fblogoutsuccess,fberror);
 		
-	//	}
+	}
 
 	}
 		  

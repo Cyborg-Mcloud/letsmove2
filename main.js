@@ -4,6 +4,9 @@ var send_answ=new Array();
 var curstate="none";
 var fbid=0;
 
+var mdebug=1;
+var i_have_loaded=0;
+
 var cur_screen="";
 
 var lboard_vis=0;
@@ -16,7 +19,7 @@ var curmenu=0;
 var targets=new Array(); 
 
 var max_targets=0;
-
+var iamweb=0;
 
 var last_coord_time=0;
 var lbut_vis=0;
@@ -159,14 +162,24 @@ function brain_recv(){
 				sync_data="";sync_url="";sync_answ=0;
 			}
 			if (mdebug==1){console.log(obj);}
+
+			if (typeof obj["log_outed"] !== 'undefined' || (typeof obj["uid"] !== 'undefined' && obj["uid"]==0)) {
+				if (cur_screen!="login"){
+					if (mdebug==1){console.log("log outed");}
+					show_screen("login");
+				}
+				return;
+			}
+
 			if (typeof obj["login_data"] !== 'undefined') {
 				if (typeof obj["error"] !== 'undefined') {
 					alert(obj["error"]);
 				} else {
 					uid=obj["uid"];
 					setCookie("uid",uid, 365);
-					setTimeout("req_players();",1000);
+					setTimeout("req_players();",300);
 					show_screen("home");
+					return;
 				}
 			}
 

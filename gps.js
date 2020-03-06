@@ -512,7 +512,8 @@ function onError(error)
 		   error_str+="<BR>უცნობი ლოკაციის მოთხოვნის პრობლემა";
 		   break;
 		   }
-		   advanced_start();
+		   if (iamweb==0){ advanced_start();}
+		  
 	if (mdebug==1){document.getElementById("nogps").innerHTML=error_str;
    document.getElementById("infodiv").innerHTML=error_str;
    console.log("ლოკაციის ერორი: "+error_str);}

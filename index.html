@@ -505,7 +505,6 @@ else
 	}
 }
 
-var mdebug=0;
 function toggle_debug(){
 	if(mdebug==0){
 		mdebug=1;
@@ -532,6 +531,9 @@ function unid_fail(uuid)	{
 
 function onDeviceReady() 
 	{
+	if (i_have_loaded==1){return;}
+	i_have_loaded=1;
+	show_screen("login");
 	console.log("screen heighting");
 	var x =screen.width; 
 	var y =  screen.height; 
@@ -574,39 +576,53 @@ function onDeviceReady()
   //  bigText: false
 //});
 
-
-
-	//cordova.plugins.backgroundMode.on('activate', function() {console.log("background mode optimizations disable"); cordova.plugins.backgroundMode.disableWebViewOptimizations(); });
-
-	req_loc_acc();
-	req_loc_auth();
+	try {
+		myid=device.uuid;
+		iamweb=0;
+	} catch (e) {
+		iamweb=1;
+	}
+	if (mdebug==1){console.log(myid);}
+	if (myid==""){myid=parseInt(Math.random() * 1000000000); iamweb=1; console.log("web var");}
+	if (mdebug==1){console.log(myid);}
+	if (iamweb==0){
 	
-	StatusBar.backgroundColorByHexString('#205690');
+
+		//cordova.plugins.backgroundMode.on('activate', function() {console.log("background mode optimizations disable"); cordova.plugins.backgroundMode.disableWebViewOptimizations(); });
+		
+		req_loc_acc();
+		req_loc_auth();
+		
+		StatusBar.backgroundColorByHexString('#205690');
+		
+		navigator.geolocation.activator.askActivation(function(response) {
+			if (mdebug==1){console.log("activator");}
+			if (mdebug==1){console.log(response);}
+			//Success callback
+			}, function(response) {
+			//Failure callback
+			});
+	}
+	
     
 	
-	navigator.geolocation.activator.askActivation(function(response) {
-		if (mdebug==1){console.log("activator");}
-		if (mdebug==1){console.log(response);}
-		//Success callback
-		}, function(response) {
-		//Failure callback
-		});
 
 		if (mdebug==1){console.log("get unieque device id");}
 //	cordova.plugins.uniqueDeviceID.get(unid_success, unid_fail);
 
-	myid=device.uuid;
+	
 	if (mdebug==1){console.log("device ready, getting position");}
 
 	init_gps();
-
-	if (mdebug==1){console.log("pushbots init");}
-	window.plugins.PushbotsPlugin.initialize("5dddf9233dcb8d26092358a5", {"android":{"sender_id":"754771780635"}});
-
-	
 	var token;
 	var user_id;
 	
+	if (iamweb==0){
+		if (mdebug==1){console.log("pushbots init");}
+		window.plugins.PushbotsPlugin.initialize("5dddf9233dcb8d26092358a5", {"android":{"sender_id":"754771780635"}});
+	
+	
+
 	if (localStorage.getItem("pnotif_id") === null) 
 		{
 		window.plugins.PushbotsPlugin.on("registered", function(token){
@@ -622,16 +638,16 @@ function onDeviceReady()
 		
 		}
 
-	window.plugins.PushbotsPlugin.on("user:ids", function(data){
-		console.log("user:ids" + JSON.stringify(data));
-		token=data["token"];
-		window.localStorage.setItem("pnotif_id", token);
-		user_id=data["userId"];
-		window.localStorage.setItem("pnotifuser_id", token);
+		window.plugins.PushbotsPlugin.on("user:ids", function(data){
+			console.log("user:ids" + JSON.stringify(data));
+			token=data["token"];
+			window.localStorage.setItem("pnotif_id", token);
+			user_id=data["userId"];
+			window.localStorage.setItem("pnotifuser_id", token);
 
 
-		});	
-
+			});	
+	}
 	
 	var first_start=getCookie("first_start");
 	if (first_start=="")
@@ -640,13 +656,15 @@ function onDeviceReady()
 		setTimeout("location.reload(); ",100);	
 		}
 
-	advanced_start();
-	
+	if (iamweb==0){
+		advanced_start();
+		AndroidFullScreen.immersiveMode(fsuccessFunction, ferrorFunction);
+	}
 
 	document.addEventListener('DOMContentLoaded', function() {FastClick.attach(document.body);}, false);
 	document.addEventListener('mymap', function() {FastClick.attach(document.getElementById("mymap"));}, false);
 	document.removeEventListener('deviceready', onDeviceReady, false);
-	AndroidFullScreen.immersiveMode(fsuccessFunction, ferrorFunction);
+	
 	setTimeout("req_players();",1000);	
 	setTimeout("force_req_gps();",3000);
 	
@@ -786,7 +804,7 @@ function eraseCookie(name) {
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
-
+setTimeout("onDeviceReady();",500);
 
 </script>
 

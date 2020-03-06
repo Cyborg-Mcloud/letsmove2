@@ -52,13 +52,14 @@ function change_game_mode(newmode)
 	document.getElementById("zeda_bar").src='images/zeda_bar_'+newmode+".png";
 
 	document.getElementById("game_menu").style.display="none";
-	window.plugins.insomnia.keepAwake();
+	if (iamweb==0){
+		window.plugins.insomnia.keepAwake();
+	}
 	setTimeout("mapset(2);",300);
 	}
 
 
-function back_to_home()
-	{
+function back_to_home()	{
 	
 	players=[];
 	targets=[];
@@ -66,8 +67,10 @@ function back_to_home()
 	Target_marker.setVisible(false);
 	t_circle[0].setOptions({strokeOpacity:0});
 	document.getElementById("game_menu").style.display="block";
-	window.plugins.insomnia.allowSleepAgain();
+	if (iamweb==0){
+		window.plugins.insomnia.allowSleepAgain();
 	}
+}
 function open_types(seltype)
 	{
 	if (types_open==0)
