@@ -100,7 +100,7 @@
 
 		
 
-		<div class="game_menu" id='game_menu'>
+		<div class="game_menu" id='game_menu' >
 			<img class="back_img" style="z-index:-1"src="images/background_2.png">
 			<div class="pop_right"id="pop_right">
 				<span id="pop_right_span">
@@ -212,7 +212,7 @@
 				<input class="log_inp" type="text"   id="reg_uname" name="reg_uname" placeholder="Username" >
 				<input class="log_inp" type="email"  id="reg_email" name="reg_email" aria-describedby="emailHelp" placeholder="Email" >
 				<input class="log_inp" type="password" id="reg_pass1" name="reg_pass1" placeholder="Password" >
-				<input class="log_inp" type="password"id="reg_pass2" name ="reg_pass2"placeholder="repeat Password" >
+				<input class="log_inp" type="password"id="reg_pass2" name ="reg_pass2"placeholder="Repeat Password" >
 				<input class="log_inp" type="text" id="referal" name ="referal" placeholder="Referal">
 				<Br>
 				<div class="term_cond"style="width: 300px;">
@@ -333,6 +333,27 @@
 	</div>
 	
 
+	<div class="leaderboard_screen" id='forgotten_screen' style='color:white; display:none;'>
+		<center>
+			<div class="pop_left_wrapper" onclick="Javascript: show_screen('login');" id="pop_left">
+				<a class="pop_left">
+					<span></span>
+				</a>
+			</div><Br><br>
+			<div class="led_top">
+				<p>Forgotten Password</p>
+			</div>
+			To restore your password<Br> please enter your email
+			<input class="prof_inp" type="text"   id="forgot_email" name="forgot_email" placeholder="Your Email" value=''><Br>
+			<input class="prof_save"  type="button"   id="forgotten_but" name="forgotten_but"  value="Save" onclick="restore_forgotten();"><Br>
+					
+					
+
+		</center>
+
+	</div>
+
+
 	<div class="leaderboard_screen" id='support_screen' style='color:white;'>
 		<center>
 			<div class="pop_left_wrapper" onclick="Javascript: show_screen('home');" id="pop_left">
@@ -407,75 +428,7 @@
 				<p>YOUR RATING</p>
 			</div>
 			<div class="led_bot" id='leaderboard_info'>
-				<div class="led_bot_div led_div_1">
-				<a>1</a>
-				<a></a>
-				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
-				<a>132</a>
-				</div>
-
-				<div class="led_bot_div led_div_2">
-				<a>1</a>
-				<a></a>
-				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
-				<a>132</a>
-				</div>
-
-				<div class="led_bot_div led_div_1">
-				<a>1</a>
-				<a></a>
-				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
-				<a>132</a>
-				</div>
-
-				<div class="led_bot_div led_div_1">
-				<a>1</a>
-				<a></a>
-				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
-				<a>132</a>
-				</div>
 				
-				<div class="led_bot_div led_div_1">
-				<a>1</a>
-				<a></a>
-				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
-				<a>132</a>
-				</div>
-				
-				<div class="led_bot_div led_div_1">
-				<a>1</a>
-				<a></a>
-				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
-				<a>132</a>
-				</div>
-				
-				<div class="led_bot_div led_div_1">
-				<a>1</a>
-				<a></a>
-				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
-				<a>132</a>
-				</div>
-				
-				<div class="led_bot_div led_div_1">
-				<a>1</a>
-				<a></a>
-				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
-				<a>132</a>
-				</div>
-				
-				<div class="led_bot_div led_div_1">
-				<a>1</a>
-				<a></a>
-				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
-				<a>132</a>
-				</div>
-				
-				<div class="led_bot_div led_div_1">
-				<a>1</a>
-				<a></a>
-				<a>CYBORG <br><!--<span>level / achievement</span>--></a>
-				<a>132</a>
-				</div>
 			</div>
 		</center>
 	</div>

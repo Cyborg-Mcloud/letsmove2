@@ -125,7 +125,8 @@ function show_screen(scrname) {
 		document.getElementById("blocked_screen").style.display="none";
 		document.getElementById("terms_screen").style.display="none";
 		document.getElementById("weekly_screen").style.display="none";
-		document.getElementById("referals_screen").style.display="none";
+        document.getElementById("referals_screen").style.display="none";
+        document.getElementById("forgotten_screen").style.display="none";
 		if (scrname=="login") {
 			document.getElementById("login_screen").style.display="block";
 		} else if (scrname=="home") {
@@ -145,6 +146,8 @@ function show_screen(scrname) {
 			document.getElementById("weekly_screen").style.display="block";
 		} else if (scrname=="referals") {
 			document.getElementById("referals_screen").style.display="block";
+		} else if (scrname=="forgotten") {
+			document.getElementById("forgotten_screen").style.display="block";
 		}
 		cur_screen=scrname;
 	}

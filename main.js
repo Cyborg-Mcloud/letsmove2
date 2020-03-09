@@ -159,21 +159,20 @@ function brain_recv(){
 		b_recv=brainhttp.responseText;
 		if (b_recv!="") {
 			obj=JSON.parse(b_recv);
+
+
 			if (obj["checksum"]==sync_answ)	{
 				sync_data="";sync_url="";sync_answ=0;
 			}
 			if (mdebug==1){console.log(obj);}
 
-			if (typeof obj["log_outed"] !== 'undefined' || (typeof obj["uid"] !== 'undefined' && obj["uid"]==0)) {
-				if (cur_screen!="login"){
-					if (mdebug==1){console.log("log outed");}
-					show_screen("login");
-				}
-				return;
-			}
+
+
 
 			if (typeof obj["login_data"] !== 'undefined') {
+				
 				if (typeof obj["error"] !== 'undefined') {
+
 					alert(obj["error"]);
 				} else {
 					uid=obj["uid"];
@@ -183,6 +182,18 @@ function brain_recv(){
 					return;
 				}
 			}
+
+			if (typeof obj["log_outed"] !== 'undefined' || (typeof obj["uid"] !== 'undefined' && obj["uid"]==0)) {
+				if (cur_screen!="login"){
+					if (mdebug==1){console.log("log outed");}
+					if (cur_screen!="login" && cur_screen!="forgotten" ) {
+						show_screen("login");
+						}
+
+				}
+				return;
+			}
+			
 
 			if (obj["subscribed"]==0 && document.getElementById("subscribe_but").style.display!="block"){
 				document.getElementById("subscribe_but").style.display="block";

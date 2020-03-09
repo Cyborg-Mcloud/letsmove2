@@ -6,6 +6,17 @@ function myreg(){
 		 
 }
 
+function forgotten(){
+
+	show_screen("forgotten");
+}
+
+function restore_forgotten(){
+	var mdata="forgotten=1&email="+document.getElementById("forgot_email").value;
+	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, true);
+	alert("please check your email for new password");
+	show_screen("login");
+}
 function logout(){
 	eraseCookie("uid");
 	mylogout();
