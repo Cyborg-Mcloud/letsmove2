@@ -134,6 +134,7 @@ function draw_targets(){
 		
 		
 	} else {
+		document.getElementById("pinfo").innerHTML="";
 		Target_marker.setVisible(false);
 
 		t_circle[0].setOptions({strokeOpacity:0});

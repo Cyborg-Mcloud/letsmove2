@@ -48,7 +48,7 @@ function change_game_mode(newmode)
 	send_data();
 	players=[];
 	targets=[];
-
+	document.getElementById("pinfo").innerHTML="";
 	document.getElementById("zeda_bar").src='images/zeda_bar_'+newmode+".png";
 
 	document.getElementById("game_menu").style.display="none";

@@ -1,6 +1,6 @@
 var old_tar_lat=0;
 var old_tar_lng=0;
-
+var true_compass=0;
 var nogps=0;
 var auto_sender=0;
 var last_gps_time=0;
