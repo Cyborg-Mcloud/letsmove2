@@ -167,7 +167,10 @@ function brain_recv(){
 			if (mdebug==1){console.log(obj);}
 
 
-
+			if (typeof obj["pass_changed"] !== 'undefined') {
+				if (obj["pass_changed"]==1){alert("password successfully changed"); show_edit();}
+				else {alert("password change ERROR");}
+			}
 
 			if (typeof obj["login_data"] !== 'undefined') {
 				

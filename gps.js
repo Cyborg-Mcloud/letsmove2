@@ -54,15 +54,12 @@ var tot_records=0;
 var maxq_compass=0;
 var maxh_deviation=100;
 var maxc_deviation=100;
-
+var weusecompass=0;
 
 var opts = { timeout: 3000, enableHighAccuracy: true, maximumAge:0, 	interval: 2000,	fastInterval: 1000};
-function init_gps() 
-	{
+function init_gps() {
 
-	
-
-if (mdebug==1){console.log("device ready 2, getting position");}
+	if (mdebug==1){console.log("device ready 2, getting position");}
 	
 	navigator.geolocation.getCurrentPosition(onSuccess, onError, opts);
 	
@@ -70,17 +67,19 @@ if (mdebug==1){console.log("device ready 2, getting position");}
 
 //	watchId2 = cordova.plugins.locationServices.geolocation.watchPosition(onSuccess,onError,opts);
 
-
-	if (window.DeviceOrientationAbsoluteEvent) {
-		window.addEventListener("DeviceOrientationAbsoluteEvent", handleOrientation, true);
-		  } 
-	  else if(window.DeviceOrientationEvent){
-		window.addEventListener("deviceorientation", handleOrientation, true);
-	  }
-	  if (mdebug==1){console.log("device orientation handle set");}
+	if (weusecompass==1){
+		if (window.DeviceOrientationAbsoluteEvent) {
+			window.addEventListener("DeviceOrientationAbsoluteEvent", handleOrientation, true);
+			} 
+		else if(window.DeviceOrientationEvent){
+			window.addEventListener("deviceorientation", handleOrientation, true);
+		}
+		MyMarker_compass.setVisible(true);
+		if (mdebug==1){console.log("device orientation handle set");}
+	} else {MyMarker_compass.setVisible(false);}
 	//window.addEventListener("devicemotion", handleMotion, true);
 
-    }
+}
 
 
 
@@ -435,8 +434,9 @@ function move_marker()
 		MyMarker.setPosition(myLatLng);
 		MyMarker_pointer.setPosition(myLatLng);
 		Myminimap_marker.setPosition(myLatLng);
-
-		MyMarker_compass.setPosition(myLatLng);
+		if (weusecompass==1){
+			MyMarker_compass.setPosition(myLatLng);
+		}
 		MyMap2.panTo(myLatLng);
 	
 		spd_steps--;

@@ -208,7 +208,7 @@
 			<div id='regdiv' class="regdiv">
 				
 				<input type="hidden" id="fbid" name="fbid"  >
-				<input class="log_inp" type="tel"  size='20' id="reg_tel" name="reg_tel"  placeholder="Telephone" >
+				<!--<input class="log_inp" type="tel"  size='20' id="reg_tel" name="reg_tel"  placeholder="Telephone" >-->
 				<input class="log_inp" type="text"   id="reg_uname" name="reg_uname" placeholder="Username" >
 				<input class="log_inp" type="email"  id="reg_email" name="reg_email" aria-describedby="emailHelp" placeholder="Email" >
 				<input class="log_inp" type="password" id="reg_pass1" name="reg_pass1" placeholder="Password" >
@@ -322,9 +322,26 @@
 					<input class="prof_inp" type="text"   id="prof_uname" name="prof_uname" placeholder="Your name" value=''><Br>
 					<input class="prof_inp" type="email"  id="prof_email" name="prof_email" aria-describedby="emailHelp" placeholder="Email" value=''><Br>
 					<input class="prof_inp" type="telephone"   id="prof_tel" name="prof_tel"  placeholder="Tel. Number" value=''>
+					<p></p><a href='Javascript: show_change_pass();'>Change Password</a></p>
 					<input class="prof_referal" type="text"  id="prof_referal" name="prof_referal"  placeholder="Your referal ID" value='' readonly="readonly">
 					<a onclick='copy_referal();'><img src='images/copy.png' height='30px'></a><Br>
 					<input class="prof_save"style="" type="button"   id="save_me" name="save_me"  value="Save" onclick="save_profile();"><Br>
+					
+				</div>
+			</div>
+
+			
+			<div id="prof_password" style="display:none;">
+				<div id="login_logo" class="login_logo"style="">
+					<a><img class="login_logo_img" src='images/letsmove_2.png'></a>
+					<img class="back_img"src="images/background_2.png">
+				</div>
+				<div id="prof_edit_bot"class="prof_edit">
+					<p>Change Password</p>
+					<div id='my_referer_div' style='display:none;'></div>
+					<input class="prof_inp" type="password"   id="new_pass" name="new_pass" placeholder="new password" value=''><Br>
+					<input class="prof_inp" type="password"  id="new_pass1" name="new_pass1" placeholder="repeat password" value=''><Br>
+					<input class="prof_save"style="" type="button"   id="change_me" name="change_me"  value="Change" onclick="new_pass();"><Br>
 					
 				</div>
 			</div>

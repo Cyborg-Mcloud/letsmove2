@@ -26,6 +26,17 @@ function logout(){
 	show_screen("login");
 }
 
+function new_pass(){
+	if(document.getElementById("new_pass").value!=""){
+		if (document.getElementById("new_pass").value==document.getElementById("new_pass1").value){
+			var mdata="new_pass="+document.getElementById("new_pass").value;
+			data_send("https://www.smartgps.ge/letsmove/api.php",mdata, true);
+		} else {alert("passwords don't match");}
+	}else{alert("password can not be blank");}
+	
+
+}
+
 function fbregdatasuccess(response){
 	
 	console.log(response);
@@ -35,13 +46,31 @@ function fbregdatasuccess(response){
 	document.getElementById("fbid").value=response.id;
 	document.getElementById("reg_uname").value=response.name;
 	document.getElementById("reg_email").value=response.email;
-	document.getElementById("reg_pass1").style.display="none";
-	document.getElementById("reg_pass2").style.display="none";
-	document.getElementById("fbregbut").style.display="none";
-	var mdata="login=1&fblogin=1&email="+email + "&fbid="+ fbid;
+	//document.getElementById("reg_pass1").style.display="none";
+	//document.getElementById("reg_pass2").style.display="none";
+	//document.getElementById("fbregbut").style.display="none";
+	
+	var mdata="login=1&reg=1&fbid="+fbid + "&referal="+document.getElementById("referal").value + "&reg_pass2="+document.getElementById("reg_pass2").value + "&reg_uname="+document.getElementById("reg_uname").value  + "&reg_email="+document.getElementById("reg_email").value + "&reg_pass1="+ document.getElementById("reg_pass1").value;
+	
 	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, false);
 		
 	
+}
+
+function save_profile(){
+	
+
+	if (document.getElementById("prof_uname").value!="" && document.getElementById("prof_email").value!=""){
+
+		
+		var mdata="mydata=1&save_me=1&prof_uname="+document.getElementById("prof_uname").value  + "&prof_email="+document.getElementById("prof_email").value+ "&prof_tel="+document.getElementById("prof_tel").value;
+		
+		data_send("https://www.smartgps.ge/letsmove/api.php",mdata, false);
+		alert("profile data saved");
+		hide_edit();
+	}else{alert("email and username can not be blank");}
+	
+
 }
 
 function fbregSuccess(userData) {
@@ -117,7 +146,8 @@ function send_login_info(){
 }
 
 function send_reg_info(){
-	var mdata="login=1&reg=1&fbid="+document.getElementById("fbid").value + "&referal="+document.getElementById("referal").value + "&reg_pass2="+document.getElementById("reg_pass2").value + "&reg_uname="+document.getElementById("reg_uname").value + "&reg_tel="+document.getElementById("reg_tel").value + "&reg_email="+document.getElementById("reg_email").value + "&reg_pass1="+ document.getElementById("reg_pass1").value;
+	//+ "&reg_tel="+document.getElementById("reg_tel").value
+	var mdata="login=1&reg=1&fbid="+document.getElementById("fbid").value + "&referal="+document.getElementById("referal").value + "&reg_pass2="+document.getElementById("reg_pass2").value + "&reg_uname="+document.getElementById("reg_uname").value  + "&reg_email="+document.getElementById("reg_email").value + "&reg_pass1="+ document.getElementById("reg_pass1").value;
 	
 	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, false);
 }
@@ -137,7 +167,8 @@ function signin()
 
 function checkregform()
 	{
-	if (document.getElementById("reg_uname").value=='' || document.getElementById("reg_email").value=='' ||  document.getElementById("reg_pass1").value=='' || document.getElementById("reg_tel").value==''  )
+	//|| document.getElementById("reg_tel").value=='' 
+	if (document.getElementById("reg_uname").value=='' || document.getElementById("reg_email").value=='' ||  document.getElementById("reg_pass1").value==''  )
 		{	
 	
 		alert("All Fields are Required!");
@@ -164,11 +195,11 @@ function show_terms(){
 
 function check_reg() {
 	if (document.getElementById("term_cond").checked==true){
-		
-		if (document.getElementById("reg_uname").value=='' || document.getElementById("reg_email").value=='' ||  document.getElementById("reg_pass1").value=='' || document.getElementById("reg_tel").value==''  ) {	
-			console.log(document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value  );
+		//|| document.getElementById("reg_tel").value==''
+		if (document.getElementById("reg_uname").value=='' || document.getElementById("reg_email").value=='' ||  document.getElementById("reg_pass1").value==''   ) {	
+			console.log(document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value   );
 			
-			alert("All Fields are Required! "+document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value );
+			alert("All Fields are Required! ");
 		} else {
 			send_reg_info();
 		}
@@ -192,6 +223,6 @@ function show_reg()
 	}
 
 function cade(){
-	console.log(document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value + " | "+ document.getElementById("reg_tel").value  );
+	console.log(document.getElementById("reg_uname").value + " | "+ document.getElementById("reg_email").value + " | "+ document.getElementById("reg_pass1").value   );
 }
 

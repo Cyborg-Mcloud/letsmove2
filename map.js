@@ -263,7 +263,7 @@ function initMap()
 		
 		});
 		MyMarker_pointer.setVisible(false);
-		MyMarker_compass.setVisible(true);
+		MyMarker_compass.setVisible(false);
 	
 		Myminimap_marker = new google.maps.Marker({
 		position: myLatLng,

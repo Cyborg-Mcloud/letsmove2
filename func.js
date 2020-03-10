@@ -126,7 +126,8 @@ function show_screen(scrname) {
 		document.getElementById("terms_screen").style.display="none";
 		document.getElementById("weekly_screen").style.display="none";
         document.getElementById("referals_screen").style.display="none";
-        document.getElementById("forgotten_screen").style.display="none";
+		document.getElementById("forgotten_screen").style.display="none";
+		document.getElementById("prof_password").style.display="none";
 		if (scrname=="login") {
 			document.getElementById("login_screen").style.display="block";
 		} else if (scrname=="home") {
@@ -160,6 +161,17 @@ function open_referals(){
 	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, false);
 }
 
+function show_change_pass(){
+	document.getElementById("prof_password").style.display="block";
+	document.getElementById("login_logo").style.display="inline-block";
+	document.getElementById("prof_edit").style.display="none";
+	document.getElementById("prof_logo").style.display="none";
+	document.getElementById("langli").style.display="none";
+	document.getElementById("prof_main").style.display="none";
+	document.getElementById("footer").style.background="#2b2c4d";
+
+}
+
 function show_edit(){
 	document.getElementById("login_logo").style.display="inline-block";
 	document.getElementById("prof_edit").style.display="block";
@@ -167,6 +179,7 @@ function show_edit(){
 	document.getElementById("langli").style.display="none";
 	document.getElementById("prof_main").style.display="none";
 	document.getElementById("footer").style.background="#2b2c4d";
+	document.getElementById("prof_password").style.display="none";
 
 	var link = document.getElementById("pop_left_prof");
 	link.setAttribute("onclick", "Javascript: hide_edit();");
