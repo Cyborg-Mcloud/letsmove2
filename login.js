@@ -23,6 +23,9 @@ function logout(){
 	var mdata="logout=1";
 	data_send("https://www.smartgps.ge/letsmove/api.php",mdata, true);
 	//setTimeout("location.reload();",500);
+	fbid=0;
+	uid=0;
+	
 	show_screen("login");
 }
 

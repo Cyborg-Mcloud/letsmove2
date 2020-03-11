@@ -130,6 +130,7 @@ function show_screen(scrname) {
 		document.getElementById("prof_password").style.display="none";
 		if (scrname=="login") {
 			document.getElementById("login_screen").style.display="block";
+			document.getElementById("login_logo").style.display="inline-block";
 		} else if (scrname=="home") {
 			document.getElementById("home_screen").style.display="block";
 		} else if (scrname=="profile") {
@@ -191,6 +192,7 @@ function hide_edit()	{
 	document.getElementById("prof_logo").style.display="inline-block";
 	document.getElementById("prof_main").style.display="inline-block";
 	document.getElementById("footer").style.background="#3e406a";
+	document.getElementById("prof_password").style.display="none";
 	var link = document.getElementById("pop_left_prof");
 	link.setAttribute("onclick", "Javascript: show_screen('home');");
 }
