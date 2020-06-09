@@ -48,9 +48,8 @@
 	<icon gap:platform="ios" width="144" height="144" src="144.png"  />
 	<icon gap:platform="ios" width="120" height="120" src="120.png"  />
 
-	<allow-intent href="itms:*" />
-	<allow-intent href="itms-apps:*" />
-
+	<allow-intent href="itms:smartgps.ge"/>
+	<allow-intent href="itms-apps:smartgps.ge"/>
 	
 			
 	<gap:config-file platform="ios" parent="CFBundleShortVersionString">
@@ -176,9 +175,9 @@ Lets move
 		<variable name="ANDROID_SUPPORT_VERSION" value="26.0.1" />
 	</plugin>-->
 	<gap:plugin name="cordova-plugin-insomnia" version="4.1.0" source="npm" />
-	<plugin name="cordova-android-support-gradle-release" >
+	<plugin name="cordova-android-support-gradle-release" spec="^1.1.1">
+		<variable name="ANDROID_SUPPORT_VERSION" value="20.0.1" />
 	</plugin>
-
 	
 </plugins>
 </widget>
