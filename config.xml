@@ -58,24 +58,6 @@
 
 	<gap:config-file platform="ios" parent="UIBackgroundModes" overwrite="true"> <array> <string>location</string> </array> </gap:config-file>
 
-
-	<gap:config-file platform="ios" parent="com.apple.developer.associated-domains" mode="replace">
-		<array>
-			<string>applinks:smartgps.ge</string>
-		</array>
-	</gap:config-file> 
-
-	<config-file target="*-Debug.plist" parent="com.apple.developer.associated-domains">
-		<array>
-			<string>applinks:smartgps.ge</string>
-		</array>
-	</config-file>
-
-	<config-file target="*-Release.plist" parent="com.apple.developer.associated-domains">
-		<array>
-			<string>applinks:smartgps.ge</string>
-		</array>
-	</config-file>
 	
 
 	<preference name="WKWebViewOnly" value="true" />
