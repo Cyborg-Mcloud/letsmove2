@@ -3,8 +3,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
 		xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.designge.letsmove2"
-	    versionCode="5" 
-        version   = "0.8.1"
+	    versionCode="6" 
+        version   = "0.8.2"
 		package="com.designge.letsmove2"
 		xmlns:android="http://schemas.android.com/apk/res/android">
     <name>Lets Move 2</name>
@@ -76,11 +76,7 @@
 			<string>applinks:smartgps.ge</string>
 		</array>
 	</config-file>
-	<config-file platform="ios" target="Entitlements-*.plist" parent="com.apple.developer.associated-domains" mode="replace">
-		 <array>  
-			  <string>applinks:smartgps.ge</string>
-		 </array>
-	</config-file>
+	
 
 	<preference name="WKWebViewOnly" value="true" />
     <feature name="CDVWKWebViewEngine">
