@@ -44,8 +44,8 @@
 	<icon gap:platform="ios" width="57" height="57" src="57.png"  />
 	<icon gap:platform="ios" width="72" height="72" src="72.png"  />
 	<icon gap:platform="ios" width="60" height="60" src="60.png"  />
-	<icon gap:platform="ios" width="114" height="114" src="114.jpg" />
-	<icon gap:platform="ios" width="144" height="144" src="144.jpg"  />
+	<icon gap:platform="ios" width="114" height="114" src="114.png" />
+	<icon gap:platform="ios" width="144" height="144" src="144.png"  />
 	<icon gap:platform="ios" width="120" height="120" src="120.png"  />
 
 	<allow-intent href="itms:*" />
