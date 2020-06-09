@@ -3,8 +3,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
 		xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.designge.letsmove2"
-	    versionCode="4" 
-        version   = "0.8"
+	    versionCode="5" 
+        version   = "0.8.1"
 		package="com.designge.letsmove2"
 		xmlns:android="http://schemas.android.com/apk/res/android">
     <name>Lets Move 2</name>
