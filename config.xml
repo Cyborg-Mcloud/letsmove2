@@ -129,7 +129,7 @@ Lets move
 	<gap:plugin name="cordova-plugin-background-mode" source="npm" />
 	<gap:plugin name="cordova-plugin-advanced-geolocation" source="npm" />
 	<gap:plugin name="cordova-plugin-geolocation-android-activator" source="npm"/>
-<plugin name="cordova.plugins.diagnostic" source="npm" />
+<plugin name="cordova.plugins.diagnostic" source="5.0.0" />
 
 
 	<plugin name="cordova-plugin-globalization" source="npm" />
