@@ -366,7 +366,7 @@ function data_send(url, data, async=true) {
 		if (async==false) {
 			sync_answ=Math.floor(Math.random() * 10000000) + 1;
 		} else {sync_answ=0;}
-		brainhttp.open('GET',url+"?"+data+"&checksum="+sync_answ,true);
+		brainhttp.open('GET',url+"?"+data+"&checksum="+sync_answ+"&unid="+unid,true);
 		brainhttp.send(null);
 		if (mdebug==1){console.log("data send: "+url+ "?" +data+"&checksum="+sync_answ+ " / "+async);}
 		if (async==false) {
@@ -388,7 +388,7 @@ function data_send(url, data, async=true) {
 
 function sync_sender() {
 	if (sync_data!="" && sync_url!="") {
-		brainhttp.open('GET',url+"?"+data+"&checksum="+sync_answ,true);
+		brainhttp.open('GET',url+"?"+data+"&checksum="+sync_answ+"&unid="+unid,true);
 		brainhttp.send(null);
 		if (mdebug==1){console.log("sync data sender: "+sync_url+ "?" +sync_data);}
 		setTimeout("sync_sender();",500);
