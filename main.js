@@ -4,7 +4,7 @@ var send_answ=new Array();
 var curstate="none";
 var fbid=0;
 
-var mdebug=0;
+var mdebug=1;
 var i_have_loaded=0;
 
 var cur_screen="";
