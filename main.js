@@ -368,7 +368,7 @@ function data_send(url, data, async=true) {
 		} else {sync_answ=0;}
 		brainhttp.open('GET',url+"?"+data+"&checksum="+sync_answ+"&unid="+unid,true);
 		brainhttp.send(null);
-		if (mdebug==1){console.log("data send: "+url+ "?" +data+"&checksum="+sync_answ+ " / "+async);}
+		if (mdebug==1){console.log("data send: "+url+ "?" +data+"&checksum="+sync_answ+"&unid="+unid+ " / "+async);}
 		if (async==false) {
 			sync_data=data;
 			sync_url=url;
@@ -390,7 +390,7 @@ function sync_sender() {
 	if (sync_data!="" && sync_url!="") {
 		brainhttp.open('GET',url+"?"+data+"&checksum="+sync_answ+"&unid="+unid,true);
 		brainhttp.send(null);
-		if (mdebug==1){console.log("sync data sender: "+sync_url+ "?" +sync_data);}
+		if (mdebug==1){console.log("sync data sender: "+sync_url+ "?" +sync_data+"&unid="+unid);}
 		setTimeout("sync_sender();",500);
 	}
 }
