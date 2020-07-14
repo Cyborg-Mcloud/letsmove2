@@ -511,18 +511,21 @@ function onDeviceReady()
 	
 	console.log("init start");
 
-	unid=getCookie("unid");
-	if (unid==0 || unid=="")
-		{
-		unid=parseInt(Math.random()*10000000000)
-		setCookie("unid",unid, 365);
+	if (mdebug==1){console.log("get unieque device id");}
+	//cordova.plugins.uniqueDeviceID.get(unid_success, unid_fail);
+
+	//unid=getCookie("unid");
+	myid=device.uuid;
+  unid=myid;
+  setCookie("unid",unid, 365);
+	//if (unid==0 || unid=="") {
+//		unid=parseInt(Math.random()*10000000000)
+		//setCookie("unid",unid, 365);
 		
-		if (mdebug==1){console.log("new unid: "+unid);}
-		}
-	else
-		{
-			if (mdebug==1){console.log("my unid: "+unid);}
-		}
+		//if (mdebug==1){console.log("new unid: "+unid);}
+	//}	else {
+		//	if (mdebug==1){console.log("my unid: "+unid);}
+	//}
 	
 	uid=getCookie("uid");
 	if (uid!=null && uid>0)	{
@@ -545,16 +548,16 @@ function onDeviceReady()
   //  bigText: false
 //});
 
-	try {
-		myid=device.uuid;
-		iamweb=0;
-	} catch (e) {
-		iamweb=1;
-	}
-	if (mdebug==1){console.log(myid);}
-	if (myid==""){myid=parseInt(Math.random() * 1000000000); iamweb=1; console.log("web var");}
-	if (mdebug==1){console.log(myid);}
-	if (iamweb==0){
+	//try {
+		//myid=device.uuid;
+		//iamweb=0;
+	//} catch (e) {
+		//iamweb=1;
+	//}
+	//if (mdebug==1){console.log(myid);}
+	//if (myid==""){myid=parseInt(Math.random() * 1000000000); iamweb=1; console.log("web var");}
+	//if (mdebug==1){console.log(myid);}
+	//if (iamweb==0){
 	
 
 		//cordova.plugins.backgroundMode.on('activate', function() {console.log("background mode optimizations disable"); cordova.plugins.backgroundMode.disableWebViewOptimizations(); });
